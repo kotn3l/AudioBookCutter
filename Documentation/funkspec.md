@@ -13,3 +13,8 @@ A felhasználó könnyedén elhelyezhet vágópontokat, *marker*eket (jelölése
 
 ## Jelenlegi helyzet
 A megrendelő szeretné a hangoskönyvek fejezetenkénti feldarabolását, összeillesztését egyszerűbbé tenni, ahelyett, hogy manuálisan kelljen parancssorban FFmpeg utasításokat kiadni, vagy esetleg más, harmadik féltől származó programot használni.
+
+## Jelenlegi folyamatok modellje
+Az [MVGYOSZ](https://www.mvgyosz.hu/ "MVGYOSZ") <sup>*(Magyar Vakok és Gyengénlátók Országos Szövetsége)*</sup> könyvtárában ezen hangoskönyvek kazettákról lettek bedigitalizálva. Egy kazetta két oldala két darab, körülbelül fél-fél órás mp3 fájlt eredményez.
+
+A probléma az, hogy egy fejezet vége akár az egyik hanganyag közepébe is kerülhet, így könnyen el lehet benne veszni, illetve a hangoskönyvek rendszerezetlenek maradnak.
