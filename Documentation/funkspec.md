@@ -10,3 +10,6 @@
 Egy olyan programot fejlesztek, amely hangoskönyvek feldarabolását segíti.
 
 A felhasználó könnyedén elhelyezhet vágópontokat, *marker*eket (jelöléseket) a megnyitott mp3-fájlokban, majd azok mentén az applikáció az FFmpeg könyvtár segítségvel elvágja, vagy ahol esetlegesen szükséges, összeilleszti azt.
+
+## Jelenlegi helyzet
+A megrendelő szeretné a hangoskönyvek fejezetenkénti feldarabolását, összeillesztését egyszerűbbé tenni, ahelyett, hogy manuálisan kelljen parancssorban FFmpeg utasításokat kiadni, vagy esetleg más, harmadik féltől származó programot használni.
