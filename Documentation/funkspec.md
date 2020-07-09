@@ -23,3 +23,15 @@ A probléma az, hogy egy fejezet vége akár az egyik hanganyag közepébe is ke
 A program célja az, hogy a felhasználó a program segítségével bárhol elvághatja a megnyitott hangoskönyvet. Ez nem csak vágást, de néha összeillesztést is jelenthet, hiszen egy fejezet folytatódhat egy másik fájlban is. 
 
 Ezek után (ha a felhasználói hibákat nem vesszük figyelembe) a hangoskönyv rendszerezettebb lesz, hiszen végtermékként mindegyik fejezet külön mp3 fájlban lesz eltárolva.
+
+## Forgatókönyv
+Az applikáció futtatása után a menüből ki kell választanunk a vágni kívánt fájlokat. Ha több fájlt választunk, azokat sorrendben kell kijelölni.
+
+A fájlok megnyitását követően a *timeline*on (idővonalon) megjelennek a hanganyagok, sorrendben, amelyekbe kedvünk szerint helyezhetünk *marker*eket.
+
+Lehetőség lesz a menüben a *marker*ek mentésére, illetve betöltésére is.
+
+Lesz olyan opció, mellyel befolyásolhatjuk azt, hogy a különböző forrásfájlokból beimportált audiót ne illessze össze. Példa: 
+>**két darab mp3 fájlt nyitunk meg, A-t és B-t. Egy markert az A fájl közepébe, a másodikat pedig B fájl közepébe tesszük:**
+- Ha összeillesztést választunk, eredményünk három darab fájl lesz.
+- Ha nincs összeillesztés, az négy darab fájlt fog visszaadni.
