@@ -1,8 +1,7 @@
 # Rendszerterv
 #### Tartalom
 - Rendszer célja
-- Projekt terv
-- Követelmények
+- Projekt terv és követelmények
 - Funkcionális terv
 - Teszt terv
 - Absztrakt domain modell
@@ -11,9 +10,21 @@
 A program elsődleges célja kazettáról bedigitalizált hangoskönyvek fejezetenkénti rendszerezésének segítése: ezen könyvek végig, egy-két audiofájlban lettek elmentve, bármiféle indikátor nélkül, hogy hol kezdődik illetve végződik egy fejezet.
 Az applikációban megnyitott hanganyagokban *marker*et lehet elhelyezni, majd ez FFmpeg parancsok kiadásával kezeli azokat. Végeredményként a jelöléseknél felosztott hangoskönyvet kapunk.
 
-## Projekt terv
+## Projekt terv és követelmények
 A projekt C#-ban fog elkészülni, GUI-nak pedig a Windows Forms lesz felhasználva.
 
 Más, harmadik féltől származó külső könyvtárak a fejlesztés közben, illetve utána lesznek világosabbak, de az egyik amelyik valószínűleg használva lesz, az az [NAudio](https://github.com/naudio/NAudio).
 
 Az MP3 fájlok vágásához, kezeléséhez az FFmpeg könyvtár lesz segítségre.
+
+## Funkcionális terv
+Egyedüli rendszerszereplő a felhasználó, aki:
+- megnyithat egy vagy több audiofájlt
+- ezen hanganyagok mentén egy vagy több *marker*t is elhelyezhet
+- mentheti az elhelyezett *marker*eket
+- importálhat mentett *marker*eket
+- elindíthatja az algoritmust, amely elvégzi az FFmpeg parancsok kiadását
+- kiválaszthatja, hogy a különböző forrásokból származó fájlokat egybeillessze-e
+
+Menühierarchia:
+TBA
