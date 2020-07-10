@@ -28,3 +28,18 @@ Egyedüli rendszerszereplő a felhasználó, aki:
 
 Menühierarchia:
 TBA
+
+## Teszt terv
+Az alkalmazás elkészítése során szükség van a folyamatos tesztelésre. Célja a program különböző részeinek működésének teljes vizsgálata, ellenőrzése.
+
+#### Tesztelési folyamatok:
+**Unit teszt**
+A fejlesztés során is ajánlott már tesztelni a programot. Az úgynevezett unit teszteket szintén meg kell írni, figyelve a minél nagyobb kódlefedettségre.
+Minden tesztesetnek hiba nélkül le kell futnia.
+
+**Alpha teszt**
+Ez a tesztfázis szintén a fejlesztés alatt történik. Tesztelni kell a meglévő funckiókat, többféle esetben is.
+Nagyobb hangsúlyt kell fektetni azon programrészekre, melyeknek nagyobb a valószínűsége, hogy hibásak lehetnek.
+
+**Beta teszt**
+Ezt a tesztelést már felhasználok hajtják végre. Tesztelni kell többféle fájlra, többféle vágás esetre.
