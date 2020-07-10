@@ -54,3 +54,10 @@ Ezt a tesztelést már felhasználok hajtják végre. Tesztelni kell többféle 
 - a különböző forrású fájlokat felhasználói input alapján kezeli
 - megbizonyosodni arról, hogy tényleg ott lett-e elvágva a fájl, ahol meg volt jelölve
 - annyi darab fájlt eredményezett a vágás, amennyit elvártunk
+
+## Absztrakt domain modell
+|  Szó |  Fogalom |
+| ------------ | ------------ |
+| Marker  | Jelölés. Az idővonalon, a megnyitott fájlban tehetünk többet is, ahol elszeretnénk azt vágni.  |
+| FFmpeg  | Szoftver könyvtár, amely képes videókat és audiókat kezelni.  |
+| GUI  | Grafikus interfész.  |
