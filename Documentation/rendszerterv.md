@@ -43,3 +43,14 @@ Nagyobb hangsúlyt kell fektetni azon programrészekre, melyeknek nagyobb a val�
 
 **Beta teszt**
 Ezt a tesztelést már felhasználok hajtják végre. Tesztelni kell többféle fájlra, többféle vágás esetre.
+
+#### Tesztelendő funkciók:
+- a programnak meg kell tudnia nyitni audiofájlokat
+- ezeket a nyitási sorrendben az idővonalra helyezni
+- *marker*eket lehet helyezni az idővonalra, a hanganyagokba
+- a *marker*eket el is lehet menteni
+- az előzőleg mentett *marker*eket meg lehet nyitni
+- a vágást a *marker*ek mentén el lehet indítani
+- a különböző forrású fájlokat felhasználói input alapján kezeli
+- megbizonyosodni arról, hogy tényleg ott lett-e elvágva a fájl, ahol meg volt jelölve
+- annyi darab fájlt eredményezett a vágás, amennyit elvártunk
