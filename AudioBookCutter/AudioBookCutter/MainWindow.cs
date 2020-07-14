@@ -19,9 +19,9 @@ namespace AudioBookCutter
     public partial class MainWindow : Form
     {
         private WaveOutEvent output;
-        private AudioFileReader file;
-        private string pathAudio = null;
-        private Image wave;
+        private IWavePlayer wavePlayer;
+        private AudioFileReader file = null;
+        private Audio audio = null;
 
         public MainWindow()
         {
@@ -29,25 +29,12 @@ namespace AudioBookCutter
         }
         private void audioWave()
         {
-            MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
-            RmsPeakProvider rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
-            SamplingPeakProvider samplingPeakProvider = new SamplingPeakProvider(200); // e.g. 200
-            AveragePeakProvider averagePeakProvider = new AveragePeakProvider(3); // e.g. 4
-
-            StandardWaveFormRendererSettings myRendererSettings = new StandardWaveFormRendererSettings();
-            myRendererSettings.Width = this.Width > 50 ? this.Width - 50 : this.Width;
-            myRendererSettings.TopHeight = 64;
-            myRendererSettings.BottomHeight = 64;
-
-            WaveFormRenderer renderer = new WaveFormRenderer();
-            String audioFilePath = pathAudio;
-            wave = renderer.Render(audioFilePath, averagePeakProvider, myRendererSettings);
-            audioWaveImage.Image = wave;
+            audioWaveImage.Image = audio.audioWave(this.Width);
         }
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-            if (pathAudio != null)
+            if (audio != null)
             {
                 audioWaveImage.Width = this.Width;
                 Thread t = new Thread(() => audioWave());
@@ -62,10 +49,84 @@ namespace AudioBookCutter
             openFileDialog1.Filter = "mp3 fájlok|*.mp3|WAV fájlok|*.wav";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                pathAudio = openFileDialog1.FileName;
-                string[] text = new AudioFileReader(pathAudio).TotalTime.ToString().Split('.');
-                trackLength.Text = text[0] + "." + text[1].Substring(0,3);
+                audio = new Audio(openFileDialog1.FileName);
+                file = new AudioFileReader(audio.Path);
+                trackLength.Text = FormatTimeSpan(file.TotalTime);
                 audioWave();
+            }
+        }
+
+        private static string formatTime(TimeSpan time)
+        {
+            string[] text = time.ToString().Split('.');
+            return text[0] + "." + text[1].Substring(0, 3);
+        }
+
+        private static string FormatTimeSpan(TimeSpan ts)
+        {
+            return string.Format("{0:D2}:{1:D2}.{2:D2}", (int)ts.TotalMinutes, ts.Seconds, ts.Milliseconds);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (audio != null && file != null)
+            {
+                now.Text = FormatTimeSpan(file.CurrentTime);
+            }
+        }
+
+        private void start_Click(object sender, EventArgs e)
+        {
+            BeginPlayback();
+        }
+
+        private void BeginPlayback()
+        {
+            wavePlayer = CreateWavePlayer();
+            wavePlayer.Init(file);
+            wavePlayer.PlaybackStopped += OnPlaybackStopped;
+            wavePlayer.Play();
+            //EnableButtons(true);
+            timer1.Enabled = true; // timer for updating current time label
+        }
+
+        void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            //CleanUp();
+            //EnableButtons(false);
+            timer1.Enabled = false;
+            now.Text = "00:00";
+            if (e.Exception != null)
+            {
+                MessageBox.Show(String.Format("Playback Stopped due to an error {0}", e.Exception.Message));
+            }
+        }
+
+
+        private IWavePlayer CreateWavePlayer()
+        {
+            //switch (comboBoxOutputDriver.SelectedIndex)
+            //{
+                //case 2:
+                    return new WaveOutEvent();
+                //case 1:
+                    //return new WaveOut(WaveCallbackInfo.FunctionCallback());
+                //default:
+                    //return new WaveOut();
+            //}
+        }
+
+        private void CleanUp()
+        {
+            if (file != null)
+            {
+                file.Dispose();
+                file = null;
+            }
+            if (wavePlayer != null)
+            {
+                wavePlayer.Dispose();
+                wavePlayer = null;
             }
         }
     }

@@ -37,6 +37,9 @@
             this.saveMarker = new System.Windows.Forms.MenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.trackLength = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.now = new System.Windows.Forms.Label();
+            this.start = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,11 +99,37 @@
             this.trackLength.TabIndex = 1;
             this.trackLength.Text = "00:00:00.000";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 50;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // now
+            // 
+            this.now.AutoSize = true;
+            this.now.Location = new System.Drawing.Point(400, 208);
+            this.now.Name = "now";
+            this.now.Size = new System.Drawing.Size(35, 13);
+            this.now.TabIndex = 2;
+            this.now.Text = "label1";
+            // 
+            // start
+            // 
+            this.start.Location = new System.Drawing.Point(76, 281);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(75, 23);
+            this.start.TabIndex = 3;
+            this.start.Text = "start";
+            this.start.UseVisualStyleBackColor = true;
+            this.start.Click += new System.EventHandler(this.start_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.start);
+            this.Controls.Add(this.now);
             this.Controls.Add(this.trackLength);
             this.Controls.Add(this.audioWaveImage);
             this.Menu = this.mainMenu1;
@@ -123,6 +152,9 @@
         private System.Windows.Forms.MenuItem saveMarker;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label trackLength;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label now;
+        private System.Windows.Forms.Button start;
     }
 }
 
