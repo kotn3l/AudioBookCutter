@@ -26,10 +26,6 @@ namespace AudioBookCutter
         public MainWindow()
         {
             InitializeComponent();
-            //this.waveViewer1.WaveStream = new WaveFileReader();
-            //pathAudio = @"G:\EKE\szakmai gyak\testaudio.mp3";
-            //audioWave(pathAudio);
-            //pictureBox1.Image = wave;
         }
         public void audioWave()
         {
@@ -56,7 +52,6 @@ namespace AudioBookCutter
                 pictureBox1.Width = this.Width;
                 Thread t = new Thread(() => audioWave());
                 t.Start();
-                t.Join();
             }
         }
 
