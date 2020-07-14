@@ -29,23 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.audioWaveImage = new System.Windows.Forms.PictureBox();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.openAudio = new System.Windows.Forms.MenuItem();
             this.openMarker = new System.Windows.Forms.MenuItem();
             this.saveMarker = new System.Windows.Forms.MenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.trackLength = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // audioWaveImage
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 31);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(775, 264);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.audioWaveImage.Location = new System.Drawing.Point(12, 31);
+            this.audioWaveImage.Name = "audioWaveImage";
+            this.audioWaveImage.Size = new System.Drawing.Size(775, 170);
+            this.audioWaveImage.TabIndex = 0;
+            this.audioWaveImage.TabStop = false;
             // 
             // mainMenu1
             // 
@@ -85,30 +86,43 @@
             this.openFileDialog1.Multiselect = true;
             this.openFileDialog1.Title = "Válassza ki a kezelni kívánt hanganyagokat";
             // 
+            // trackLength
+            // 
+            this.trackLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackLength.AutoSize = true;
+            this.trackLength.Location = new System.Drawing.Point(723, 204);
+            this.trackLength.Name = "trackLength";
+            this.trackLength.Size = new System.Drawing.Size(70, 13);
+            this.trackLength.TabIndex = 1;
+            this.trackLength.Text = "00:00:00.000";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.trackLength);
+            this.Controls.Add(this.audioWaveImage);
             this.Menu = this.mainMenu1;
             this.Name = "MainWindow";
             this.Text = "Main";
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox audioWaveImage;
         private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem openAudio;
         private System.Windows.Forms.MenuItem openMarker;
         private System.Windows.Forms.MenuItem saveMarker;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label trackLength;
     }
 }
 

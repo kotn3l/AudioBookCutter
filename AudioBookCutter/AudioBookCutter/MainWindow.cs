@@ -27,7 +27,7 @@ namespace AudioBookCutter
         {
             InitializeComponent();
         }
-        public void audioWave()
+        private void audioWave()
         {
             MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
             RmsPeakProvider rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
@@ -42,27 +42,29 @@ namespace AudioBookCutter
             WaveFormRenderer renderer = new WaveFormRenderer();
             String audioFilePath = pathAudio;
             wave = renderer.Render(audioFilePath, averagePeakProvider, myRendererSettings);
-            pictureBox1.Image = wave;
+            audioWaveImage.Image = wave;
         }
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             if (pathAudio != null)
             {
-                pictureBox1.Width = this.Width;
+                audioWaveImage.Width = this.Width;
                 Thread t = new Thread(() => audioWave());
                 t.Start();
             }
+
         }
 
         private void openAudio_Click(object sender, EventArgs e)
         {
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3|WAV fájlok|*.wav";
-            //openFileDialog1.ShowDialog();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 pathAudio = openFileDialog1.FileName;
+                string[] text = new AudioFileReader(pathAudio).TotalTime.ToString().Split('.');
+                trackLength.Text = text[0] + "." + text[1].Substring(0,3);
                 audioWave();
             }
         }
