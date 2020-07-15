@@ -18,7 +18,6 @@ namespace AudioBookCutter
 {
     public partial class MainWindow : Form
     {
-        private WaveOutEvent output;
         private IWavePlayer wavePlayer;
         private AudioFileReader file = null;
         private Audio audio = null;
@@ -42,7 +41,6 @@ namespace AudioBookCutter
                 t.Start();
                 timeLocation();
             }
-
         }
 
         private void openAudio_Click(object sender, EventArgs e)
@@ -55,6 +53,7 @@ namespace AudioBookCutter
                 file = new AudioFileReader(audio.Path);
                 trackLength.Text = FormatTimeSpan(file.TotalTime);
                 audioWave();
+                buttonChange(false);
             }
         }
 
@@ -77,18 +76,50 @@ namespace AudioBookCutter
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //if (audio != null && file != null)
-            //{
-                now.Text = FormatTimeSpan(file.CurrentTime);
-                //pictureBox1.Location = new Point((int)((file.CurrentTime.TotalMilliseconds  / (file.TotalTime.TotalMilliseconds)) * this.Width), pictureBox1.Location.Y);
-                timeLocation();
-            //}
+            now.Text = FormatTimeSpan(file.CurrentTime);
+            timeLocation();
         }
 
         private void start_Click(object sender, EventArgs e)
         {
             if (audio != null && file != null)
+            {
                 BeginPlayback();
+            }
+        }
+
+        private void pause_Click(object sender, EventArgs e)
+        {
+            wavePlayer.Pause();
+            buttonChange(false);
+        }
+
+        private void stop_Click(object sender, EventArgs e)
+        {
+            wavePlayer.Stop();
+            buttonChange(false);
+        }
+
+        private void buttonChange(bool playing)
+        {
+            if (playing && timer1.Enabled)
+            {
+                start.Enabled = false;
+                pause.Enabled = true;
+                stop.Enabled = true;
+            }
+            else if (!playing && timer1.Enabled)
+            {
+                start.Enabled = true;
+                pause.Enabled = false;
+                stop.Enabled = true;
+            }
+            else
+            {
+                start.Enabled = true;
+                pause.Enabled = false;
+                stop.Enabled = false;
+            }
         }
 
         private void BeginPlayback()
@@ -97,31 +128,22 @@ namespace AudioBookCutter
             wavePlayer.Init(file);
             wavePlayer.PlaybackStopped += OnPlaybackStopped;
             wavePlayer.Play();
-            //EnableButtons(true);
             timer1.Enabled = true; // timer for updating current time label
+            buttonChange(true);
         }
 
         void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
-            //CleanUp();
-            //EnableButtons(false);
+            CleanUp();
             timer1.Enabled = false;
+            buttonChange(false);
             timeLocation();
             now.Text = "00:00.00";
         }
 
-
         private IWavePlayer CreateWavePlayer()
         {
-            //switch (comboBoxOutputDriver.SelectedIndex)
-            //{
-                //case 2:
-                    return new WaveOutEvent();
-                //case 1:
-                    //return new WaveOut(WaveCallbackInfo.FunctionCallback());
-                //default:
-                    //return new WaveOut();
-            //}
+            return new WaveOutEvent();
         }
 
         private void CleanUp()
@@ -129,23 +151,13 @@ namespace AudioBookCutter
             if (file != null)
             {
                 file.Dispose();
-                file = null;
+                //file = null;
             }
             if (wavePlayer != null)
             {
                 wavePlayer.Dispose();
-                wavePlayer = null;
+                //wavePlayer = null;
             }
-        }
-
-        private void pause_Click(object sender, EventArgs e)
-        {
-            wavePlayer.Pause();
-        }
-
-        private void stop_Click(object sender, EventArgs e)
-        {
-            wavePlayer.Stop();
         }
     }
 }

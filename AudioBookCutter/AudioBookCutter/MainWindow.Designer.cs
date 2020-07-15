@@ -119,6 +119,7 @@
             // 
             // start
             // 
+            this.start.Enabled = false;
             this.start.Location = new System.Drawing.Point(12, 182);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(35, 23);
@@ -138,6 +139,7 @@
             // 
             // pause
             // 
+            this.pause.Enabled = false;
             this.pause.Location = new System.Drawing.Point(53, 182);
             this.pause.Name = "pause";
             this.pause.Size = new System.Drawing.Size(47, 23);
@@ -148,6 +150,7 @@
             // 
             // stop
             // 
+            this.stop.Enabled = false;
             this.stop.Location = new System.Drawing.Point(106, 182);
             this.stop.Name = "stop";
             this.stop.Size = new System.Drawing.Size(39, 23);
