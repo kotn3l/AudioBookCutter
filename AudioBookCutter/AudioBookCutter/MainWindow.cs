@@ -40,6 +40,7 @@ namespace AudioBookCutter
                 audioWaveImage.Width = this.Width;
                 Thread t = new Thread(() => audioWave());
                 t.Start();
+                timeLocation();
             }
 
         }
@@ -62,13 +63,26 @@ namespace AudioBookCutter
             return string.Format("{0:D2}:{1:D2}.{2:D2}", (int)ts.TotalMinutes, ts.Seconds, ts.Milliseconds);
         }
 
+        private void timeLocation()
+        {
+            if (timer1.Enabled == true)
+            {
+                pictureBox1.Location = new Point((int)((file.CurrentTime.TotalMilliseconds / (file.TotalTime.TotalMilliseconds)) * this.Width), pictureBox1.Location.Y);
+            }
+            else
+            {
+                pictureBox1.Location = new Point(0, pictureBox1.Location.Y);
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (audio != null && file != null)
-            {
+            //if (audio != null && file != null)
+            //{
                 now.Text = FormatTimeSpan(file.CurrentTime);
-                pictureBox1.Location = new Point(Convert.ToInt32(((file.CurrentTime.TotalMilliseconds  / file.TotalTime.TotalMilliseconds) * this.Width)), pictureBox1.Location.Y);
-            }
+                //pictureBox1.Location = new Point((int)((file.CurrentTime.TotalMilliseconds  / (file.TotalTime.TotalMilliseconds)) * this.Width), pictureBox1.Location.Y);
+                timeLocation();
+            //}
         }
 
         private void start_Click(object sender, EventArgs e)
@@ -91,11 +105,8 @@ namespace AudioBookCutter
             //CleanUp();
             //EnableButtons(false);
             timer1.Enabled = false;
-            now.Text = "00:00";
-            if (e.Exception != null)
-            {
-                MessageBox.Show(String.Format("Playback Stopped due to an error {0}", e.Exception.Message));
-            }
+            timeLocation();
+            now.Text = "00:00.00";
         }
 
 

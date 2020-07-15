@@ -96,7 +96,7 @@
             // 
             this.trackLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackLength.AutoSize = true;
-            this.trackLength.Location = new System.Drawing.Point(723, 204);
+            this.trackLength.Location = new System.Drawing.Point(718, 15);
             this.trackLength.Name = "trackLength";
             this.trackLength.Size = new System.Drawing.Size(70, 13);
             this.trackLength.TabIndex = 1;
@@ -104,13 +104,12 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 25;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // now
             // 
             this.now.AutoSize = true;
-            this.now.Location = new System.Drawing.Point(400, 208);
+            this.now.Location = new System.Drawing.Point(12, 15);
             this.now.Name = "now";
             this.now.Size = new System.Drawing.Size(35, 13);
             this.now.TabIndex = 2;
@@ -118,11 +117,11 @@
             // 
             // start
             // 
-            this.start.Location = new System.Drawing.Point(76, 281);
+            this.start.Location = new System.Drawing.Point(242, 272);
             this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(75, 23);
+            this.start.Size = new System.Drawing.Size(35, 23);
             this.start.TabIndex = 3;
-            this.start.Text = "start";
+            this.start.Text = "Play";
             this.start.UseVisualStyleBackColor = true;
             this.start.Click += new System.EventHandler(this.start_Click);
             // 
