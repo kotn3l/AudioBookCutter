@@ -26,6 +26,7 @@ namespace AudioBookCutter
         public MainWindow()
         {
             InitializeComponent();
+            audioWaveImage.Width = this.Width;
         }
         private void audioWave()
         {
@@ -56,12 +57,6 @@ namespace AudioBookCutter
             }
         }
 
-        private static string formatTime(TimeSpan time)
-        {
-            string[] text = time.ToString().Split('.');
-            return text[0] + "." + text[1].Substring(0, 3);
-        }
-
         private static string FormatTimeSpan(TimeSpan ts)
         {
             return string.Format("{0:D2}:{1:D2}.{2:D2}", (int)ts.TotalMinutes, ts.Seconds, ts.Milliseconds);
@@ -72,6 +67,7 @@ namespace AudioBookCutter
             if (audio != null && file != null)
             {
                 now.Text = FormatTimeSpan(file.CurrentTime);
+                pictureBox1.Location = new Point(Convert.ToInt32(((file.CurrentTime.TotalMilliseconds  / file.TotalTime.TotalMilliseconds) * this.Width)), pictureBox1.Location.Y);
             }
         }
 

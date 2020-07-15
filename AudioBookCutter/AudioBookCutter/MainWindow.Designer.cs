@@ -40,14 +40,17 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.now = new System.Windows.Forms.Label();
             this.start = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // audioWaveImage
             // 
-            this.audioWaveImage.Location = new System.Drawing.Point(12, 31);
+            this.audioWaveImage.Location = new System.Drawing.Point(0, 31);
             this.audioWaveImage.Name = "audioWaveImage";
-            this.audioWaveImage.Size = new System.Drawing.Size(775, 170);
+            this.audioWaveImage.Size = new System.Drawing.Size(800, 145);
+            this.audioWaveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.audioWaveImage.TabIndex = 0;
             this.audioWaveImage.TabStop = false;
             // 
@@ -101,7 +104,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 50;
+            this.timer1.Interval = 25;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // now
@@ -123,11 +126,21 @@
             this.start.UseVisualStyleBackColor = true;
             this.start.Click += new System.EventHandler(this.start_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1, 170);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.start);
             this.Controls.Add(this.now);
             this.Controls.Add(this.trackLength);
@@ -137,6 +150,7 @@
             this.Text = "Main";
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -155,6 +169,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label now;
         private System.Windows.Forms.Button start;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
