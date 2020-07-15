@@ -87,7 +87,8 @@ namespace AudioBookCutter
 
         private void start_Click(object sender, EventArgs e)
         {
-            BeginPlayback();
+            if (audio != null && file != null)
+                BeginPlayback();
         }
 
         private void BeginPlayback()
@@ -135,6 +136,16 @@ namespace AudioBookCutter
                 wavePlayer.Dispose();
                 wavePlayer = null;
             }
+        }
+
+        private void pause_Click(object sender, EventArgs e)
+        {
+            wavePlayer.Pause();
+        }
+
+        private void stop_Click(object sender, EventArgs e)
+        {
+            wavePlayer.Stop();
         }
     }
 }

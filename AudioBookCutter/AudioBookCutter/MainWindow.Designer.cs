@@ -41,6 +41,8 @@
             this.now = new System.Windows.Forms.Label();
             this.start = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pause = new System.Windows.Forms.Button();
+            this.stop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -96,11 +98,11 @@
             // 
             this.trackLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackLength.AutoSize = true;
-            this.trackLength.Location = new System.Drawing.Point(718, 15);
+            this.trackLength.Location = new System.Drawing.Point(733, 15);
             this.trackLength.Name = "trackLength";
-            this.trackLength.Size = new System.Drawing.Size(70, 13);
+            this.trackLength.Size = new System.Drawing.Size(55, 13);
             this.trackLength.TabIndex = 1;
-            this.trackLength.Text = "00:00:00.000";
+            this.trackLength.Text = "00:00.000";
             // 
             // timer1
             // 
@@ -111,13 +113,13 @@
             this.now.AutoSize = true;
             this.now.Location = new System.Drawing.Point(12, 15);
             this.now.Name = "now";
-            this.now.Size = new System.Drawing.Size(35, 13);
+            this.now.Size = new System.Drawing.Size(55, 13);
             this.now.TabIndex = 2;
-            this.now.Text = "label1";
+            this.now.Text = "00:00.000";
             // 
             // start
             // 
-            this.start.Location = new System.Drawing.Point(242, 272);
+            this.start.Location = new System.Drawing.Point(12, 182);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(35, 23);
             this.start.TabIndex = 3;
@@ -134,11 +136,33 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // pause
+            // 
+            this.pause.Location = new System.Drawing.Point(53, 182);
+            this.pause.Name = "pause";
+            this.pause.Size = new System.Drawing.Size(47, 23);
+            this.pause.TabIndex = 5;
+            this.pause.Text = "Pause";
+            this.pause.UseVisualStyleBackColor = true;
+            this.pause.Click += new System.EventHandler(this.pause_Click);
+            // 
+            // stop
+            // 
+            this.stop.Location = new System.Drawing.Point(106, 182);
+            this.stop.Name = "stop";
+            this.stop.Size = new System.Drawing.Size(39, 23);
+            this.stop.TabIndex = 6;
+            this.stop.Text = "Stop";
+            this.stop.UseVisualStyleBackColor = true;
+            this.stop.Click += new System.EventHandler(this.stop_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.stop);
+            this.Controls.Add(this.pause);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.start);
             this.Controls.Add(this.now);
@@ -169,6 +193,8 @@
         private System.Windows.Forms.Label now;
         private System.Windows.Forms.Button start;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button pause;
+        private System.Windows.Forms.Button stop;
     }
 }
 
