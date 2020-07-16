@@ -21,6 +21,7 @@ namespace AudioBookCutter
         private IWavePlayer wavePlayer;
         private AudioFileReader file = null;
         private Audio audio = null;
+        private Command ffmpeg;
 
         public MainWindow()
         {
@@ -158,6 +159,15 @@ namespace AudioBookCutter
                 wavePlayer.Dispose();
                 //wavePlayer = null;
             }
+        }
+
+        private void cut_Click(object sender, EventArgs e)
+        {
+            ffmpeg = new Command(audio.Path);
+            List<TimeSpan> times = new List<TimeSpan>();
+            times.Add(new TimeSpan(0, 1, 31));
+            times.Add(new TimeSpan(0, 3, 0));
+            ffmpeg.cutByTimeSpans(times, file.TotalTime);
         }
     }
 }

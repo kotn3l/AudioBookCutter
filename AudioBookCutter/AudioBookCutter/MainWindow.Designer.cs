@@ -43,6 +43,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pause = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
+            this.cut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -159,11 +160,22 @@
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
             // 
+            // cut
+            // 
+            this.cut.Location = new System.Drawing.Point(12, 222);
+            this.cut.Name = "cut";
+            this.cut.Size = new System.Drawing.Size(75, 23);
+            this.cut.TabIndex = 7;
+            this.cut.Text = "button1";
+            this.cut.UseVisualStyleBackColor = true;
+            this.cut.Click += new System.EventHandler(this.cut_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cut);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.pause);
             this.Controls.Add(this.pictureBox1);
@@ -198,6 +210,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button pause;
         private System.Windows.Forms.Button stop;
+        private System.Windows.Forms.Button cut;
     }
 }
 
