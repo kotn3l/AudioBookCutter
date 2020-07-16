@@ -30,6 +30,7 @@ namespace AudioBookCutter
             string temp;
             temp = argument + " -ss 00:00:00.0 -to " + times[0] + end + 0 + fileFormat;
             cmd.Start();
+            temp = "";
             int i = 1;
             while (i < times.Count)
             {
