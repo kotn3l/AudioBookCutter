@@ -128,7 +128,7 @@ namespace AudioBookCutter
             wavePlayer.Init(file);
             wavePlayer.PlaybackStopped += OnPlaybackStopped;
             wavePlayer.Play();
-            timer1.Enabled = true; // timer for updating current time label
+            timer1.Enabled = true;
             buttonChange(true);
         }
 
