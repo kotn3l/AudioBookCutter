@@ -1,20 +1,43 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WaveFormRendererLib;
+using System.IO;
 
 namespace AudioBookCutter
 {
     class Audio
     {
-        private string path;
-        public string Path
+        private AudioFileReader file;
+        public AudioFileReader File
         {
-            get { return path; }
-            set { path = value; }
+            get
+            {
+                return file;
+            }
+            private set
+            {
+                file = value;
+            }
+        }
+        private IWavePlayer wavePlayer;
+
+        private string apath;
+        public string aPath
+        {
+            get { return apath; }
+            set
+            {
+                if (System.IO.File.Exists(aPath))
+                {
+                    apath = value;
+                }
+                else throw new Exception();
+            }
         }
 
         public Image audioWave(int Width)
@@ -30,13 +53,13 @@ namespace AudioBookCutter
             myRendererSettings.BottomHeight = 64;
 
             WaveFormRenderer renderer = new WaveFormRenderer();
-            return renderer.Render(this.path, averagePeakProvider, myRendererSettings);
+            return renderer.Render(this.apath, averagePeakProvider, myRendererSettings);
         }
 
         public Audio(string path)
         {
-            this.path = path;
+            this.apath = path;
+            this.file = new AudioFileReader(aPath);
         }
-
     }
 }

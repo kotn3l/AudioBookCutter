@@ -19,7 +19,6 @@ namespace AudioBookCutter
     public partial class MainWindow : Form
     {
         private IWavePlayer wavePlayer;
-        private AudioFileReader file = null;
         private Audio audio = null;
         private Command ffmpeg;
 
@@ -51,8 +50,7 @@ namespace AudioBookCutter
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 audio = new Audio(openFileDialog1.FileName);
-                file = new AudioFileReader(audio.Path);
-                trackLength.Text = FormatTimeSpan(file.TotalTime);
+                trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
                 audioWave();
                 buttonChange(false);
             }
@@ -67,7 +65,7 @@ namespace AudioBookCutter
         {
             if (timer1.Enabled == true)
             {
-                seeker.Location = new Point((int)((file.CurrentTime.TotalMilliseconds / (file.TotalTime.TotalMilliseconds)) * this.Width), seeker.Location.Y);
+                seeker.Location = new Point((int)((audio.File.CurrentTime.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width), seeker.Location.Y);
             }
             else
             {
@@ -77,22 +75,22 @@ namespace AudioBookCutter
 
         private double locationTime()
         {
-            if (audio != null && file != null)
+            if (audio != null)
             {
-                return file.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width);
+                return audio.File.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width);
             }
             else return 0;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            now.Text = FormatTimeSpan(file.CurrentTime);
+            now.Text = FormatTimeSpan(audio.File.CurrentTime);
             timeLocation();
         }
 
         private void start_Click(object sender, EventArgs e)
         {
-            if (audio != null && file != null)
+            if (audio != null)
             {
                 BeginPlayback();
             }
@@ -137,11 +135,11 @@ namespace AudioBookCutter
             wavePlayer = CreateWavePlayer();
             if (seeker.Location.X == 0)
             {
-                wavePlayer.Init(file);
+                wavePlayer.Init(audio.File);
             }
             else
             {
-                var trimmed = new OffsetSampleProvider(file);
+                var trimmed = new OffsetSampleProvider(audio.File);
                 trimmed.SkipOver = TimeSpan.FromMilliseconds(locationTime());
                 wavePlayer.Init(trimmed);
             }
@@ -167,9 +165,9 @@ namespace AudioBookCutter
 
         private void CleanUp()
         {
-            if (file != null)
+            if (audio.File != null)
             {
-                file.Dispose();
+                audio.File.Dispose();
                 //file = null;
             }
             if (wavePlayer != null)
@@ -181,15 +179,19 @@ namespace AudioBookCutter
 
         private void cut_Click(object sender, EventArgs e)
         {
-            ffmpeg = new Command(audio.Path);
+            ffmpeg = new Command(audio.aPath);
             List<TimeSpan> times = new List<TimeSpan>();
             times.Add(new TimeSpan(0, 1, 31));
             times.Add(new TimeSpan(0, 3, 0));
-            ffmpeg.cutByTimeSpans(times, file.TotalTime);
+            ffmpeg.cutByTimeSpans(times, audio.File.TotalTime);
         }
 
         private void audioWaveImage_Click(object sender, EventArgs e)
         {
+            if (wavePlayer.PlaybackState == PlaybackState.Playing)
+            {
+                //file.WaveFormat.
+            }
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
