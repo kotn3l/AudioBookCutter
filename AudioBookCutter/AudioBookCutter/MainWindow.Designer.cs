@@ -40,12 +40,12 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.now = new System.Windows.Forms.Label();
             this.start = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.seeker = new System.Windows.Forms.PictureBox();
             this.pause = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
             this.cut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
             // 
             // audioWaveImage
@@ -56,6 +56,7 @@
             this.audioWaveImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.audioWaveImage.TabIndex = 0;
             this.audioWaveImage.TabStop = false;
+            this.audioWaveImage.Click += new System.EventHandler(this.audioWaveImage_Click);
             // 
             // mainMenu1
             // 
@@ -129,14 +130,14 @@
             this.start.UseVisualStyleBackColor = true;
             this.start.Click += new System.EventHandler(this.start_Click);
             // 
-            // pictureBox1
+            // seeker
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1, 170);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.seeker.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.seeker.Location = new System.Drawing.Point(0, 12);
+            this.seeker.Name = "seeker";
+            this.seeker.Size = new System.Drawing.Size(1, 170);
+            this.seeker.TabIndex = 4;
+            this.seeker.TabStop = false;
             // 
             // pause
             // 
@@ -178,7 +179,7 @@
             this.Controls.Add(this.cut);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.pause);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.seeker);
             this.Controls.Add(this.start);
             this.Controls.Add(this.now);
             this.Controls.Add(this.trackLength);
@@ -188,7 +189,7 @@
             this.Text = "Main";
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.seeker)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,7 +208,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label now;
         private System.Windows.Forms.Button start;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox seeker;
         private System.Windows.Forms.Button pause;
         private System.Windows.Forms.Button stop;
         private System.Windows.Forms.Button cut;

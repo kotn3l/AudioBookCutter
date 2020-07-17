@@ -67,11 +67,11 @@ namespace AudioBookCutter
         {
             if (timer1.Enabled == true)
             {
-                pictureBox1.Location = new Point((int)((file.CurrentTime.TotalMilliseconds / (file.TotalTime.TotalMilliseconds)) * this.Width), pictureBox1.Location.Y);
+                seeker.Location = new Point((int)((file.CurrentTime.TotalMilliseconds / (file.TotalTime.TotalMilliseconds)) * this.Width), seeker.Location.Y);
             }
             else
             {
-                pictureBox1.Location = new Point(0, pictureBox1.Location.Y);
+                seeker.Location = new Point(0, seeker.Location.Y);
             }
         }
 
@@ -168,6 +168,13 @@ namespace AudioBookCutter
             times.Add(new TimeSpan(0, 1, 31));
             times.Add(new TimeSpan(0, 3, 0));
             ffmpeg.cutByTimeSpans(times, file.TotalTime);
+        }
+
+        private void audioWaveImage_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Point coordinates = me.Location;
+            seeker.Location = new Point(coordinates.X, seeker.Location.Y);
         }
     }
 }
