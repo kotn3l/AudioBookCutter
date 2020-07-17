@@ -75,6 +75,15 @@ namespace AudioBookCutter
             }
         }
 
+        private double locationTime()
+        {
+            if (audio != null && file != null)
+            {
+                return file.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width);
+            }
+            else return 0;
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             now.Text = FormatTimeSpan(file.CurrentTime);
@@ -126,7 +135,16 @@ namespace AudioBookCutter
         private void BeginPlayback()
         {
             wavePlayer = CreateWavePlayer();
-            wavePlayer.Init(file);
+            if (seeker.Location.X == 0)
+            {
+                wavePlayer.Init(file);
+            }
+            else
+            {
+                var trimmed = new OffsetSampleProvider(file);
+                trimmed.SkipOver = TimeSpan.FromMilliseconds(locationTime());
+                wavePlayer.Init(trimmed);
+            }
             wavePlayer.PlaybackStopped += OnPlaybackStopped;
             wavePlayer.Play();
             timer1.Enabled = true;
