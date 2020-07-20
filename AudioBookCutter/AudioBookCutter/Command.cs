@@ -13,9 +13,18 @@ namespace AudioBookCutter
     {
         private Process cmd;
         //private string path;
-        private ProcessStartInfo startInfo;
+        //private ProcessStartInfo startInfo;
         private string argumentStart = "/C ffmpeg -i ";
         private string exit = " & exit";
+        private StringBuilder sb = new StringBuilder();
+        private ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", "/c systeminfo")
+        {
+            CreateNoWindow = true,
+            UseShellExecute = false,
+            RedirectStandardError = true,
+            RedirectStandardOutput = true,
+            WorkingDirectory = @"C:\Windows\System32\"
+        };
 
         /*public Command(string pathToFile)
         {
@@ -29,52 +38,58 @@ namespace AudioBookCutter
         }
         private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path)
         {
-            init();
+            //init();
+            //StringBuilder sb = new StringBuilder();
             times.OrderBy(time => time.Milliseconds);
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + Path.GetFullPath(path);
             string end = " -c copy " + Path.GetFullPath(@"G:/EKE/szakmai gyak/AudioBookCutter\") + Path.GetFileNameWithoutExtension(path);
             string temp;
             temp = argument + " -ss 00:00:00.0 -to " + times[0] + end + 0 + fileFormat + exit;
-            addArguments(temp);
-            cmd.Start();
+            //addArguments(temp);
+            cmd = Process.Start(processInfo);
+            cmd.OutputDataReceived += (sender, args) => sb.AppendLine(temp);
+            cmd.BeginOutputReadLine();
             cmd.WaitForExit();
-            //string result = cmd.StandardOutput.ReadToEnd();
+            //cmd.WaitForExit();
             temp = "";
             int i = 1;
             while (i < times.Count)
             {
                 temp = argument + " -ss " + times[i - 1] + " -to " + times[i] + end + i + fileFormat + exit;
-                addArguments(temp);
-                cmd.Start();
+                cmd = Process.Start(processInfo);
+                cmd.OutputDataReceived += (sender, args) => sb.AppendLine(temp);
+                cmd.BeginOutputReadLine();
                 cmd.WaitForExit();
                 temp = "";
                 i++;
             }
             temp = argument + " -ss " + times[i-1] + " -to "+ length + end + i + fileFormat + exit;
-            addArguments(temp);
-            cmd.Start();
+            cmd = Process.Start(processInfo);
+            cmd.OutputDataReceived += (sender, args) => sb.AppendLine(temp);
+            cmd.BeginOutputReadLine();
             cmd.WaitForExit();
         }
         private void init()
         {
-            cmd = new Process();
+            /*cmd = new Process();
             startInfo = new ProcessStartInfo();
             //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
             startInfo.RedirectStandardInput = false;
-            startInfo.RedirectStandardOutput = false;
+            startInfo.RedirectStandardOutput = false;*/
             
+
         }
-        private void addArguments(string argument)
+        /*private void addArguments(string argument)
         {
             startInfo.Arguments = argument;
             cmd.StartInfo = startInfo;
-        }
+        }*/
 
         public string mergeFiles(string[] files)
         {
-            init();
+            //init();
             string fileFormat = Path.GetExtension(files[0]);
             string argument = argumentStart + "\"concat:";
             string filename = "output";
@@ -83,8 +98,9 @@ namespace AudioBookCutter
                 argument += Path.GetFullPath(files[i]) + "|";
             }
             argument += Path.GetFullPath(files[files.Length-1]) + "\" -acodec copy "+ Path.GetFullPath(@"G:/EKE/szakmai gyak/AudioBookCutter\") + filename + fileFormat + exit;
-            addArguments(argument);
-            cmd.Start();
+            cmd = Process.Start(processInfo);
+            cmd.OutputDataReceived += (sender, args) => sb.AppendLine(argument);
+            cmd.BeginOutputReadLine();
             cmd.WaitForExit();
             return @"G:/EKE/szakmai gyak/AudioBookCutter\" + filename + fileFormat;
         }
