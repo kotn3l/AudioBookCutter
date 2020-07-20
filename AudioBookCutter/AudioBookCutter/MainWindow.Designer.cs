@@ -44,6 +44,7 @@
             this.pause = new System.Windows.Forms.Button();
             this.stop = new System.Windows.Forms.Button();
             this.cut = new System.Windows.Forms.Button();
+            this.markerCurrent = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -171,11 +172,22 @@
             this.cut.UseVisualStyleBackColor = true;
             this.cut.Click += new System.EventHandler(this.cut_Click);
             // 
+            // markerCurrent
+            // 
+            this.markerCurrent.Location = new System.Drawing.Point(152, 181);
+            this.markerCurrent.Name = "markerCurrent";
+            this.markerCurrent.Size = new System.Drawing.Size(138, 23);
+            this.markerCurrent.TabIndex = 8;
+            this.markerCurrent.Text = "Marker to current position";
+            this.markerCurrent.UseVisualStyleBackColor = true;
+            this.markerCurrent.Click += new System.EventHandler(this.markerCurrent_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.markerCurrent);
             this.Controls.Add(this.cut);
             this.Controls.Add(this.stop);
             this.Controls.Add(this.pause);
@@ -212,6 +224,7 @@
         private System.Windows.Forms.Button pause;
         private System.Windows.Forms.Button stop;
         private System.Windows.Forms.Button cut;
+        private System.Windows.Forms.Button markerCurrent;
     }
 }
 

@@ -21,11 +21,15 @@ namespace AudioBookCutter
         private IWavePlayer wavePlayer;
         private Audio audio = null;
         private Command ffmpeg;
+        private List<Marker> markers;
+        private List<PictureBox> pmarkers;
 
         public MainWindow()
         {
             InitializeComponent();
             audioWaveImage.Width = this.Width;
+            markers = new List<Marker>();
+            pmarkers = new List<PictureBox>();
         }
         private void audioWave()
         {
@@ -70,6 +74,10 @@ namespace AudioBookCutter
             else
             {
                 seeker.Location = new Point(0, seeker.Location.Y);
+            }
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                pmarkers[i].Location = new Point((int)((markers[i].Time.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width), pmarkers[i].Location.Y);
             }
         }
 
@@ -199,7 +207,21 @@ namespace AudioBookCutter
 
         private double seekerCalc()
         {
-            return -1 * (audio.File.CurrentTime.TotalMilliseconds - locationTime());
+            return (audio.File.CurrentTime.TotalMilliseconds - locationTime());
+        }
+
+        private void markerCurrent_Click(object sender, EventArgs e)
+        {
+            PictureBox marker = new PictureBox();
+            marker.Size = new Size(seeker.Size.Width+1, seeker.Size.Height);
+            marker.Location = seeker.Location;
+            marker.BackColor = Color.Red;
+            this.Controls.Add(marker);
+            marker.BringToFront();
+            pmarkers.Add(marker);
+
+            Marker mmarker = new Marker(marker.Location.X, TimeSpan.FromMilliseconds(audio.File.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
+            markers.Add(mmarker);
         }
     }
 }
