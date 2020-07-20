@@ -22,5 +22,10 @@ namespace AudioBookCutter
             set { time = value; }
         }
 
+        public Marker(int xValue, TimeSpan time)
+        {
+            this.xValue = xValue;
+            this.time = time;
+        }
     }
 }
