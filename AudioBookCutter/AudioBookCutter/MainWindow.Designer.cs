@@ -174,6 +174,7 @@
             // 
             // markerCurrent
             // 
+            this.markerCurrent.Enabled = false;
             this.markerCurrent.Location = new System.Drawing.Point(152, 181);
             this.markerCurrent.Name = "markerCurrent";
             this.markerCurrent.Size = new System.Drawing.Size(138, 23);

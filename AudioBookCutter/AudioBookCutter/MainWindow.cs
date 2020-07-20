@@ -51,12 +51,21 @@ namespace AudioBookCutter
         {
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3|WAV fájlok|*.wav";
+            openFileDialog1.Multiselect = true;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                audio = new Audio(openFileDialog1.FileName);
+                if (openFileDialog1.FileNames.Length > 1)
+                {
+                    ffmpeg = new Command();
+                    string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
+                    MessageBox.Show(result);
+                }
+                audio = new Audio(openFileDialog1.FileNames[0]);
                 trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
                 audioWave();
                 buttonChange(false);
+                markerCurrent.Enabled = true;
+                
             }
         }
 
@@ -187,13 +196,13 @@ namespace AudioBookCutter
 
         private void cut_Click(object sender, EventArgs e)
         {
-            ffmpeg = new Command(audio.aPath);
+            ffmpeg = new Command();
             List<TimeSpan> times = new List<TimeSpan>();
             for (int i = 0; i < markers.Count; i++)
             {
                 times.Add(markers[i].Time);
             }
-            ffmpeg.cutByTimeSpans(times, audio.File.TotalTime);
+            ffmpeg.cutByTimeSpans(times, audio);
         }
 
         private void audioWaveImage_Click(object sender, EventArgs e)
@@ -214,16 +223,19 @@ namespace AudioBookCutter
 
         private void markerCurrent_Click(object sender, EventArgs e)
         {
-            PictureBox marker = new PictureBox();
-            marker.Size = new Size(seeker.Size.Width+1, seeker.Size.Height);
-            marker.Location = seeker.Location;
-            marker.BackColor = Color.Red;
-            this.Controls.Add(marker);
-            marker.BringToFront();
-            pmarkers.Add(marker);
+            if (audio != null)
+            {
+                PictureBox marker = new PictureBox();
+                marker.Size = new Size(seeker.Size.Width + 1, seeker.Size.Height);
+                marker.Location = seeker.Location;
+                marker.BackColor = Color.Blue;
+                this.Controls.Add(marker);
+                marker.BringToFront();
+                pmarkers.Add(marker);
 
-            Marker mmarker = new Marker(marker.Location.X, TimeSpan.FromMilliseconds(audio.File.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
-            markers.Add(mmarker);
+                Marker mmarker = new Marker(marker.Location.X, TimeSpan.FromMilliseconds(audio.File.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
+                markers.Add(mmarker);
+            }
         }
     }
 }

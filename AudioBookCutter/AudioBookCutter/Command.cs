@@ -12,27 +12,28 @@ namespace AudioBookCutter
     class Command
     {
         private Process cmd;
-        private string path;
+        //private string path;
         private ProcessStartInfo startInfo;
+        private string argumentStart = "/C ffmpeg -i ";
+        private string exit = " & exit";
 
-        public Command(string pathToFile)
+        /*public Command(string pathToFile)
         {
             this.path = pathToFile;
-        }
-        public void cutByTimeSpans(List<TimeSpan> times, TimeSpan length)
+        }*/
+        public void cutByTimeSpans(List<TimeSpan> times, Audio audio)
         {
             //Thread ffmpeg = new Thread(() => cutByTimeSpansIn(times, length));
-            cutByTimeSpansIn(times, length);
+            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath);
 
         }
-        private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length)
+        private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path)
         {
             init();
             times.OrderBy(time => time.Milliseconds);
             string fileFormat = Path.GetExtension(path);
-            string argument = "/C ffmpeg -i " + Path.GetFullPath(path);
+            string argument = argumentStart + Path.GetFullPath(path);
             string end = " -c copy " + Path.GetFullPath(@"G:/EKE/szakmai gyak/AudioBookCutter\") + Path.GetFileNameWithoutExtension(path);
-            string exit = " & exit";
             string temp;
             temp = argument + " -ss 00:00:00.0 -to " + times[0] + end + 0 + fileFormat + exit;
             addArguments(temp);
@@ -46,12 +47,14 @@ namespace AudioBookCutter
                 temp = argument + " -ss " + times[i - 1] + " -to " + times[i] + end + i + fileFormat + exit;
                 addArguments(temp);
                 cmd.Start();
+                cmd.WaitForExit();
                 temp = "";
                 i++;
             }
             temp = argument + " -ss " + times[i-1] + " -to "+ length + end + i + fileFormat + exit;
             addArguments(temp);
             cmd.Start();
+            cmd.WaitForExit();
         }
         private void init()
         {
@@ -67,6 +70,23 @@ namespace AudioBookCutter
         {
             startInfo.Arguments = argument;
             cmd.StartInfo = startInfo;
+        }
+
+        public string mergeFiles(string[] files)
+        {
+            init();
+            string fileFormat = Path.GetExtension(files[0]);
+            string argument = argumentStart + "\"concat:";
+            string filename = "output";
+            for (int i = 0; i < files.Length-1; i++)
+            {
+                argument += Path.GetFullPath(files[i]) + "|";
+            }
+            argument += Path.GetFullPath(files[files.Length-1]) + "\" -acodec copy "+ Path.GetFullPath(@"G:/EKE/szakmai gyak/AudioBookCutter\") + filename + fileFormat + exit;
+            addArguments(argument);
+            cmd.Start();
+            cmd.WaitForExit();
+            return @"G:/EKE/szakmai gyak/AudioBookCutter\" + filename + fileFormat;
         }
     }
 }
