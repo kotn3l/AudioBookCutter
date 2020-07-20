@@ -188,13 +188,18 @@ namespace AudioBookCutter
 
         private void audioWaveImage_Click(object sender, EventArgs e)
         {
-            if (wavePlayer.PlaybackState == PlaybackState.Playing)
-            {
-                //file.WaveFormat.
-            }
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
+            if (wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Playing)
+            {
+                audio.File.CurrentTime.Add(new TimeSpan (0,0,0,0, (int)seekerCalc()));
+            }
+        }
+
+        private double seekerCalc()
+        {
+            return -1 * (audio.File.CurrentTime.TotalMilliseconds - locationTime());
         }
     }
 }
