@@ -189,8 +189,10 @@ namespace AudioBookCutter
         {
             ffmpeg = new Command(audio.aPath);
             List<TimeSpan> times = new List<TimeSpan>();
-            times.Add(new TimeSpan(0, 1, 31));
-            times.Add(new TimeSpan(0, 3, 0));
+            for (int i = 0; i < markers.Count; i++)
+            {
+                times.Add(markers[i].Time);
+            }
             ffmpeg.cutByTimeSpans(times, audio.File.TotalTime);
         }
 
