@@ -30,6 +30,9 @@ namespace AudioBookCutter
             audioWaveImage.Width = this.Width;
             markers = new List<Marker>();
             pmarkers = new List<PictureBox>();
+            label1.SendToBack();
+            label2.SendToBack();
+            label3.SendToBack();
         }
         private void audioWave()
         {

@@ -45,6 +45,15 @@
             this.stop = new System.Windows.Forms.Button();
             this.cut = new System.Windows.Forms.Button();
             this.markerCurrent = new System.Windows.Forms.Button();
+            this.markerOther = new System.Windows.Forms.Button();
+            this.markerHour = new System.Windows.Forms.TextBox();
+            this.markerMinute = new System.Windows.Forms.TextBox();
+            this.markerSeconds = new System.Windows.Forms.TextBox();
+            this.markerMiliseconds = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lbl_Time = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +110,7 @@
             // 
             this.trackLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackLength.AutoSize = true;
-            this.trackLength.Location = new System.Drawing.Point(733, 15);
+            this.trackLength.Location = new System.Drawing.Point(733, -1);
             this.trackLength.Name = "trackLength";
             this.trackLength.Size = new System.Drawing.Size(55, 13);
             this.trackLength.TabIndex = 1;
@@ -114,7 +123,7 @@
             // now
             // 
             this.now.AutoSize = true;
-            this.now.Location = new System.Drawing.Point(12, 15);
+            this.now.Location = new System.Drawing.Point(12, -1);
             this.now.Name = "now";
             this.now.Size = new System.Drawing.Size(55, 13);
             this.now.TabIndex = 2;
@@ -183,11 +192,102 @@
             this.markerCurrent.UseVisualStyleBackColor = true;
             this.markerCurrent.Click += new System.EventHandler(this.markerCurrent_Click);
             // 
+            // markerOther
+            // 
+            this.markerOther.Enabled = false;
+            this.markerOther.Location = new System.Drawing.Point(296, 181);
+            this.markerOther.Name = "markerOther";
+            this.markerOther.Size = new System.Drawing.Size(129, 23);
+            this.markerOther.TabIndex = 9;
+            this.markerOther.Text = "Marker to this time";
+            this.markerOther.UseVisualStyleBackColor = true;
+            // 
+            // markerHour
+            // 
+            this.markerHour.Enabled = false;
+            this.markerHour.Location = new System.Drawing.Point(296, 210);
+            this.markerHour.Name = "markerHour";
+            this.markerHour.Size = new System.Drawing.Size(21, 20);
+            this.markerHour.TabIndex = 10;
+            this.markerHour.Text = "0";
+            // 
+            // markerMinute
+            // 
+            this.markerMinute.Enabled = false;
+            this.markerMinute.Location = new System.Drawing.Point(323, 210);
+            this.markerMinute.Name = "markerMinute";
+            this.markerMinute.Size = new System.Drawing.Size(21, 20);
+            this.markerMinute.TabIndex = 11;
+            this.markerMinute.Text = "0";
+            // 
+            // markerSeconds
+            // 
+            this.markerSeconds.Enabled = false;
+            this.markerSeconds.Location = new System.Drawing.Point(350, 210);
+            this.markerSeconds.Name = "markerSeconds";
+            this.markerSeconds.Size = new System.Drawing.Size(21, 20);
+            this.markerSeconds.TabIndex = 12;
+            this.markerSeconds.Text = "0";
+            // 
+            // markerMiliseconds
+            // 
+            this.markerMiliseconds.Enabled = false;
+            this.markerMiliseconds.Location = new System.Drawing.Point(377, 210);
+            this.markerMiliseconds.Name = "markerMiliseconds";
+            this.markerMiliseconds.Size = new System.Drawing.Size(48, 20);
+            this.markerMiliseconds.TabIndex = 13;
+            this.markerMiliseconds.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(315, 213);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(10, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = ":";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(342, 213);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(10, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = ":";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(369, 213);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(10, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = ".";
+            // 
+            // lbl_Time
+            // 
+            this.lbl_Time.AutoSize = true;
+            this.lbl_Time.Location = new System.Drawing.Point(295, 232);
+            this.lbl_Time.Name = "lbl_Time";
+            this.lbl_Time.Size = new System.Drawing.Size(116, 13);
+            this.lbl_Time.TabIndex = 17;
+            this.lbl_Time.Text = "HH   MM    SS         ms";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lbl_Time);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.markerMiliseconds);
+            this.Controls.Add(this.markerSeconds);
+            this.Controls.Add(this.markerMinute);
+            this.Controls.Add(this.markerHour);
+            this.Controls.Add(this.markerOther);
             this.Controls.Add(this.markerCurrent);
             this.Controls.Add(this.cut);
             this.Controls.Add(this.stop);
@@ -226,6 +326,15 @@
         private System.Windows.Forms.Button stop;
         private System.Windows.Forms.Button cut;
         private System.Windows.Forms.Button markerCurrent;
+        private System.Windows.Forms.Button markerOther;
+        private System.Windows.Forms.TextBox markerHour;
+        private System.Windows.Forms.TextBox markerMinute;
+        private System.Windows.Forms.TextBox markerSeconds;
+        private System.Windows.Forms.TextBox markerMiliseconds;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbl_Time;
     }
 }
 
