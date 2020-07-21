@@ -281,5 +281,20 @@ namespace AudioBookCutter
                 }
             }
         }
+
+        private void lb_Markers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                if (lb_Markers.SelectedValue == markers[i])
+                {
+                    pmarkers[i].BackColor = Color.Green;
+                }
+                else
+                {
+                    pmarkers[i].BackColor = Color.Blue;
+                }
+            }
+        }
     }
 }

@@ -196,9 +196,9 @@
             // markerOther
             // 
             this.markerOther.Enabled = false;
-            this.markerOther.Location = new System.Drawing.Point(296, 181);
+            this.markerOther.Location = new System.Drawing.Point(152, 210);
             this.markerOther.Name = "markerOther";
-            this.markerOther.Size = new System.Drawing.Size(129, 23);
+            this.markerOther.Size = new System.Drawing.Size(138, 23);
             this.markerOther.TabIndex = 9;
             this.markerOther.Text = "Marker to this time";
             this.markerOther.UseVisualStyleBackColor = true;
@@ -207,7 +207,7 @@
             // markerHour
             // 
             this.markerHour.Enabled = false;
-            this.markerHour.Location = new System.Drawing.Point(296, 210);
+            this.markerHour.Location = new System.Drawing.Point(152, 239);
             this.markerHour.Name = "markerHour";
             this.markerHour.Size = new System.Drawing.Size(21, 20);
             this.markerHour.TabIndex = 10;
@@ -216,7 +216,7 @@
             // markerMinute
             // 
             this.markerMinute.Enabled = false;
-            this.markerMinute.Location = new System.Drawing.Point(323, 210);
+            this.markerMinute.Location = new System.Drawing.Point(179, 239);
             this.markerMinute.Name = "markerMinute";
             this.markerMinute.Size = new System.Drawing.Size(21, 20);
             this.markerMinute.TabIndex = 11;
@@ -225,7 +225,7 @@
             // markerSeconds
             // 
             this.markerSeconds.Enabled = false;
-            this.markerSeconds.Location = new System.Drawing.Point(350, 210);
+            this.markerSeconds.Location = new System.Drawing.Point(206, 239);
             this.markerSeconds.Name = "markerSeconds";
             this.markerSeconds.Size = new System.Drawing.Size(21, 20);
             this.markerSeconds.TabIndex = 12;
@@ -234,16 +234,16 @@
             // markerMiliseconds
             // 
             this.markerMiliseconds.Enabled = false;
-            this.markerMiliseconds.Location = new System.Drawing.Point(377, 210);
+            this.markerMiliseconds.Location = new System.Drawing.Point(233, 239);
             this.markerMiliseconds.Name = "markerMiliseconds";
-            this.markerMiliseconds.Size = new System.Drawing.Size(48, 20);
+            this.markerMiliseconds.Size = new System.Drawing.Size(57, 20);
             this.markerMiliseconds.TabIndex = 13;
             this.markerMiliseconds.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(315, 213);
+            this.label1.Location = new System.Drawing.Point(171, 242);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 14;
@@ -252,7 +252,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(342, 213);
+            this.label2.Location = new System.Drawing.Point(198, 242);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 15;
@@ -261,7 +261,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(369, 213);
+            this.label3.Location = new System.Drawing.Point(225, 242);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 16;
@@ -270,11 +270,11 @@
             // lbl_Time
             // 
             this.lbl_Time.AutoSize = true;
-            this.lbl_Time.Location = new System.Drawing.Point(295, 232);
+            this.lbl_Time.Location = new System.Drawing.Point(151, 261);
             this.lbl_Time.Name = "lbl_Time";
-            this.lbl_Time.Size = new System.Drawing.Size(116, 13);
+            this.lbl_Time.Size = new System.Drawing.Size(122, 13);
             this.lbl_Time.TabIndex = 17;
-            this.lbl_Time.Text = "HH   MM    SS         ms";
+            this.lbl_Time.Text = "HH   MM    SS           ms";
             // 
             // lb_Markers
             // 
@@ -282,8 +282,9 @@
             this.lb_Markers.FormattingEnabled = true;
             this.lb_Markers.Location = new System.Drawing.Point(678, 182);
             this.lb_Markers.Name = "lb_Markers";
-            this.lb_Markers.Size = new System.Drawing.Size(110, 95);
+            this.lb_Markers.Size = new System.Drawing.Size(110, 251);
             this.lb_Markers.TabIndex = 18;
+            this.lb_Markers.SelectedIndexChanged += new System.EventHandler(this.lb_Markers_SelectedIndexChanged);
             // 
             // MainWindow
             // 
