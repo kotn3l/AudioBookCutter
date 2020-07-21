@@ -8,11 +8,16 @@ namespace AudioBookCutter
 {
     class Marker
     {
-        private int xValue;
+        /*private int xValue;
         public int XValue
         {
             get { return xValue; }
             set { xValue = value; }
+        }*/
+
+        public int calculateX(int windowWidth, TimeSpan audioLength)
+        {
+            return (int)((this.time.TotalMilliseconds / (audioLength.TotalMilliseconds)) * windowWidth);
         }
 
         private TimeSpan time;
@@ -22,9 +27,8 @@ namespace AudioBookCutter
             set { time = value; }
         }
 
-        public Marker(int xValue, TimeSpan time)
+        public Marker(TimeSpan time)
         {
-            this.xValue = xValue;
             this.time = time;
         }
     }

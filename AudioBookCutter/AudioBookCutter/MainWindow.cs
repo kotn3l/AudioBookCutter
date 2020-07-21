@@ -67,9 +67,18 @@ namespace AudioBookCutter
                 trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
                 audioWave();
                 buttonChange(false);
-                markerCurrent.Enabled = true;
-                
+                enableOtherControls();
             }
+        }
+
+        private void enableOtherControls()
+        {
+            markerCurrent.Enabled = true;
+            markerOther.Enabled = true;
+            markerHour.Enabled = true;
+            markerMinute.Enabled = true;
+            markerSeconds.Enabled = true;
+            markerMiliseconds.Enabled = true;
         }
 
         private static string FormatTimeSpan(TimeSpan ts)
@@ -234,9 +243,27 @@ namespace AudioBookCutter
                 marker.BackColor = Color.Blue;
                 this.Controls.Add(marker);
                 marker.BringToFront();
-                pmarkers.Add(marker);
 
-                Marker mmarker = new Marker(marker.Location.X, TimeSpan.FromMilliseconds(audio.File.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
+                Marker mmarker = new Marker(TimeSpan.FromMilliseconds(audio.File.TotalTime.TotalMilliseconds * (marker.Location.X / (double)audioWaveImage.Width)));
+
+                pmarkers.Add(marker);
+                markers.Add(mmarker);
+            }
+        }
+
+        private void markerOther_Click(object sender, EventArgs e)
+        {
+            if (audio != null)
+            {
+                Marker mmarker = new Marker(new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text)));
+                PictureBox marker = new PictureBox();
+                marker.Size = new Size(seeker.Size.Width + 1, seeker.Size.Height);
+                marker.Location = new Point(mmarker.calculateX(this.Width, audio.File.TotalTime), seeker.Location.Y);
+                marker.BackColor = Color.Blue;
+                this.Controls.Add(marker);
+                marker.BringToFront();
+
+                pmarkers.Add(marker);
                 markers.Add(mmarker);
             }
         }

@@ -177,7 +177,7 @@
             this.cut.Name = "cut";
             this.cut.Size = new System.Drawing.Size(75, 23);
             this.cut.TabIndex = 7;
-            this.cut.Text = "button1";
+            this.cut.Text = "Cut";
             this.cut.UseVisualStyleBackColor = true;
             this.cut.Click += new System.EventHandler(this.cut_Click);
             // 
@@ -201,6 +201,7 @@
             this.markerOther.TabIndex = 9;
             this.markerOther.Text = "Marker to this time";
             this.markerOther.UseVisualStyleBackColor = true;
+            this.markerOther.Click += new System.EventHandler(this.markerOther_Click);
             // 
             // markerHour
             // 
