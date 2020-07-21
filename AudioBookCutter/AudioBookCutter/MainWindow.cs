@@ -238,7 +238,7 @@ namespace AudioBookCutter
             if (audio != null)
             {
                 PictureBox marker = new PictureBox();
-                marker.Size = new Size(seeker.Size.Width + 1, seeker.Size.Height);
+                marker.Size = new Size(2, seeker.Size.Height);
                 marker.Location = seeker.Location;
                 marker.BackColor = Color.Blue;
                 this.Controls.Add(marker);
@@ -263,7 +263,7 @@ namespace AudioBookCutter
                 {
                     Marker mmarker = new Marker(ts);
                     PictureBox marker = new PictureBox();
-                    marker.Size = new Size(seeker.Size.Width + 1, seeker.Size.Height);
+                    marker.Size = new Size(2, seeker.Size.Height);
                     marker.Location = new Point(mmarker.calculateX(this.Width-16, audio.File.TotalTime), seeker.Location.Y);
                     marker.BackColor = Color.Blue;
                     this.Controls.Add(marker);
@@ -289,10 +289,12 @@ namespace AudioBookCutter
                 if (lb_Markers.SelectedValue == markers[i])
                 {
                     pmarkers[i].BackColor = Color.Green;
+                    pmarkers[i].Width = 3;
                 }
                 else
                 {
                     pmarkers[i].BackColor = Color.Blue;
+                    pmarkers[i].Width = 2;
                 }
             }
         }
