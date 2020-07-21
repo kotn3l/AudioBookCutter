@@ -233,6 +233,12 @@ namespace AudioBookCutter
             return (audio.File.CurrentTime.TotalMilliseconds - locationTime());
         }
 
+        private void resetDataSource()
+        {
+            lb_Markers.DataSource = null;
+            lb_Markers.DataSource = markers;
+        }
+
         private void markerCurrent_Click(object sender, EventArgs e)
         {
             if (audio != null)
@@ -249,8 +255,7 @@ namespace AudioBookCutter
                 pmarkers.Add(marker);
                 markers.Add(mmarker);
 
-                lb_Markers.DataSource = null;
-                lb_Markers.DataSource = markers;
+                resetDataSource();
             }
         }
 
@@ -272,8 +277,7 @@ namespace AudioBookCutter
                     pmarkers.Add(marker);
                     markers.Add(mmarker);
 
-                    lb_Markers.DataSource = null;
-                    lb_Markers.DataSource = markers;
+                    resetDataSource();
                 }
                 else
                 {
@@ -295,6 +299,21 @@ namespace AudioBookCutter
                 {
                     pmarkers[i].BackColor = Color.Blue;
                     pmarkers[i].Width = 2;
+                }
+            }
+        }
+
+        private void btnDeleteMarker_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                if (lb_Markers.SelectedValue == markers[i])
+                {
+                    this.Controls.Remove(pmarkers[i]);
+                    pmarkers.RemoveAt(i);
+                    markers.RemoveAt(i);
+                    resetDataSource();
+                    return;
                 }
             }
         }

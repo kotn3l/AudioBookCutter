@@ -55,6 +55,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_Time = new System.Windows.Forms.Label();
             this.lb_Markers = new System.Windows.Forms.ListBox();
+            this.btnDeleteMarker = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -278,19 +279,29 @@
             // 
             // lb_Markers
             // 
-            this.lb_Markers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_Markers.FormattingEnabled = true;
-            this.lb_Markers.Location = new System.Drawing.Point(635, 190);
+            this.lb_Markers.Location = new System.Drawing.Point(296, 191);
             this.lb_Markers.Name = "lb_Markers";
             this.lb_Markers.Size = new System.Drawing.Size(153, 251);
             this.lb_Markers.TabIndex = 18;
             this.lb_Markers.SelectedIndexChanged += new System.EventHandler(this.lb_Markers_SelectedIndexChanged);
+            // 
+            // btnDeleteMarker
+            // 
+            this.btnDeleteMarker.Location = new System.Drawing.Point(455, 191);
+            this.btnDeleteMarker.Name = "btnDeleteMarker";
+            this.btnDeleteMarker.Size = new System.Drawing.Size(83, 23);
+            this.btnDeleteMarker.TabIndex = 19;
+            this.btnDeleteMarker.Text = "Delete marker";
+            this.btnDeleteMarker.UseVisualStyleBackColor = true;
+            this.btnDeleteMarker.Click += new System.EventHandler(this.btnDeleteMarker_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
+            this.Controls.Add(this.btnDeleteMarker);
             this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
             this.Controls.Add(this.label3);
@@ -349,6 +360,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Time;
         private System.Windows.Forms.ListBox lb_Markers;
+        private System.Windows.Forms.Button btnDeleteMarker;
     }
 }
 
