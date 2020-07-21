@@ -98,7 +98,7 @@ namespace AudioBookCutter
             }
             for (int i = 0; i < pmarkers.Count; i++)
             {
-                pmarkers[i].Location = new Point((int)((markers[i].Time.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width-16), pmarkers[i].Location.Y);
+                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), pmarkers[i].Location.Y);
             }
         }
 
