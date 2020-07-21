@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_Time = new System.Windows.Forms.Label();
+            this.lb_Markers = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -275,11 +276,21 @@
             this.lbl_Time.TabIndex = 17;
             this.lbl_Time.Text = "HH   MM    SS         ms";
             // 
+            // lb_Markers
+            // 
+            this.lb_Markers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_Markers.FormattingEnabled = true;
+            this.lb_Markers.Location = new System.Drawing.Point(678, 182);
+            this.lb_Markers.Name = "lb_Markers";
+            this.lb_Markers.Size = new System.Drawing.Size(110, 95);
+            this.lb_Markers.TabIndex = 18;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -336,6 +347,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Time;
+        private System.Windows.Forms.ListBox lb_Markers;
     }
 }
 

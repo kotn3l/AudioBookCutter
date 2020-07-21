@@ -31,5 +31,10 @@ namespace AudioBookCutter
         {
             this.time = time;
         }
+
+        public override string ToString()
+        {
+            return time.ToString();
+        }
     }
 }

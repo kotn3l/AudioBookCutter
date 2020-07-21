@@ -27,7 +27,7 @@ namespace AudioBookCutter
         public MainWindow()
         {
             InitializeComponent();
-            audioWaveImage.Width = this.Width;
+            audioWaveImage.Width = this.Width-16;
             markers = new List<Marker>();
             pmarkers = new List<PictureBox>();
             label1.SendToBack();
@@ -36,14 +36,14 @@ namespace AudioBookCutter
         }
         private void audioWave()
         {
-            audioWaveImage.Image = audio.audioWave(this.Width);
+            audioWaveImage.Image = audio.audioWave(this.Width-16);
         }
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             if (audio != null)
             {
-                audioWaveImage.Width = this.Width;
+                audioWaveImage.Width = this.Width-16;
                 Thread t = new Thread(() => audioWave());
                 t.Start();
                 timeLocation();
@@ -90,7 +90,7 @@ namespace AudioBookCutter
         {
             if (timer1.Enabled == true)
             {
-                seeker.Location = new Point((int)((audio.File.CurrentTime.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width), seeker.Location.Y);
+                seeker.Location = new Point((int)((audio.File.CurrentTime.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width-16), seeker.Location.Y);
             }
             else
             {
@@ -98,7 +98,7 @@ namespace AudioBookCutter
             }
             for (int i = 0; i < pmarkers.Count; i++)
             {
-                pmarkers[i].Location = new Point((int)((markers[i].Time.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width), pmarkers[i].Location.Y);
+                pmarkers[i].Location = new Point((int)((markers[i].Time.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width-16), pmarkers[i].Location.Y);
             }
         }
 
@@ -248,6 +248,9 @@ namespace AudioBookCutter
 
                 pmarkers.Add(marker);
                 markers.Add(mmarker);
+
+                lb_Markers.DataSource = null;
+                lb_Markers.DataSource = markers;
             }
         }
 
@@ -255,16 +258,27 @@ namespace AudioBookCutter
         {
             if (audio != null)
             {
-                Marker mmarker = new Marker(new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text)));
-                PictureBox marker = new PictureBox();
-                marker.Size = new Size(seeker.Size.Width + 1, seeker.Size.Height);
-                marker.Location = new Point(mmarker.calculateX(this.Width, audio.File.TotalTime), seeker.Location.Y);
-                marker.BackColor = Color.Blue;
-                this.Controls.Add(marker);
-                marker.BringToFront();
+                TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
+                if (ts <= audio.File.TotalTime)
+                {
+                    Marker mmarker = new Marker(ts);
+                    PictureBox marker = new PictureBox();
+                    marker.Size = new Size(seeker.Size.Width + 1, seeker.Size.Height);
+                    marker.Location = new Point(mmarker.calculateX(this.Width-16, audio.File.TotalTime), seeker.Location.Y);
+                    marker.BackColor = Color.Blue;
+                    this.Controls.Add(marker);
+                    marker.BringToFront();
 
-                pmarkers.Add(marker);
-                markers.Add(mmarker);
+                    pmarkers.Add(marker);
+                    markers.Add(mmarker);
+
+                    lb_Markers.DataSource = null;
+                    lb_Markers.DataSource = markers;
+                }
+                else
+                {
+                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                }
             }
         }
     }
