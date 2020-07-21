@@ -33,6 +33,10 @@ namespace AudioBookCutter
             label1.SendToBack();
             label2.SendToBack();
             label3.SendToBack();
+            lbScale.DataSource = new List<string>()
+            {
+                 "MS", "SS", "MM", "HH"
+            };
         }
         private void audioWave()
         {
@@ -314,6 +318,86 @@ namespace AudioBookCutter
                     markers.RemoveAt(i);
                     resetDataSource();
                     return;
+                }
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                if (lb_Markers.SelectedValue == markers[i])
+                {
+                    if (lbScale.SelectedValue.ToString() == "MS")
+                    {
+                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        resetDataSource();
+                        return;
+                    }
+                    else if (lbScale.SelectedValue.ToString() == "SS")
+                    {
+                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0,0,(int)numericUpDown1.Value));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        resetDataSource();
+                        return;
+                    }
+                    else if (lbScale.SelectedValue.ToString() == "MM")
+                    {
+                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0, (int)numericUpDown1.Value, 0));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        resetDataSource();
+                        return;
+                    }
+                    else if (lbScale.SelectedValue.ToString() == "HH")
+                    {
+                        markers[i].Time = markers[i].Time.Add(new TimeSpan((int)numericUpDown1.Value, 0, 0));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        resetDataSource();
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void btnSubtract_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                if (lb_Markers.SelectedValue == markers[i])
+                {
+                    if (lbScale.SelectedValue.ToString() == "MS")
+                    {
+                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        return;
+                    }
+                    else if (lbScale.SelectedValue.ToString() == "SS")
+                    {
+                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, (int)numericUpDown1.Value));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        return;
+                    }
+                    else if (lbScale.SelectedValue.ToString() == "MM")
+                    {
+                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, (int)numericUpDown1.Value, 0));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        return;
+                    }
+                    else if (lbScale.SelectedValue.ToString() == "HH")
+                    {
+                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan((int)numericUpDown1.Value, 0, 0));
+                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, audio.File.TotalTime), seeker.Location.Y);
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
         }

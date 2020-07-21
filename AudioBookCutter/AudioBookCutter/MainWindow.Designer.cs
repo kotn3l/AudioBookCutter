@@ -56,8 +56,13 @@
             this.lbl_Time = new System.Windows.Forms.Label();
             this.lb_Markers = new System.Windows.Forms.ListBox();
             this.btnDeleteMarker = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.lbScale = new System.Windows.Forms.ListBox();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnSubtract = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // audioWaveImage
@@ -290,17 +295,56 @@
             // 
             this.btnDeleteMarker.Location = new System.Drawing.Point(455, 191);
             this.btnDeleteMarker.Name = "btnDeleteMarker";
-            this.btnDeleteMarker.Size = new System.Drawing.Size(83, 23);
+            this.btnDeleteMarker.Size = new System.Drawing.Size(104, 23);
             this.btnDeleteMarker.TabIndex = 19;
             this.btnDeleteMarker.Text = "Delete marker";
             this.btnDeleteMarker.UseVisualStyleBackColor = true;
             this.btnDeleteMarker.Click += new System.EventHandler(this.btnDeleteMarker_Click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(501, 222);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(58, 20);
+            this.numericUpDown1.TabIndex = 20;
+            // 
+            // lbScale
+            // 
+            this.lbScale.FormattingEnabled = true;
+            this.lbScale.Location = new System.Drawing.Point(455, 220);
+            this.lbScale.Name = "lbScale";
+            this.lbScale.Size = new System.Drawing.Size(40, 56);
+            this.lbScale.TabIndex = 21;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(501, 248);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(20, 23);
+            this.btnAdd.TabIndex = 22;
+            this.btnAdd.Text = "+";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnSubtract
+            // 
+            this.btnSubtract.Location = new System.Drawing.Point(539, 248);
+            this.btnSubtract.Name = "btnSubtract";
+            this.btnSubtract.Size = new System.Drawing.Size(20, 23);
+            this.btnSubtract.TabIndex = 23;
+            this.btnSubtract.Text = "-";
+            this.btnSubtract.UseVisualStyleBackColor = true;
+            this.btnSubtract.Click += new System.EventHandler(this.btnSubtract_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
+            this.Controls.Add(this.btnSubtract);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lbScale);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.btnDeleteMarker);
             this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
@@ -327,6 +371,7 @@
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,6 +406,10 @@
         private System.Windows.Forms.Label lbl_Time;
         private System.Windows.Forms.ListBox lb_Markers;
         private System.Windows.Forms.Button btnDeleteMarker;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.ListBox lbScale;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnSubtract;
     }
 }
 
