@@ -24,7 +24,7 @@ namespace AudioBookCutter
         private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path, string save)
         {
             init();
-            List<TimeSpan> ordered = new List<TimeSpan>(times.OrderBy(time => time.Milliseconds));
+            List<TimeSpan> ordered = new List<TimeSpan>(times.OrderBy(time => time.TotalMilliseconds));
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
             string end = " -c copy " + "\"" + workingDir + cut + save;
