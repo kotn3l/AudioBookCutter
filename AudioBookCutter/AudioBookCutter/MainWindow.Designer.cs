@@ -287,13 +287,13 @@
             this.lb_Markers.FormattingEnabled = true;
             this.lb_Markers.Location = new System.Drawing.Point(296, 191);
             this.lb_Markers.Name = "lb_Markers";
-            this.lb_Markers.Size = new System.Drawing.Size(153, 251);
+            this.lb_Markers.Size = new System.Drawing.Size(75, 251);
             this.lb_Markers.TabIndex = 18;
             this.lb_Markers.SelectedIndexChanged += new System.EventHandler(this.lb_Markers_SelectedIndexChanged);
             // 
             // btnDeleteMarker
             // 
-            this.btnDeleteMarker.Location = new System.Drawing.Point(455, 191);
+            this.btnDeleteMarker.Location = new System.Drawing.Point(377, 191);
             this.btnDeleteMarker.Name = "btnDeleteMarker";
             this.btnDeleteMarker.Size = new System.Drawing.Size(104, 23);
             this.btnDeleteMarker.TabIndex = 19;
@@ -303,7 +303,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(501, 222);
+            this.numericUpDown1.Location = new System.Drawing.Point(423, 222);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(58, 20);
             this.numericUpDown1.TabIndex = 20;
@@ -311,14 +311,14 @@
             // lbScale
             // 
             this.lbScale.FormattingEnabled = true;
-            this.lbScale.Location = new System.Drawing.Point(455, 220);
+            this.lbScale.Location = new System.Drawing.Point(377, 220);
             this.lbScale.Name = "lbScale";
             this.lbScale.Size = new System.Drawing.Size(40, 56);
             this.lbScale.TabIndex = 21;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(501, 248);
+            this.btnAdd.Location = new System.Drawing.Point(423, 248);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(20, 23);
             this.btnAdd.TabIndex = 22;
@@ -328,7 +328,7 @@
             // 
             // btnSubtract
             // 
-            this.btnSubtract.Location = new System.Drawing.Point(539, 248);
+            this.btnSubtract.Location = new System.Drawing.Point(461, 248);
             this.btnSubtract.Name = "btnSubtract";
             this.btnSubtract.Size = new System.Drawing.Size(20, 23);
             this.btnSubtract.TabIndex = 23;

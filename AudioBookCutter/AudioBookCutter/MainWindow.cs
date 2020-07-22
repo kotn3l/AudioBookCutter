@@ -240,7 +240,7 @@ namespace AudioBookCutter
         private void resetDataSource()
         {
             lb_Markers.DataSource = null;
-            lb_Markers.DataSource = markers;
+            lb_Markers.DataSource = markers.OrderBy(m => m.Time).ToList();
         }
 
         private void markerCurrent_Click(object sender, EventArgs e)

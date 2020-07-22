@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace AudioBookCutter
 {
@@ -34,7 +35,8 @@ namespace AudioBookCutter
 
         public override string ToString()
         {
-            return time.ToString();
+            string[] temp = time.ToString().Split('.');
+            return temp[0] + "." + ( 1 >= temp.Length ? new string('0',3) : temp[1].PadRight(3, '0').Substring(0,3));
         }
     }
 }
