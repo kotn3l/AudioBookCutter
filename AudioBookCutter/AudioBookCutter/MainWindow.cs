@@ -234,7 +234,7 @@ namespace AudioBookCutter
             {
                 times.Add(markers[i].Time);
             }
-            ffmpeg.cutByTimeSpans(times, audio);
+            ffmpeg.cutByTimeSpans(times, audio, "test");
         }
 
         private void audioWaveImage_Click(object sender, EventArgs e)

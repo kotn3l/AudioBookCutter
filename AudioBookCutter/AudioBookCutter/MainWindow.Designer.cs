@@ -180,7 +180,6 @@
             // 
             // cut
             // 
-            this.cut.Enabled = false;
             this.cut.Location = new System.Drawing.Point(377, 191);
             this.cut.Name = "cut";
             this.cut.Size = new System.Drawing.Size(75, 23);

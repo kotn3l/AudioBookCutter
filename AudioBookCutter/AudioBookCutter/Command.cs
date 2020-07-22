@@ -13,47 +13,35 @@ namespace AudioBookCutter
     {
         ProcessStartInfo startInfo;
         private string argumentStart = "-i ";
-        private string exit = " & exit";
+        private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        private string temp = @"\temp\";
+        private string cut = @"\cut\";
 
-        public void cutByTimeSpans(List<TimeSpan> times, Audio audio)
+        public void cutByTimeSpans(List<TimeSpan> times, Audio audio, string save)
         {
-            //Thread ffmpeg = new Thread(() => cutByTimeSpansIn(times, length));
-            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath);
-
+            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath, save);
         }
-        private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path)
+        private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path, string save)
         {
-            //init();
-            //StringBuilder sb = new StringBuilder();
-            times.OrderBy(time => time.Milliseconds);
+            init();
+            List<TimeSpan> ordered = new List<TimeSpan>(times.OrderBy(time => time.Milliseconds));
             string fileFormat = Path.GetExtension(path);
-            string argument = argumentStart + Path.GetFullPath(path);
-            string end = " -c copy " + Path.GetFullPath(@"G:/EKE/szakmai gyak/AudioBookCutter\") + Path.GetFileNameWithoutExtension(path);
+            string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
+            string end = " -c copy " + "\"" + workingDir + cut + save;
             string temp;
-            temp = argument + " -ss 00:00:00.0 -to " + times[0] + end + 0 + fileFormat + exit;
-            //addArguments(temp);
-            cmd = Process.Start(processInfo);
-            cmd.OutputDataReceived += (sender, args) => sb.AppendLine(temp);
-            cmd.BeginOutputReadLine();
-            cmd.WaitForExit();
-            //cmd.WaitForExit();
+            temp = argument + " -ss 00:00:00.0 -to " + ordered[0] + end + 0 + fileFormat + "\"";
+            Execute(temp);
             temp = "";
             int i = 1;
-            while (i < times.Count)
+            while (i < ordered.Count)
             {
-                temp = argument + " -ss " + times[i - 1] + " -to " + times[i] + end + i + fileFormat + exit;
-                cmd = Process.Start(processInfo);
-                cmd.OutputDataReceived += (sender, args) => sb.AppendLine(temp);
-                cmd.BeginOutputReadLine();
-                cmd.WaitForExit();
+                temp = argument + " -ss " + ordered[i - 1] + " -to " + ordered[i] + end + i + fileFormat + "\"";
+                Execute(temp);
                 temp = "";
                 i++;
             }
-            temp = argument + " -ss " + times[i-1] + " -to "+ length + end + i + fileFormat + exit;
-            cmd = Process.Start(processInfo);
-            cmd.OutputDataReceived += (sender, args) => sb.AppendLine(temp);
-            cmd.BeginOutputReadLine();
-            cmd.WaitForExit();
+            temp = argument + " -ss " + ordered[i-1] + " -to "+ length + end + i + fileFormat + "\"";
+            Execute(temp);
         }
         private void init()
         {
@@ -62,6 +50,9 @@ namespace AudioBookCutter
             startInfo.UseShellExecute = false;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.FileName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\ffmpeg.exe";
+
+            Directory.CreateDirectory(workingDir + temp);
+            Directory.CreateDirectory(workingDir + cut);
         }
         public string mergeFiles(string[] files)
         {
@@ -73,12 +64,24 @@ namespace AudioBookCutter
             {
                 argument += Path.GetFullPath(files[i]) + "|";
             }
-            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + filename + "_merged" + fileFormat + "\"";
-            startInfo.Arguments = argument;
+            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + workingDir + temp + filename + "_merged" + fileFormat + "\"";
+            
 
+            /*string output;
+            using (Process exeProcess = Process.Start(startInfo))
+            {
+                string error = exeProcess.StandardError.ReadToEnd();
+                output = exeProcess.StandardError.ReadToEnd();
+                exeProcess.WaitForExit();
+            }
+            return output;*/
+            return Execute(argument);
+        }
+        private string Execute(string argument)
+        {
+            startInfo.Arguments = argument;
             startInfo.RedirectStandardOutput = true;
             startInfo.RedirectStandardError = true;
-
             string output;
             using (Process exeProcess = Process.Start(startInfo))
             {
