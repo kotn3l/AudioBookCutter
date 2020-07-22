@@ -11,25 +11,10 @@ namespace AudioBookCutter
 {
     class Command
     {
-        private Process cmd;
-        //private string path;
-        //private ProcessStartInfo startInfo;
-        private string argumentStart = "/C ffmpeg -i ";
+        ProcessStartInfo startInfo;
+        private string argumentStart = "-i ";
         private string exit = " & exit";
-        private StringBuilder sb = new StringBuilder();
-        private ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", "/c systeminfo")
-        {
-            CreateNoWindow = true,
-            UseShellExecute = false,
-            RedirectStandardError = true,
-            RedirectStandardOutput = true,
-            WorkingDirectory = @"C:\Windows\System32\"
-        };
 
-        /*public Command(string pathToFile)
-        {
-            this.path = pathToFile;
-        }*/
         public void cutByTimeSpans(List<TimeSpan> times, Audio audio)
         {
             //Thread ffmpeg = new Thread(() => cutByTimeSpansIn(times, length));
@@ -72,37 +57,36 @@ namespace AudioBookCutter
         }
         private void init()
         {
-            /*cmd = new Process();
             startInfo = new ProcessStartInfo();
-            //startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.RedirectStandardInput = false;
-            startInfo.RedirectStandardOutput = false;*/
-            
-
+            startInfo.CreateNoWindow = false;
+            startInfo.UseShellExecute = false;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.FileName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\ffmpeg.exe";
         }
-        /*private void addArguments(string argument)
-        {
-            startInfo.Arguments = argument;
-            cmd.StartInfo = startInfo;
-        }*/
-
         public string mergeFiles(string[] files)
         {
-            //init();
+            init();
             string fileFormat = Path.GetExtension(files[0]);
             string argument = argumentStart + "\"concat:";
-            string filename = "output";
-            for (int i = 0; i < files.Length-1; i++)
+            string filename = Path.GetDirectoryName(files[0]);
+            for (int i = 0; i < files.Length - 1; i++)
             {
                 argument += Path.GetFullPath(files[i]) + "|";
             }
-            argument += Path.GetFullPath(files[files.Length-1]) + "\" -acodec copy "+ Path.GetFullPath(@"G:/EKE/szakmai gyak/AudioBookCutter\") + filename + fileFormat + exit;
-            cmd = Process.Start(processInfo);
-            cmd.OutputDataReceived += (sender, args) => sb.AppendLine(argument);
-            cmd.BeginOutputReadLine();
-            cmd.WaitForExit();
-            return @"G:/EKE/szakmai gyak/AudioBookCutter\" + filename + fileFormat;
+            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + filename + "_merged" + fileFormat + "\"";
+            startInfo.Arguments = argument;
+
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+
+            string output;
+            using (Process exeProcess = Process.Start(startInfo))
+            {
+                string error = exeProcess.StandardError.ReadToEnd();
+                output = exeProcess.StandardError.ReadToEnd();
+                exeProcess.WaitForExit();
+            }
+            return output;
         }
     }
 }
