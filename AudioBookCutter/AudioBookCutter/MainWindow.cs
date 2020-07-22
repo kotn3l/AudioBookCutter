@@ -37,6 +37,18 @@ namespace AudioBookCutter
             {
                  "MS", "SS", "MM", "HH"
             };
+            this.KeyPreview = true;
+
+        }
+
+        //HOTKEYS
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                openAudio.PerformClick();
+                e.Handled = true;
+            }
         }
         private void audioWave()
         {

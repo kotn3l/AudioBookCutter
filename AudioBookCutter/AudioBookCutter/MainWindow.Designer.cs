@@ -375,6 +375,7 @@
             this.Name = "MainWindow";
             this.Text = "Main";
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
