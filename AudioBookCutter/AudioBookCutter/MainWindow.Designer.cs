@@ -180,7 +180,8 @@
             // 
             // cut
             // 
-            this.cut.Location = new System.Drawing.Point(12, 231);
+            this.cut.Enabled = false;
+            this.cut.Location = new System.Drawing.Point(377, 191);
             this.cut.Name = "cut";
             this.cut.Size = new System.Drawing.Size(75, 23);
             this.cut.TabIndex = 7;
@@ -287,15 +288,16 @@
             this.lb_Markers.FormattingEnabled = true;
             this.lb_Markers.Location = new System.Drawing.Point(296, 191);
             this.lb_Markers.Name = "lb_Markers";
-            this.lb_Markers.Size = new System.Drawing.Size(75, 251);
+            this.lb_Markers.Size = new System.Drawing.Size(75, 264);
             this.lb_Markers.TabIndex = 18;
             this.lb_Markers.SelectedIndexChanged += new System.EventHandler(this.lb_Markers_SelectedIndexChanged);
             // 
             // btnDeleteMarker
             // 
-            this.btnDeleteMarker.Location = new System.Drawing.Point(377, 191);
+            this.btnDeleteMarker.Enabled = false;
+            this.btnDeleteMarker.Location = new System.Drawing.Point(154, 295);
             this.btnDeleteMarker.Name = "btnDeleteMarker";
-            this.btnDeleteMarker.Size = new System.Drawing.Size(104, 23);
+            this.btnDeleteMarker.Size = new System.Drawing.Size(136, 23);
             this.btnDeleteMarker.TabIndex = 19;
             this.btnDeleteMarker.Text = "Delete marker";
             this.btnDeleteMarker.UseVisualStyleBackColor = true;
@@ -303,24 +305,27 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(423, 222);
+            this.numericUpDown1.Enabled = false;
+            this.numericUpDown1.Location = new System.Drawing.Point(200, 326);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(58, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown1.TabIndex = 20;
             // 
             // lbScale
             // 
+            this.lbScale.Enabled = false;
             this.lbScale.FormattingEnabled = true;
-            this.lbScale.Location = new System.Drawing.Point(377, 220);
+            this.lbScale.Location = new System.Drawing.Point(154, 324);
             this.lbScale.Name = "lbScale";
             this.lbScale.Size = new System.Drawing.Size(40, 56);
             this.lbScale.TabIndex = 21;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(423, 248);
+            this.btnAdd.Enabled = false;
+            this.btnAdd.Location = new System.Drawing.Point(200, 357);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(20, 23);
+            this.btnAdd.Size = new System.Drawing.Size(42, 23);
             this.btnAdd.TabIndex = 22;
             this.btnAdd.Text = "+";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -328,9 +333,10 @@
             // 
             // btnSubtract
             // 
-            this.btnSubtract.Location = new System.Drawing.Point(461, 248);
+            this.btnSubtract.Enabled = false;
+            this.btnSubtract.Location = new System.Drawing.Point(249, 357);
             this.btnSubtract.Name = "btnSubtract";
-            this.btnSubtract.Size = new System.Drawing.Size(20, 23);
+            this.btnSubtract.Size = new System.Drawing.Size(41, 23);
             this.btnSubtract.TabIndex = 23;
             this.btnSubtract.Text = "-";
             this.btnSubtract.UseVisualStyleBackColor = true;
