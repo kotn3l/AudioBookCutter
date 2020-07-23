@@ -85,7 +85,8 @@ namespace AudioBookCutter
                     audio = new Audio(openFileDialog1.FileNames[0]);
                 }
                 trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
-                audioWave();
+                Thread t = new Thread(() => audioWave());
+                t.Start();
                 buttonChange(false);
                 enableOtherControls();
             }
