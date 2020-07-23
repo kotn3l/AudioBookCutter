@@ -59,23 +59,15 @@ namespace AudioBookCutter
             init();
             string fileFormat = Path.GetExtension(files[0]);
             string argument = argumentStart + "\"concat:";
-            string filename = Path.GetDirectoryName(files[0]);
+            string filename = Path.GetFileName(Path.GetDirectoryName(files[0]));
+            string output = workingDir + temp + filename + "_merged" + fileFormat;
             for (int i = 0; i < files.Length - 1; i++)
             {
                 argument += Path.GetFullPath(files[i]) + "|";
             }
-            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + workingDir + temp + filename + "_merged" + fileFormat + "\"";
-            
-
-            /*string output;
-            using (Process exeProcess = Process.Start(startInfo))
-            {
-                string error = exeProcess.StandardError.ReadToEnd();
-                output = exeProcess.StandardError.ReadToEnd();
-                exeProcess.WaitForExit();
-            }
-            return output;*/
-            return Execute(argument);
+            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + output + "\"";
+            Execute(argument);
+            return output;
         }
         private string Execute(string argument)
         {
@@ -90,6 +82,19 @@ namespace AudioBookCutter
                 exeProcess.WaitForExit();
             }
             return output;
+        }
+
+        public void emptyTemp()
+        {
+            DirectoryInfo di = new DirectoryInfo(workingDir+temp);
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
         }
     }
 }
