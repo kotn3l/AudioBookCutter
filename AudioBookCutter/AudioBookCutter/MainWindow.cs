@@ -70,7 +70,7 @@ namespace AudioBookCutter
         private void openAudio_Click(object sender, EventArgs e)
         {
             openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "mp3 fájlok|*.mp3|WAV fájlok|*.wav";
+            openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -78,11 +78,11 @@ namespace AudioBookCutter
                 {
                     ffmpeg = new Command();
                     string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
-                    audio = new Audio(result);
+                    audio = new Audio(result, openFileDialog1.FileNames[0]);
                 }
                 else
                 {
-                    audio = new Audio(openFileDialog1.FileNames[0]);
+                    audio = new Audio(openFileDialog1.FileNames[0], openFileDialog1.FileNames[0]);
                 }
                 trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
                 Thread t = new Thread(() => audioWave());
@@ -238,7 +238,7 @@ namespace AudioBookCutter
             {
                 times.Add(markers[i].Time);
             }
-            ffmpeg.cutByTimeSpans(times, audio, "test");
+            ffmpeg.cutByTimeSpans(times, audio);
         }
 
         private void audioWaveImage_Click(object sender, EventArgs e)
@@ -310,13 +310,39 @@ namespace AudioBookCutter
             }
         }
 
+        private void opButtons(bool enable)
+        {
+            if (enable)
+            {
+                btnDeleteMarker.Enabled = true;
+                lbScale.Enabled = true;
+                numericUpDown1.Enabled = true;
+                btnAdd.Enabled = true;
+                btnSubtract.Enabled = true;
+                cut.Enabled = true;
+            }
+            else
+            {
+                btnDeleteMarker.Enabled = false;
+                lbScale.Enabled = false;
+                numericUpDown1.Enabled = false;
+                btnAdd.Enabled = false;
+                btnSubtract.Enabled = false;
+                cut.Enabled = false;
+            }
+        }
         private void lb_Markers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnDeleteMarker.Enabled = true;
-            lbScale.Enabled = true;
-            numericUpDown1.Enabled = true;
-            btnAdd.Enabled = true;
-            btnSubtract.Enabled = true;
+            if (pmarkers.Count > 0)
+            {
+                opButtons(true);
+            }
+            else
+            {
+                opButtons(false);
+            }
+
+
             for (int i = 0; i < pmarkers.Count; i++)
             {
                 if (lb_Markers.SelectedValue == markers[i])
@@ -433,6 +459,7 @@ namespace AudioBookCutter
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            audio = null;
             ffmpeg = new Command();
             ffmpeg.emptyTemp();
         }
