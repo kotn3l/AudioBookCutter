@@ -12,6 +12,14 @@ namespace AudioBookCutter
 {
     class Audio
     {
+        private string originalname;
+        public string OriginalName
+        {
+            get { return originalname; }
+            set { originalname = value; }
+        }
+
+
         private AudioFileReader file;
         public AudioFileReader File
         {
@@ -24,7 +32,7 @@ namespace AudioBookCutter
                 file = value;
             }
         }
-        private IWavePlayer wavePlayer;
+        //private IWavePlayer wavePlayer;
 
         private string apath;
         public string aPath
@@ -56,9 +64,10 @@ namespace AudioBookCutter
             return renderer.Render(this.apath, averagePeakProvider, myRendererSettings);
         }
 
-        public Audio(string path)
+        public Audio(string path, string originalname)
         {
             this.apath = path;
+            this.originalname = Path.GetFileName(Path.GetDirectoryName(originalname));
             this.file = new AudioFileReader(aPath);
         }
     }
