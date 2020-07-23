@@ -86,14 +86,25 @@ namespace AudioBookCutter
 
         public void emptyTemp()
         {
-            DirectoryInfo di = new DirectoryInfo(workingDir+temp);
-            foreach (FileInfo file in di.GetFiles())
+            try
             {
-                file.Delete();
+                DirectoryInfo di = new DirectoryInfo(workingDir + temp);
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
             }
-            foreach (DirectoryInfo dir in di.GetDirectories())
+            catch (IOException)
             {
-                dir.Delete(true);
+                return;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
