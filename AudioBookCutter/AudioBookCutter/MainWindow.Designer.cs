@@ -117,11 +117,11 @@
             // 
             this.trackLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackLength.AutoSize = true;
-            this.trackLength.Location = new System.Drawing.Point(733, 9);
+            this.trackLength.Location = new System.Drawing.Point(718, 9);
             this.trackLength.Name = "trackLength";
-            this.trackLength.Size = new System.Drawing.Size(55, 13);
+            this.trackLength.Size = new System.Drawing.Size(70, 13);
             this.trackLength.TabIndex = 1;
-            this.trackLength.Text = "00:00.000";
+            this.trackLength.Text = "00:00:00.000";
             // 
             // timer1
             // 
@@ -130,11 +130,11 @@
             // now
             // 
             this.now.AutoSize = true;
-            this.now.Location = new System.Drawing.Point(12, 9);
+            this.now.Location = new System.Drawing.Point(9, 9);
             this.now.Name = "now";
-            this.now.Size = new System.Drawing.Size(55, 13);
+            this.now.Size = new System.Drawing.Size(70, 13);
             this.now.TabIndex = 2;
-            this.now.Text = "00:00.000";
+            this.now.Text = "00:00:00.000";
             // 
             // start
             // 
@@ -373,6 +373,7 @@
             this.Menu = this.mainMenu1;
             this.Name = "MainWindow";
             this.Text = "Main";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();

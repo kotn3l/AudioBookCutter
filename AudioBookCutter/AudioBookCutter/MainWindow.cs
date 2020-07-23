@@ -78,9 +78,12 @@ namespace AudioBookCutter
                 {
                     ffmpeg = new Command();
                     string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
-                    MessageBox.Show(result);
+                    audio = new Audio(result);
                 }
-                audio = new Audio(openFileDialog1.FileNames[0]);
+                else
+                {
+                    audio = new Audio(openFileDialog1.FileNames[0]);
+                }
                 trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
                 audioWave();
                 buttonChange(false);
@@ -100,7 +103,7 @@ namespace AudioBookCutter
 
         private static string FormatTimeSpan(TimeSpan ts)
         {
-            return string.Format("{0:D2}:{1:D2}.{2:D2}", (int)ts.TotalMinutes, ts.Seconds, ts.Milliseconds);
+            return string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D2}", (int)ts.TotalHours, (int)ts.TotalMinutes, ts.Seconds, ts.Milliseconds);
         }
 
         private void timeLocation()
@@ -425,6 +428,12 @@ namespace AudioBookCutter
                     }
                 }
             }
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ffmpeg = new Command();
+            ffmpeg.emptyTemp();
         }
     }
 }
