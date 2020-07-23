@@ -180,7 +180,6 @@
             // 
             // cut
             // 
-            this.cut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cut.Enabled = false;
             this.cut.Location = new System.Drawing.Point(377, 191);
             this.cut.Name = "cut";

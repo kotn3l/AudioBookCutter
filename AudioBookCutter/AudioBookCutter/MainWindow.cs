@@ -49,6 +49,38 @@ namespace AudioBookCutter
                 openAudio.PerformClick();
                 e.Handled = true;
             }
+            if (e.Control && e.KeyCode == Keys.M)
+            {
+                if (markerOther.Enabled)
+                {
+                    markerOther.PerformClick();
+                }
+                e.Handled = true;
+            }
+            if (e.Control && e.KeyCode == Keys.D)
+            {
+                if (btnDeleteMarker.Enabled)
+                {
+                    btnDeleteMarker.PerformClick();
+                }
+                e.Handled = true;
+            }
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                if (cut.Enabled)
+                {
+                    cut.PerformClick();
+                }
+                e.Handled = true;
+            }
+            if (e.Control && e.KeyCode == Keys.F)
+            {
+                if (lb_Markers.Enabled)
+                {
+                    lb_Markers.Focus();
+                }
+                e.Handled = true;
+            }
         }
         private void audioWave()
         {
