@@ -56,6 +56,7 @@ namespace AudioBookCutter
         }
         public string mergeFiles(string[] files)
         {
+            emptyTemp();
             init();
             string fileFormat = Path.GetExtension(files[0]);
             string argument = argumentStart + "\"concat:";

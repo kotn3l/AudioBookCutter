@@ -61,6 +61,7 @@ namespace AudioBookCutter
             {
                 audioWaveImage.Width = this.Width-16;
                 Thread t = new Thread(() => audioWave());
+                t.IsBackground = true;
                 t.Start();
                 timeLocation();
                 updateMarkers();
@@ -86,6 +87,7 @@ namespace AudioBookCutter
                 }
                 trackLength.Text = FormatTimeSpan(audio.File.TotalTime);
                 Thread t = new Thread(() => audioWave());
+                t.IsBackground = true;
                 t.Start();
                 buttonChange(false);
                 enableOtherControls();
@@ -459,9 +461,7 @@ namespace AudioBookCutter
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            audio = null;
-            ffmpeg = new Command();
-            ffmpeg.emptyTemp();
+            Environment.Exit(Environment.ExitCode);
         }
     }
 }
