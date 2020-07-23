@@ -17,9 +17,9 @@ namespace AudioBookCutter
         private string temp = @"\temp\";
         private string cut = @"\cut\";
 
-        public void cutByTimeSpans(List<TimeSpan> times, Audio audio, string save)
+        public void cutByTimeSpans(List<TimeSpan> times, Audio audio)
         {
-            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath, save);
+            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath, audio.OriginalName);
         }
         private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path, string save)
         {
