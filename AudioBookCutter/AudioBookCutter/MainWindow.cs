@@ -266,13 +266,19 @@ namespace AudioBookCutter
 
         private void cut_Click(object sender, EventArgs e)
         {
-            ffmpeg = new Command();
-            List<TimeSpan> times = new List<TimeSpan>();
-            for (int i = 0; i < markers.Count; i++)
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = audio.aPath;
+            saveFileDialog1.Title = "Add meg a vágott fájloknak a helyét és nevét!";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                times.Add(markers[i].Time);
+                ffmpeg = new Command();
+                List<TimeSpan> times = new List<TimeSpan>();
+                for (int i = 0; i < markers.Count; i++)
+                {
+                    times.Add(markers[i].Time);
+                }
+                ffmpeg.cutByTimeSpans(times, audio, saveFileDialog1.FileName);
             }
-            ffmpeg.cutByTimeSpans(times, audio);
         }
 
         private void audioWaveImage_Click(object sender, EventArgs e)

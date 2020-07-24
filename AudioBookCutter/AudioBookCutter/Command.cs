@@ -17,9 +17,9 @@ namespace AudioBookCutter
         private string temp = @"\temp\";
         private string cut = @"\cut\";
 
-        public void cutByTimeSpans(List<TimeSpan> times, Audio audio)
+        public void cutByTimeSpans(List<TimeSpan> times, Audio audio, string save)
         {
-            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath, audio.OriginalName);
+            cutByTimeSpansIn(times, audio.File.TotalTime, audio.aPath, save);
         }
         private void cutByTimeSpansIn(List<TimeSpan> times, TimeSpan length, string path, string save)
         {
@@ -27,7 +27,7 @@ namespace AudioBookCutter
             List<TimeSpan> ordered = new List<TimeSpan>(times.OrderBy(time => time.TotalMilliseconds));
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
-            string end = " -c copy " + "\"" + workingDir + cut + save;
+            string end = " -c copy " + "\"" + save;
             string temp;
             temp = argument + " -ss 00:00:00.0 -to " + ordered[0] + end + 0 + fileFormat + "\"";
             Execute(temp);
