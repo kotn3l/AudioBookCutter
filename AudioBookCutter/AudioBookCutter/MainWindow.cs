@@ -153,7 +153,7 @@ namespace AudioBookCutter
         {
             if (timer1.Enabled == true)
             {
-                seeker.Location = new Point((int)((player.GetPosition().TotalMilliseconds / (player.GetLenghtInMSeconds())) * this.Width-16), seeker.Location.Y);
+                seeker.Location = new Point((int)((player.GetPosition() / (player.GetLenghtInMSeconds())) * this.Width), seeker.Location.Y);
             }
             else
             {
@@ -174,13 +174,13 @@ namespace AudioBookCutter
             {
                 return audio.File.TotalTime.TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width);
             }
-            else return 0;
+            return 0;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            now.Text = FormatTimeSpan(player.GetPosition());
             timeLocation();
+            now.Text = FormatTimeSpan(TimeSpan.FromMilliseconds(player.GetPosition()));
         }
 
         private void start_Click(object sender, EventArgs e)
@@ -208,7 +208,10 @@ namespace AudioBookCutter
             timer1.Enabled = false;
             buttonChange(false);
             timeLocation();
-            now.Text = "00:00.00";
+            if (player.PlaybackStopType == AudioPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile)
+            {
+                now.Text = "00:00.00";
+            }
             //seeker 0
             //fájl eleje
         }
@@ -235,6 +238,7 @@ namespace AudioBookCutter
         private void stop_Click(object sender, EventArgs e)
         {
             //wavePlayer.Stop();
+            player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
             player.Stop();
             buttonChange(false);
         }
@@ -336,6 +340,7 @@ namespace AudioBookCutter
             }*/
             if (player != null)
             {
+                player.SetPosition(locationTime());
                 //player.SetPosition();
             }
         }
@@ -547,6 +552,10 @@ namespace AudioBookCutter
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (player != null)
+            {
+                player.Dispose();
+            }
             Environment.Exit(Environment.ExitCode);
         }
     }

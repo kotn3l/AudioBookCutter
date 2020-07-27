@@ -67,7 +67,9 @@ namespace AudioBookCutter
         {
             if (_output != null)
             {
-                _output.Stop();
+                //_output.Stop();
+                _output.Pause();
+                this.SetPosition(0);
             }
         }
 
@@ -133,9 +135,9 @@ namespace AudioBookCutter
             }
         }
 
-        public TimeSpan GetPosition()
+        public double GetPosition()
         {
-            return _audioFileReader != null ? _audioFileReader.CurrentTime : new TimeSpan(0);
+            return _audioFileReader != null ? _audioFileReader.CurrentTime.TotalMilliseconds : 0;
             //return _audioFileReader.CurrentTime;
         }
 
@@ -152,7 +154,7 @@ namespace AudioBookCutter
         {
             if (_audioFileReader != null)
             {
-                _audioFileReader.CurrentTime = TimeSpan.FromSeconds(value);
+                _audioFileReader.CurrentTime = TimeSpan.FromMilliseconds(value);
             }
         }
     }
