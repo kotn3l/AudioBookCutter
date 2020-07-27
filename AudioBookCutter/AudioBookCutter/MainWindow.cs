@@ -18,7 +18,14 @@ namespace AudioBookCutter
 {
     public partial class MainWindow : Form
     {
-        private IWavePlayer wavePlayer;
+        private enum PlaybackState
+        {
+            Playing, Stopped, Paused
+        }
+
+        private PlaybackState _playbackState;
+        //private IWavePlayer wavePlayer;
+        private AudioPlayer player;
         private Audio audio = null;
         private Command ffmpeg;
         private List<Marker> markers;
@@ -123,6 +130,7 @@ namespace AudioBookCutter
                 t.Start();
                 buttonChange(false);
                 enableOtherControls();
+                player = new AudioPlayer(audio.aPath);
             }
         }
 
@@ -145,7 +153,7 @@ namespace AudioBookCutter
         {
             if (timer1.Enabled == true)
             {
-                seeker.Location = new Point((int)((audio.File.CurrentTime.TotalMilliseconds / (audio.File.TotalTime.TotalMilliseconds)) * this.Width-16), seeker.Location.Y);
+                seeker.Location = new Point((int)((player.GetPosition().TotalMilliseconds / (player.GetLenghtInMSeconds())) * this.Width-16), seeker.Location.Y);
             }
             else
             {
@@ -171,7 +179,7 @@ namespace AudioBookCutter
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            now.Text = FormatTimeSpan(audio.File.CurrentTime);
+            now.Text = FormatTimeSpan(player.GetPosition());
             timeLocation();
         }
 
@@ -179,19 +187,55 @@ namespace AudioBookCutter
         {
             if (audio != null)
             {
-                BeginPlayback();
+                //BeginPlayback();
+                if (_playbackState == PlaybackState.Stopped)
+                {
+                    player = new AudioPlayer(audio.aPath);
+                    player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
+                    player.PlaybackPaused += _audioPlayer_PlaybackPaused;
+                    player.PlaybackResumed += _audioPlayer_PlaybackResumed;
+                    player.PlaybackStopped += _audioPlayer_PlaybackStopped;
+                }
+                timer1.Enabled = true;
+                buttonChange(true);
+                player.TogglePlayPause();
+
             }
+        }
+        private void _audioPlayer_PlaybackStopped()
+        {
+            _playbackState = PlaybackState.Stopped;
+            timer1.Enabled = false;
+            buttonChange(false);
+            timeLocation();
+            now.Text = "00:00.00";
+            //seeker 0
+            //fájl eleje
+        }
+
+        private void _audioPlayer_PlaybackResumed()
+        {
+            _playbackState = PlaybackState.Playing;
+            buttonChange(true);
+        }
+
+        private void _audioPlayer_PlaybackPaused()
+        {
+            _playbackState = PlaybackState.Paused;
+            buttonChange(false);
         }
 
         private void pause_Click(object sender, EventArgs e)
         {
-            wavePlayer.Pause();
+            //wavePlayer.Pause();
+            player.Pause();
             buttonChange(false);
         }
 
         private void stop_Click(object sender, EventArgs e)
         {
-            wavePlayer.Stop();
+            //wavePlayer.Stop();
+            player.Stop();
             buttonChange(false);
         }
 
@@ -217,7 +261,7 @@ namespace AudioBookCutter
             }
         }
 
-        private void BeginPlayback()
+        /*private void BeginPlayback()
         {
             wavePlayer = CreateWavePlayer();
             if (seeker.Location.X == 0)
@@ -234,23 +278,23 @@ namespace AudioBookCutter
             wavePlayer.Play();
             timer1.Enabled = true;
             buttonChange(true);
-        }
+        }*/
 
-        void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        /*void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
             CleanUp();
             timer1.Enabled = false;
             buttonChange(false);
             timeLocation();
             now.Text = "00:00.00";
-        }
+        }*/
 
         private IWavePlayer CreateWavePlayer()
         {
             return new WaveOutEvent();
         }
 
-        private void CleanUp()
+        /*private void CleanUp()
         {
             if (audio.File != null)
             {
@@ -262,7 +306,7 @@ namespace AudioBookCutter
                 wavePlayer.Dispose();
                 //wavePlayer = null;
             }
-        }
+        }*/
 
         private void cut_Click(object sender, EventArgs e)
         {
@@ -286,9 +330,13 @@ namespace AudioBookCutter
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
-            if (wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Playing)
+            /*if (wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Playing)
             {
                 audio.File.CurrentTime.Add(new TimeSpan (0,0,0,0, (int)seekerCalc()));
+            }*/
+            if (player != null)
+            {
+                //player.SetPosition();
             }
         }
 
