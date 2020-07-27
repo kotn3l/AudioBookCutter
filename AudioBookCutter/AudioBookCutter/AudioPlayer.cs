@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,11 @@ namespace AudioBookCutter
 
         public PlaybackStopTypes PlaybackStopType { get; set; }
 
-        private AudioFileReader _audioFileReader;
+        //private AudioFileReader _audioFileReader;
 
-        private DirectSoundOut _output;
+        //private DirectSoundOut _output;
+        private WaveOutEvent output;
+        private Mp3FileReader _audioFileReader;
 
         //private string _filepath;
 
@@ -30,22 +33,27 @@ namespace AudioBookCutter
         {
             PlaybackStopType = PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
 
-            _audioFileReader = new AudioFileReader(filepath);
+            //_audioFileReader = new AudioFileReader(filepath);
 
-            _output = new DirectSoundOut();
-            _output.PlaybackStopped += _output_PlaybackStopped;
+            //_output = new DirectSoundOut();
+            output = new WaveOutEvent();
+            output.PlaybackStopped += _output_PlaybackStopped;
+            //_output.PlaybackStopped += _output_PlaybackStopped;
 
-            var wc = new WaveChannel32(_audioFileReader);
-            wc.PadWithZeroes = false;
+            _audioFileReader = new Mp3FileReader(filepath);
+            //var wc = new WaveChannel32(_audioFileReader);
+            //wc.PadWithZeroes = false;
 
-            _output.Init(wc);
+
+            //_output.Init(wc);
+            output.Init(_audioFileReader);
         }
 
         public void Play(PlaybackState playbackState)
         {
             if (playbackState == PlaybackState.Stopped || playbackState == PlaybackState.Paused)
             {
-                _output.Play();
+                output.Play();
             }
 
             if (PlaybackResumed != null)
@@ -56,7 +64,7 @@ namespace AudioBookCutter
 
         private void _output_PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            Dispose();
+            //Dispose();
             if (PlaybackStopped != null)
             {
                 PlaybackStopped();
@@ -65,19 +73,19 @@ namespace AudioBookCutter
 
         public void Stop()
         {
-            if (_output != null)
+            if (output != null)
             {
                 //_output.Stop();
-                _output.Pause();
+                output.Pause();
                 this.SetPosition(0);
             }
         }
 
         public void Pause()
         {
-            if (_output != null)
+            if (output != null)
             {
-                _output.Pause();
+                output.Pause();
 
                 if (PlaybackPaused != null)
                 {
@@ -88,15 +96,15 @@ namespace AudioBookCutter
 
         public void TogglePlayPause()
         {
-            if (_output != null)
+            if (output != null)
             {
-                if (_output.PlaybackState == PlaybackState.Playing)
+                if (output.PlaybackState == PlaybackState.Playing)
                 {
                     Pause();
                 }
                 else
                 {
-                    Play(_output.PlaybackState);
+                    Play(output.PlaybackState);
                 }
             }
             else
@@ -107,14 +115,14 @@ namespace AudioBookCutter
 
         public void Dispose()
         {
-            if (_output != null)
+            if (output != null)
             {
-                if (_output.PlaybackState == PlaybackState.Playing)
+                if (output.PlaybackState == PlaybackState.Playing)
                 {
-                    _output.Stop();
+                    output.Stop();
                 }
-                _output.Dispose();
-                _output = null;
+                output.Dispose();
+                output = null;
             }
             if (_audioFileReader != null)
             {
@@ -139,15 +147,6 @@ namespace AudioBookCutter
         {
             return _audioFileReader != null ? _audioFileReader.CurrentTime.TotalMilliseconds : 0;
             //return _audioFileReader.CurrentTime;
-        }
-
-        public float GetVolume()
-        {
-            if (_audioFileReader != null)
-            {
-                return _audioFileReader.Volume;
-            }
-            return 1;
         }
 
         public void SetPosition(double value)

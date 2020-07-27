@@ -331,6 +331,7 @@ namespace AudioBookCutter
 
         private void audioWaveImage_Click(object sender, EventArgs e)
         {
+            timer1.Enabled = false;
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
@@ -343,6 +344,7 @@ namespace AudioBookCutter
                 player.SetPosition(locationTime());
                 //player.SetPosition();
             }
+            timer1.Enabled = true;
         }
 
         private double seekerCalc()
@@ -554,6 +556,7 @@ namespace AudioBookCutter
         {
             if (player != null)
             {
+                player.Stop();
                 player.Dispose();
             }
             Environment.Exit(Environment.ExitCode);
