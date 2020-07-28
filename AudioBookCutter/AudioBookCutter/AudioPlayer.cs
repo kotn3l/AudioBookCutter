@@ -16,15 +16,8 @@ namespace AudioBookCutter
         }
 
         public PlaybackStopTypes PlaybackStopType { get; set; }
-
-        //private AudioFileReader _audioFileReader;
-
-        //private DirectSoundOut _output;
         private WaveOutEvent output;
         private Mp3FileReader _audioFileReader;
-
-        //private string _filepath;
-
         public event Action PlaybackResumed;
         public event Action PlaybackStopped;
         public event Action PlaybackPaused;
@@ -32,20 +25,9 @@ namespace AudioBookCutter
         public AudioPlayer(string filepath)
         {
             PlaybackStopType = PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
-
-            //_audioFileReader = new AudioFileReader(filepath);
-
-            //_output = new DirectSoundOut();
             output = new WaveOutEvent();
             output.PlaybackStopped += _output_PlaybackStopped;
-            //_output.PlaybackStopped += _output_PlaybackStopped;
-
             _audioFileReader = new Mp3FileReader(filepath);
-            //var wc = new WaveChannel32(_audioFileReader);
-            //wc.PadWithZeroes = false;
-
-
-            //_output.Init(wc);
             output.Init(_audioFileReader);
         }
 
@@ -64,7 +46,6 @@ namespace AudioBookCutter
 
         private void _output_PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            //Dispose();
             if (PlaybackStopped != null)
             {
                 PlaybackStopped();
@@ -75,7 +56,6 @@ namespace AudioBookCutter
         {
             if (output != null)
             {
-                //_output.Stop();
                 output.Pause();
                 this.SetPosition(0);
             }
@@ -146,7 +126,6 @@ namespace AudioBookCutter
         public double GetPosition()
         {
             return _audioFileReader != null ? _audioFileReader.CurrentTime.TotalMilliseconds : 0;
-            //return _audioFileReader.CurrentTime;
         }
 
         public void SetPosition(double value)
