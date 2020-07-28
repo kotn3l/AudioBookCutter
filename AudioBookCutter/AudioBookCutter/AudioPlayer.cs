@@ -132,7 +132,7 @@ namespace AudioBookCutter
         {
             if (_audioFileReader != null)
             {
-                _audioFileReader.CurrentTime = TimeSpan.FromMilliseconds(value);
+                _audioFileReader.Position = _audioFileReader.Seek(_audioFileReader.WaveFormat.AverageBytesPerSecond * (long)TimeSpan.FromMilliseconds(value).TotalSeconds, SeekOrigin.Begin);
             }
         }
     }
