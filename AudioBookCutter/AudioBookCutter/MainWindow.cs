@@ -152,7 +152,7 @@ namespace AudioBookCutter
         {
             if (timer1.Enabled == true)
             {
-                seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * this.Width), seeker.Location.Y);
+                seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
             }
             else
             {
