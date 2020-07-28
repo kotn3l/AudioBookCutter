@@ -111,7 +111,7 @@ namespace AudioBookCutter
             }
         }
 
-        public double GetLenghtInMSeconds()
+        public double GetLengthInMSeconds()
         {
             if (_audioFileReader != null)
             {
@@ -120,6 +120,18 @@ namespace AudioBookCutter
             else
             {
                 return 0;
+            }
+        }
+
+        public TimeSpan GetLength()
+        {
+            if (_audioFileReader != null)
+            {
+                return _audioFileReader.TotalTime;
+            }
+            else
+            {
+                return TimeSpan.FromSeconds(0);
             }
         }
 
