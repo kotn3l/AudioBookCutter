@@ -24,7 +24,6 @@ namespace AudioBookCutter
         }
 
         private PlaybackState _playbackState;
-        //private IWavePlayer wavePlayer;
         private AudioPlayer player;
         private Audio audio = null;
         private Command ffmpeg;
@@ -187,7 +186,6 @@ namespace AudioBookCutter
         {
             if (audio != null)
             {
-                //BeginPlayback();
                 if (_playbackState == PlaybackState.Stopped)
                 {
                     player = new AudioPlayer(audio.aPath);
@@ -212,8 +210,6 @@ namespace AudioBookCutter
             {
                 now.Text = "00:00.00";
             }
-            //seeker 0
-            //fájl eleje
         }
 
         private void _audioPlayer_PlaybackResumed()
@@ -230,14 +226,12 @@ namespace AudioBookCutter
 
         private void pause_Click(object sender, EventArgs e)
         {
-            //wavePlayer.Pause();
             player.Pause();
             buttonChange(false);
         }
 
         private void stop_Click(object sender, EventArgs e)
         {
-            //wavePlayer.Stop();
             player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
             player.Stop();
             buttonChange(false);
@@ -264,53 +258,10 @@ namespace AudioBookCutter
                 stop.Enabled = false;
             }
         }
-
-        /*private void BeginPlayback()
-        {
-            wavePlayer = CreateWavePlayer();
-            if (seeker.Location.X == 0)
-            {
-                wavePlayer.Init(audio.File);
-            }
-            else
-            {
-                var trimmed = new OffsetSampleProvider(audio.File);
-                trimmed.SkipOver = TimeSpan.FromMilliseconds(locationTime());
-                wavePlayer.Init(trimmed);
-            }
-            wavePlayer.PlaybackStopped += OnPlaybackStopped;
-            wavePlayer.Play();
-            timer1.Enabled = true;
-            buttonChange(true);
-        }*/
-
-        /*void OnPlaybackStopped(object sender, StoppedEventArgs e)
-        {
-            CleanUp();
-            timer1.Enabled = false;
-            buttonChange(false);
-            timeLocation();
-            now.Text = "00:00.00";
-        }*/
-
         private IWavePlayer CreateWavePlayer()
         {
             return new WaveOutEvent();
         }
-
-        /*private void CleanUp()
-        {
-            if (audio.File != null)
-            {
-                audio.File.Dispose();
-                //file = null;
-            }
-            if (wavePlayer != null)
-            {
-                wavePlayer.Dispose();
-                //wavePlayer = null;
-            }
-        }*/
 
         private void cut_Click(object sender, EventArgs e)
         {
@@ -335,14 +286,9 @@ namespace AudioBookCutter
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
-            /*if (wavePlayer != null && wavePlayer.PlaybackState == PlaybackState.Playing)
-            {
-                audio.File.CurrentTime.Add(new TimeSpan (0,0,0,0, (int)seekerCalc()));
-            }*/
             if (player != null)
             {
                 player.SetPosition(locationTime());
-                //player.SetPosition();
             }
             timer1.Enabled = true;
         }
