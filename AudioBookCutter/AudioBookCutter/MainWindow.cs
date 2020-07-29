@@ -310,20 +310,22 @@ namespace AudioBookCutter
         {
             if (audio != null)
             {
-                PictureBox marker = new PictureBox();
-                marker.Size = new Size(2, seeker.Size.Height);
-                marker.Location = seeker.Location;
-                marker.BackColor = Color.Blue;
-                this.Controls.Add(marker);
-                marker.BringToFront();
-
-                Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (marker.Location.X / (double)audioWaveImage.Width)));
-
-                pmarkers.Add(marker);
-                markers.Add(mmarker);
-
+                Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
+                addMarker(mmarker);
                 resetDataSource();
             }
+        }
+
+        private void addMarker(Marker marker)
+        {
+            PictureBox pmarker = new PictureBox();
+            pmarker.Size = new Size(2, seeker.Size.Height);
+            pmarker.Location = new Point(marker.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+            pmarker.BackColor = Color.Blue;
+            this.Controls.Add(pmarker);
+            pmarker.BringToFront();
+            pmarkers.Add(pmarker);
+            markers.Add(marker);
         }
 
         private void markerOther_Click(object sender, EventArgs e)
@@ -334,16 +336,7 @@ namespace AudioBookCutter
                 if (ts <= player.GetLength())
                 {
                     Marker mmarker = new Marker(ts);
-                    PictureBox marker = new PictureBox();
-                    marker.Size = new Size(2, seeker.Size.Height);
-                    marker.Location = new Point(mmarker.calculateX(this.Width-16, player.GetLength()), seeker.Location.Y);
-                    marker.BackColor = Color.Blue;
-                    this.Controls.Add(marker);
-                    marker.BringToFront();
-
-                    pmarkers.Add(marker);
-                    markers.Add(mmarker);
-
+                    addMarker(mmarker);
                     resetDataSource();
                 }
                 else
@@ -541,17 +534,7 @@ namespace AudioBookCutter
                     List<Marker> omarkers = manager.openMarkers(openFileDialog1.FileName);
                     for (int i = 0; i < omarkers.Count; i++)
                     {
-
-                        PictureBox marker = new PictureBox();
-                        marker.Size = new Size(2, seeker.Size.Height);
-                        marker.Location = new Point(omarkers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        marker.BackColor = Color.Blue;
-                        this.Controls.Add(marker);
-                        marker.BringToFront();
-
-                        markers.Add(omarkers[i]);
-                        pmarkers.Add(marker);
-
+                        addMarker(omarkers[i]);
                     }
                     resetDataSource();
                 }
