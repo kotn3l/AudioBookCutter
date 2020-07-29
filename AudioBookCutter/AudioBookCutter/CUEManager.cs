@@ -20,7 +20,8 @@ namespace AudioBookCutter
             int j = 1;
             for (int i = 0; i < ordered.Count; i++)
             {
-                cue.AddTrack(j + 1 + ". fejezet", "na");
+                j++;
+                cue.AddTrack(j + ". fejezet", "na");
                 cue.AddIndex(i + 1, 1, (int)ordered[i].TotalMinutes, ordered[i].Seconds, (int)(ordered[i].Milliseconds / (999 / 75d)));
             }
 
