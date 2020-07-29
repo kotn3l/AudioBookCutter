@@ -27,5 +27,21 @@ namespace AudioBookCutter
 
             cue.SaveCue(save);
         }
+
+        public List<Marker> openMarkers(string path)
+        {
+            CueSheet cue = new CueSheet(path);
+            List<Marker> markers = new List<Marker>();
+            for (int i = 1; i < cue.Tracks.Length; i++)
+            {
+                TimeSpan fromMins = TimeSpan.FromMinutes(cue[i][0].Minutes);
+                markers.Add(new Marker(new TimeSpan( 
+                    0, (int)fromMins.TotalHours,
+                    fromMins.Minutes,
+                    cue[i][0].Seconds,
+                    (int)(cue[i][0].Frames * (1000/75d)))));
+            }
+            return markers;
+        }
     }
 }
