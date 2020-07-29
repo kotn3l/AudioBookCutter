@@ -108,6 +108,7 @@
             this.saveMarker.Enabled = false;
             this.saveMarker.Index = 2;
             this.saveMarker.Text = "Marker mentése...";
+            this.saveMarker.Click += new System.EventHandler(this.saveMarker_Click);
             // 
             // openFileDialog1
             // 

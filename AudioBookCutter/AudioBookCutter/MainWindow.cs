@@ -29,6 +29,7 @@ namespace AudioBookCutter
         private Command ffmpeg;
         private List<Marker> markers;
         private List<PictureBox> pmarkers;
+        private CUEManager manager;
 
         public MainWindow()
         {
@@ -130,6 +131,7 @@ namespace AudioBookCutter
                 enableOtherControls();
                 player = new AudioPlayer(audio.aPath);
                 trackLength.Text = FormatTimeSpan(player.GetLength());
+                openMarker.Enabled = true;
             }
         }
 
@@ -361,6 +363,7 @@ namespace AudioBookCutter
                 btnAdd.Enabled = true;
                 btnSubtract.Enabled = true;
                 cut.Enabled = true;
+                saveMarker.Enabled = true;
             }
             else
             {
@@ -370,6 +373,7 @@ namespace AudioBookCutter
                 btnAdd.Enabled = false;
                 btnSubtract.Enabled = false;
                 cut.Enabled = false;
+                saveMarker.Enabled = false;
             }
         }
         private void lb_Markers_SelectedIndexChanged(object sender, EventArgs e)
@@ -507,5 +511,23 @@ namespace AudioBookCutter
             }
             Environment.Exit(Environment.ExitCode);
         }
+
+        private void saveMarker_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = audio.aPath;
+            saveFileDialog1.Title = "Add meg a menteni kívánt markerek gyűjtőnevét!";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                manager = new CUEManager();
+                List<TimeSpan> times = new List<TimeSpan>();
+                for (int i = 0; i < markers.Count; i++)
+                {
+                    times.Add(markers[i].Time);
+                }
+                manager.saveMarkers(times, saveFileDialog1.FileName+".cue", audio);
+            }
+        }
     }
+    
 }
