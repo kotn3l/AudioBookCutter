@@ -528,6 +528,39 @@ namespace AudioBookCutter
                 manager.saveMarkers(times, saveFileDialog1.FileName+".cue", audio);
             }
         }
+
+        private void openMarker_Click(object sender, EventArgs e)
+        {
+            openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "cue fájlok|*.cue";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                manager = new CUEManager();
+                if (markers == null ||  markers.Count == 0)
+                {
+                    List<Marker> omarkers = manager.openMarkers(openFileDialog1.FileName);
+                    for (int i = 0; i < omarkers.Count; i++)
+                    {
+
+                        PictureBox marker = new PictureBox();
+                        marker.Size = new Size(2, seeker.Size.Height);
+                        marker.Location = new Point(omarkers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                        marker.BackColor = Color.Blue;
+                        this.Controls.Add(marker);
+                        marker.BringToFront();
+
+                        markers.Add(omarkers[i]);
+                        pmarkers.Add(marker);
+
+                    }
+                    resetDataSource();
+                }
+                else
+                {
+                    //notify user if they want to replace current markers
+                }
+            }
+        }
     }
     
 }

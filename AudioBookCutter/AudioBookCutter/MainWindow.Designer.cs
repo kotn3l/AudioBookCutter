@@ -102,6 +102,7 @@
             this.openMarker.Enabled = false;
             this.openMarker.Index = 1;
             this.openMarker.Text = "Marker megnyitása...";
+            this.openMarker.Click += new System.EventHandler(this.openMarker_Click);
             // 
             // saveMarker
             // 
