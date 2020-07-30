@@ -30,6 +30,7 @@ namespace AudioBookCutter
         private List<Marker> markers;
         private List<PictureBox> pmarkers;
         private CUEManager manager;
+        private bool resized = false;
 
         public MainWindow()
         {
@@ -96,15 +97,17 @@ namespace AudioBookCutter
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-            if (audio != null)
+            if (audio != null && resized)
             {
-                audioWaveImage.Width = this.Width-16;
+                resized = false;
+                audioWaveImage.Width = this.Width - 16;
                 Thread t = new Thread(() => audioWave());
                 t.IsBackground = true;
                 t.Start();
                 timeLocation();
                 updateMarkers();
             }
+            else return;
         }
 
         private void openAudio_Click(object sender, EventArgs e)
@@ -543,6 +546,11 @@ namespace AudioBookCutter
                     //notify user if they want to replace current markers
                 }
             }
+        }
+
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            resized = true;
         }
     }
     
