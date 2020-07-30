@@ -30,7 +30,7 @@ namespace AudioBookCutter
         private List<Marker> markers;
         private List<PictureBox> pmarkers;
         private CUEManager manager;
-        private bool resized = false;
+        private bool resized;
 
         public MainWindow()
         {
@@ -46,7 +46,7 @@ namespace AudioBookCutter
                  "MS", "SS", "MM", "HH"
             };
             this.KeyPreview = true;
-
+            resized = false;
         }
 
         //HOTKEYS
