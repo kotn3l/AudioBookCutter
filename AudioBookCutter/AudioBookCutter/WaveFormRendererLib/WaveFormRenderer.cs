@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using NAudio.Wave;
 
@@ -26,6 +27,7 @@ namespace WaveFormRendererLib
 
         private static Image Render(IPeakProvider peakProvider, WaveFormRendererSettings settings)
         {
+            System.Diagnostics.Debug.WriteLine(DateTime.Now.Second +"."+ DateTime.Now.Millisecond);
             if (settings.DecibelScale)
                 peakProvider = new DecibelPeakProvider(peakProvider, 48);
 
@@ -45,16 +47,16 @@ namespace WaveFormRendererLib
                 {
                     var nextPeak = peakProvider.GetNextPeak();
                     
-                    for (int n = 0; n < settings.PixelsPerPeak; n++)
-                    {
+                    //for (int n = 0; n < settings.PixelsPerPeak; n++)
+                    //{
                         var lineHeight = settings.TopHeight * currentPeak.Max;
                         g.DrawLine(settings.TopPeakPen, x, midPoint, x, midPoint - lineHeight);
                         lineHeight = settings.BottomHeight * currentPeak.Min;
                         g.DrawLine(settings.BottomPeakPen, x, midPoint, x, midPoint - lineHeight);
                         x++;
-                    }
-
-                    for (int n = 0; n < settings.SpacerPixels; n++)
+                    //}
+                    
+                    /*for (int n = 0; n < settings.SpacerPixels; n++)
                     {
                         // spacer bars are always the lower of the 
                         var max = Math.Min(currentPeak.Max, nextPeak.Max);
@@ -65,10 +67,11 @@ namespace WaveFormRendererLib
                         lineHeight = settings.BottomHeight * min;
                         g.DrawLine(settings.BottomSpacerPen, x, midPoint, x, midPoint - lineHeight); 
                         x++;
-                    }
+                    }*/
                     currentPeak = nextPeak;
                 }
             }
+            System.Diagnostics.Debug.WriteLine(DateTime.Now.Second + "." + DateTime.Now.Millisecond);
             return b;
         }
 
