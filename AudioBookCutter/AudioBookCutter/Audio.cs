@@ -35,19 +35,20 @@ namespace AudioBookCutter
 
         public Image audioWave(int Width)
         {
-            MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
-            RmsPeakProvider rmsPeakProvider = new RmsPeakProvider(10); // e.g. 200
-            SamplingPeakProvider samplingPeakProvider = new SamplingPeakProvider(1); // e.g. 200
-            AveragePeakProvider averagePeakProvider = new AveragePeakProvider(3); // e.g. 4
+            //MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
+            //RmsPeakProvider rmsPeakProvider = new RmsPeakProvider(1000); // e.g. 200
+            SamplingPeakProvider samplingPeakProvider = new SamplingPeakProvider(500); // e.g. 200
+            //AveragePeakProvider averagePeakProvider = new AveragePeakProvider(3); // e.g. 4
 
             StandardWaveFormRendererSettings myRendererSettings = new StandardWaveFormRendererSettings();
             myRendererSettings.Width = Width;
-            myRendererSettings.TopHeight = 64;
-            myRendererSettings.BottomHeight = 64;
+            myRendererSettings.TopHeight = 128;
+            myRendererSettings.BottomHeight = 128;
             myRendererSettings.PixelsPerPeak = 1;
+            myRendererSettings.BackgroundColor = Color.LightGray;
 
             WaveFormRenderer renderer = new WaveFormRenderer();
-            return renderer.Render(this.apath, averagePeakProvider, myRendererSettings);
+            return renderer.Render(this.apath, samplingPeakProvider, myRendererSettings);
         }
 
         public Audio(string path, string originalname)
