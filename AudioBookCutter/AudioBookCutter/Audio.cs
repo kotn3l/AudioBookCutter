@@ -37,7 +37,7 @@ namespace AudioBookCutter
         {
             //MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
             //RmsPeakProvider rmsPeakProvider = new RmsPeakProvider(1000); // e.g. 200
-            SamplingPeakProvider samplingPeakProvider = new SamplingPeakProvider(500); // e.g. 200
+            SamplingPeakProvider samplingPeakProvider = new SamplingPeakProvider(300); // e.g. 200
             //AveragePeakProvider averagePeakProvider = new AveragePeakProvider(3); // e.g. 4
 
             StandardWaveFormRendererSettings myRendererSettings = new StandardWaveFormRendererSettings();
