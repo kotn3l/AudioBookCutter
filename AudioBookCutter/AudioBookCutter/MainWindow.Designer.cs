@@ -186,7 +186,7 @@
             // cut
             // 
             this.cut.Enabled = false;
-            this.cut.Location = new System.Drawing.Point(377, 191);
+            this.cut.Location = new System.Drawing.Point(394, 191);
             this.cut.Name = "cut";
             this.cut.Size = new System.Drawing.Size(75, 23);
             this.cut.TabIndex = 7;
@@ -293,7 +293,7 @@
             this.lb_Markers.FormattingEnabled = true;
             this.lb_Markers.Location = new System.Drawing.Point(296, 191);
             this.lb_Markers.Name = "lb_Markers";
-            this.lb_Markers.Size = new System.Drawing.Size(75, 264);
+            this.lb_Markers.Size = new System.Drawing.Size(92, 264);
             this.lb_Markers.TabIndex = 18;
             this.lb_Markers.SelectedIndexChanged += new System.EventHandler(this.lb_Markers_SelectedIndexChanged);
             // 
@@ -358,15 +358,16 @@
             // 
             // lb_rendering
             // 
-            this.lb_rendering.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_rendering.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lb_rendering.AutoSize = true;
+            this.lb_rendering.BackColor = System.Drawing.Color.Transparent;
             this.lb_rendering.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_rendering.Location = new System.Drawing.Point(323, 92);
+            this.lb_rendering.Location = new System.Drawing.Point(325, 91);
             this.lb_rendering.Name = "lb_rendering";
             this.lb_rendering.Size = new System.Drawing.Size(144, 29);
             this.lb_rendering.TabIndex = 25;
             this.lb_rendering.Text = "Rendering...";
+            this.lb_rendering.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lb_rendering.Visible = false;
             // 
             // MainWindow
