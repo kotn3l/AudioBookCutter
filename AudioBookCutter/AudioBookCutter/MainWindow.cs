@@ -13,6 +13,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
+using System.Diagnostics;
 
 namespace AudioBookCutter
 {
@@ -140,15 +141,14 @@ namespace AudioBookCutter
                 {
                     audio = new Audio(openFileDialog1.FileNames[0], openFileDialog1.FileNames[0]);
                 }
-                Thread t = new Thread(() => audioWave());
-                t.IsBackground = true;
-                t.Start();
                 buttonChange(false);
                 enableOtherControls();
                 player = new AudioPlayer(audio.aPath);
                 trackLength.Text = FormatTimeSpan(player.GetLength());
                 openMarker.Enabled = true;
-                
+                Thread t = new Thread(() => audioWave());
+                t.IsBackground = true;
+                t.Start();
             }
         }
 
@@ -519,6 +519,7 @@ namespace AudioBookCutter
                 player.Stop();
                 player.Dispose();
             }
+            base.OnClosing(e);
             Environment.Exit(Environment.ExitCode);
         }
 
