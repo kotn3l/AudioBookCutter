@@ -62,6 +62,7 @@
             this.btnSubtract = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.lb_rendering = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -355,11 +356,25 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "Marker szerkesztése";
             // 
+            // lb_rendering
+            // 
+            this.lb_rendering.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_rendering.AutoSize = true;
+            this.lb_rendering.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_rendering.Location = new System.Drawing.Point(323, 92);
+            this.lb_rendering.Name = "lb_rendering";
+            this.lb_rendering.Size = new System.Drawing.Size(144, 29);
+            this.lb_rendering.TabIndex = 25;
+            this.lb_rendering.Text = "Rendering...";
+            this.lb_rendering.Visible = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
+            this.Controls.Add(this.lb_rendering);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSubtract);
             this.Controls.Add(this.btnAdd);
@@ -435,6 +450,7 @@
         private System.Windows.Forms.Button btnSubtract;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label lb_rendering;
     }
 }
 

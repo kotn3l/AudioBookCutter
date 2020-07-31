@@ -47,6 +47,7 @@ namespace AudioBookCutter
             };
             this.KeyPreview = true;
             resized = false;
+            lb_rendering.BringToFront();
         }
 
         //HOTKEYS
@@ -92,9 +93,21 @@ namespace AudioBookCutter
         }
         private void audioWave()
         {
+            renderText(true);
             audioWaveImage.Image = audio.audioWave(this.Width-16);
+            renderText(false);
         }
-
+        public void renderText(bool render)
+        {
+            if (!InvokeRequired)
+            {
+                lb_rendering.Visible = render;
+            }
+            else
+            {
+                Invoke(new Action<bool>(renderText), render);
+            }
+        }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
             if (audio != null && resized)
@@ -135,6 +148,7 @@ namespace AudioBookCutter
                 player = new AudioPlayer(audio.aPath);
                 trackLength.Text = FormatTimeSpan(player.GetLength());
                 openMarker.Enabled = true;
+                
             }
         }
 
