@@ -121,7 +121,6 @@ namespace AudioBookCutter
                 timeLocation();
                 updateMarkers();
             }
-            else return;
         }
 
         private void openAudio_Click(object sender, EventArgs e)
@@ -145,7 +144,6 @@ namespace AudioBookCutter
                 enableOtherControls();
                 player = new AudioPlayer(audio.aPath);
                 trackLength.Text = FormatTimeSpan(player.GetLength());
-                openMarker.Enabled = true;
                 Thread t = new Thread(() => audioWave());
                 t.IsBackground = true;
                 t.Start();
@@ -160,6 +158,7 @@ namespace AudioBookCutter
             markerMinute.Enabled = true;
             markerSeconds.Enabled = true;
             markerMiliseconds.Enabled = true;
+            openMarker.Enabled = true;
         }
 
         private static string FormatTimeSpan(TimeSpan ts)
@@ -172,10 +171,6 @@ namespace AudioBookCutter
             if (timer1.Enabled == true)
             {
                 seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
-            }
-            else
-            {
-                seeker.Location = new Point(0, seeker.Location.Y);
             }
         }
 
@@ -301,7 +296,6 @@ namespace AudioBookCutter
 
         private void audioWaveImage_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
@@ -309,13 +303,7 @@ namespace AudioBookCutter
             {
                 player.SetPosition(locationTime());
             }
-            timer1.Enabled = true;
         }
-
-        /*private double seekerCalc()
-        {
-            return (audio.File.CurrentTime.TotalMilliseconds - locationTime());
-        }*/
 
         private void resetDataSource()
         {
