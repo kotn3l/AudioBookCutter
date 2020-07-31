@@ -7,14 +7,24 @@ namespace WaveFormRendererLib
 {
     public class WaveFormRenderer
     {
+        private AudioFileReader reader;
         public Image Render(string selectedFile, WaveFormRendererSettings settings)
         {
             return Render(selectedFile, new MaxPeakProvider(), settings);
         }        
 
+        public void Dispose()
+        {
+            if (reader != null)
+            {
+                reader.Dispose();
+                reader.Close();
+                reader = null;
+            }
+        }
         public Image Render(string selectedFile, IPeakProvider peakProvider, WaveFormRendererSettings settings)
         {
-            using (var reader = new AudioFileReader(selectedFile))
+            using (reader = new AudioFileReader(selectedFile))
             {
                 int bytesPerSample = (reader.WaveFormat.BitsPerSample / 8);
                 var samples = reader.Length / (bytesPerSample);

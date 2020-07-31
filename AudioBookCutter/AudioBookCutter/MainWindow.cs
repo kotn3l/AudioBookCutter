@@ -36,7 +36,7 @@ namespace AudioBookCutter
         public MainWindow()
         {
             InitializeComponent();
-            audioWaveImage.Width = this.Width-16;
+            audioWaveImage.Width = this.Width - 16;
             markers = new List<Marker>();
             pmarkers = new List<PictureBox>();
             label1.SendToBack();
@@ -95,7 +95,7 @@ namespace AudioBookCutter
         private void audioWave()
         {
             renderText(true);
-            audioWaveImage.Image = audio.audioWave(this.Width-16);
+            audioWaveImage.Image = audio.audioWave(this.Width - 16);
             renderText(false);
         }
         public void renderText(bool render)
@@ -443,7 +443,7 @@ namespace AudioBookCutter
                     }
                     else if (lbScale.SelectedValue.ToString() == "SS")
                     {
-                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0,0,(int)numericUpDown1.Value));
+                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, (int)numericUpDown1.Value));
                         pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                         resetDataSource();
                         return;
@@ -518,6 +518,9 @@ namespace AudioBookCutter
             {
                 player.Stop();
                 player.Dispose();
+                audio.Dispose();
+                player = null;
+                audio = null;
             }
             base.OnClosing(e);
             Environment.Exit(Environment.ExitCode);
@@ -536,7 +539,7 @@ namespace AudioBookCutter
                 {
                     times.Add(markers[i].Time);
                 }
-                manager.saveMarkers(times, saveFileDialog1.FileName+".cue", audio);
+                manager.saveMarkers(times, saveFileDialog1.FileName + ".cue", audio);
             }
         }
 
@@ -547,7 +550,7 @@ namespace AudioBookCutter
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 manager = new CUEManager();
-                if (markers == null ||  markers.Count == 0)
+                if (markers == null || markers.Count == 0)
                 {
                     List<Marker> omarkers = manager.openMarkers(openFileDialog1.FileName);
                     for (int i = 0; i < omarkers.Count; i++)
@@ -568,5 +571,5 @@ namespace AudioBookCutter
             resized = true;
         }
     }
-    
+
 }

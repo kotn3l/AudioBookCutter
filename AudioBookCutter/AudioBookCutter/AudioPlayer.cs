@@ -16,7 +16,7 @@ namespace AudioBookCutter
         }
 
         public PlaybackStopTypes PlaybackStopType { get; set; }
-        private WaveOutEvent output;
+        private WaveOut output;
         private Mp3FileReader _audioFileReader;
         public event Action PlaybackResumed;
         public event Action PlaybackStopped;
@@ -25,7 +25,7 @@ namespace AudioBookCutter
         public AudioPlayer(string filepath)
         {
             PlaybackStopType = PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
-            output = new WaveOutEvent();
+            output = new WaveOut();
             output.PlaybackStopped += _output_PlaybackStopped;
             _audioFileReader = new Mp3FileReader(filepath);
             output.Init(_audioFileReader);

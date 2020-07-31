@@ -33,6 +33,7 @@ namespace AudioBookCutter
             }
         }
 
+        private WaveFormRenderer renderer;
         public Image audioWave(int Width)
         {
             //MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
@@ -47,7 +48,7 @@ namespace AudioBookCutter
             myRendererSettings.PixelsPerPeak = 1;
             myRendererSettings.BackgroundColor = Color.LightGray;
 
-            WaveFormRenderer renderer = new WaveFormRenderer();
+            renderer = new WaveFormRenderer();
             return renderer.Render(this.apath, samplingPeakProvider, myRendererSettings);
         }
 
@@ -55,6 +56,11 @@ namespace AudioBookCutter
         {
             this.apath = path;
             this.originalname = Path.GetFileName(Path.GetDirectoryName(originalname));
+        }
+
+        public void Dispose()
+        {
+            renderer.Dispose();
         }
     }
 }
