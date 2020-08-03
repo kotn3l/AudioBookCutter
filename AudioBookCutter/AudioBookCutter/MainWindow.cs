@@ -168,10 +168,10 @@ namespace AudioBookCutter
 
         private void timeLocation()
         {
-            if (timer1.Enabled == true)
-            {
+            //if (timer1.Enabled == true)
+            //{
                 seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
-            }
+            //}
         }
 
         private void updateMarkers()
@@ -569,6 +569,7 @@ namespace AudioBookCutter
                 if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition())
                 {
                     player.SetPosition(omarkers[0].Time.TotalMilliseconds);
+                    timeLocation();
                     return;
                 }
                 for (int i = 0; i < omarkers.Count-1; i++)
@@ -576,6 +577,7 @@ namespace AudioBookCutter
                     if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i+1].Time.TotalMilliseconds)
                     {
                         player.SetPosition(omarkers[i+1].Time.TotalMilliseconds);
+                        timeLocation();
                         return;
                     }
                 }
