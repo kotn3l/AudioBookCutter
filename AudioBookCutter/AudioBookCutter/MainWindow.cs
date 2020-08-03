@@ -362,6 +362,7 @@ namespace AudioBookCutter
                 btnSubtract.Enabled = true;
                 cut.Enabled = true;
                 saveMarker.Enabled = true;
+                saveMarkerFrames.Enabled = true;
                 btnSkip.Enabled = true;
             }
             else
@@ -373,6 +374,7 @@ namespace AudioBookCutter
                 btnSubtract.Enabled = false;
                 cut.Enabled = false;
                 saveMarker.Enabled = false;
+                saveMarkerFrames.Enabled = false;
                 btnSkip.Enabled = false;
             }
         }
@@ -529,7 +531,7 @@ namespace AudioBookCutter
                 {
                     times.Add(markers[i].Time);
                 }
-                manager.saveMarkers(times, saveFileDialog1.FileName + ".cue", audio);
+                manager.saveMarkersMS(times, saveFileDialog1.FileName + ".cue", audio);
             }
         }
 
@@ -539,6 +541,7 @@ namespace AudioBookCutter
             openFileDialog1.Filter = "cue fájlok|*.cue";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                //check if opened markers are pointing over length of opened audio file
                 manager = new CUEManager();
                 if (markers == null || markers.Count == 0)
                 {
@@ -581,6 +584,23 @@ namespace AudioBookCutter
                         return;
                     }
                 }
+            }
+        }
+
+        private void saveMarkerFrames_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = audio.aPath;
+            saveFileDialog1.Title = "Add meg a menteni kívánt markerek gyűjtőnevét!";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                manager = new CUEManager();
+                List<TimeSpan> times = new List<TimeSpan>();
+                for (int i = 0; i < markers.Count; i++)
+                {
+                    times.Add(markers[i].Time);
+                }
+                manager.saveMarkersOG(times, saveFileDialog1.FileName + ".cue", audio);
             }
         }
     }

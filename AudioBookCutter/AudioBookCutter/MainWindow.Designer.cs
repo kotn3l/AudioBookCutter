@@ -35,6 +35,7 @@
             this.openAudio = new System.Windows.Forms.MenuItem();
             this.openMarker = new System.Windows.Forms.MenuItem();
             this.saveMarker = new System.Windows.Forms.MenuItem();
+            this.saveMarkerFrames = new System.Windows.Forms.MenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.trackLength = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -90,7 +91,8 @@
             this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.openAudio,
             this.openMarker,
-            this.saveMarker});
+            this.saveMarker,
+            this.saveMarkerFrames});
             this.menuItem1.Text = "Fájl";
             // 
             // openAudio
@@ -110,8 +112,15 @@
             // 
             this.saveMarker.Enabled = false;
             this.saveMarker.Index = 2;
-            this.saveMarker.Text = "Marker mentése...";
+            this.saveMarker.Text = "Marker mentése... (ms)";
             this.saveMarker.Click += new System.EventHandler(this.saveMarker_Click);
+            // 
+            // saveMarkerFrames
+            // 
+            this.saveMarkerFrames.Enabled = false;
+            this.saveMarkerFrames.Index = 3;
+            this.saveMarkerFrames.Text = "Marker mentése... (frames)";
+            this.saveMarkerFrames.Click += new System.EventHandler(this.saveMarkerFrames_Click);
             // 
             // openFileDialog1
             // 
@@ -466,6 +475,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label lb_rendering;
         private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.MenuItem saveMarkerFrames;
     }
 }
 
