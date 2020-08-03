@@ -558,6 +558,11 @@ namespace AudioBookCutter
         {
             resized = true;
         }
+
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
