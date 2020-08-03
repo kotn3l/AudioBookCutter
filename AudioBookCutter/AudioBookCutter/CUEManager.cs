@@ -53,21 +53,6 @@ namespace AudioBookCutter
             CueSheet cue = new CueSheet(path);
             List<Marker> markers = new List<Marker>();
             bool ms = false;
-            /*for (int i = 0; i < cue.Tracks.Length; i++)
-            {
-                if (ms)
-                {
-                    break;
-                }
-                if (cue[i][0].Frames.ToString().Length == 3)
-                {
-                    ms = true;
-                }
-                if (cue[i][0].Frames > 75)
-                {
-                    ms = true;
-                }
-            }*/
             if (cue.Comments[0] == "MS")
             {
                 ms = true;
@@ -82,6 +67,13 @@ namespace AudioBookCutter
                     ms ? cue[i][0].Frames : (int)(cue[i][0].Frames * (1000/75d) ))));
             }
             return markers;
+        }
+
+        public TimeSpan max(string path)
+        {
+            CueSheet cue = new CueSheet(path);
+            List<Marker> markers = openMarkers(path);
+            return markers[markers.Count - 1].Time;
         }
     }
 }

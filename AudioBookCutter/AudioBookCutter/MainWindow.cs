@@ -170,7 +170,7 @@ namespace AudioBookCutter
         {
             //if (timer1.Enabled == true)
             //{
-                seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
+            seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
             //}
         }
 
@@ -411,13 +411,18 @@ namespace AudioBookCutter
             {
                 if (lb_Markers.SelectedValue == markers[i])
                 {
-                    this.Controls.Remove(pmarkers[i]);
-                    pmarkers.RemoveAt(i);
-                    markers.RemoveAt(i);
+                    removeMarker(i);
                     resetDataSource();
                     return;
                 }
             }
+        }
+
+        private void removeMarker(int i)
+        {
+            this.Controls.Remove(pmarkers[i]);
+            pmarkers.RemoveAt(i);
+            markers.RemoveAt(i);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -541,20 +546,38 @@ namespace AudioBookCutter
             openFileDialog1.Filter = "cue fájlok|*.cue";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //check if opened markers are pointing over length of opened audio file
                 manager = new CUEManager();
-                if (markers == null || markers.Count == 0)
+                if (manager.max(openFileDialog1.FileName) <= player.GetLength())
                 {
                     List<Marker> omarkers = manager.openMarkers(openFileDialog1.FileName);
-                    for (int i = 0; i < omarkers.Count; i++)
+                    if (markers == null || markers.Count == 0)
                     {
-                        addMarker(omarkers[i]);
+                        for (int i = 0; i < omarkers.Count; i++)
+                        {
+                            addMarker(omarkers[i]);
+                        }
+                        resetDataSource();
                     }
-                    resetDataSource();
+                    else
+                    {
+                        MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                        if (MessageBox.Show("Ki akarod cserélni az eddigi markereket a megnyitottakra?", "Marker csere?", buttons) == DialogResult.Yes)
+                        {
+                            for (int i = 0; i < pmarkers.Count; i++)
+                            {
+                                removeMarker(i);
+                            }
+                            for (int i = 0; i < omarkers.Count; i++)
+                            {
+                                addMarker(omarkers[i]);
+                            }
+                            resetDataSource();
+                        }
+                    }
                 }
                 else
                 {
-                    //notify user if they want to replace current markers
+                    MessageBox.Show("A megnyitott marker az audio fájlon kívűlre mutat!");
                 }
             }
         }
@@ -575,11 +598,11 @@ namespace AudioBookCutter
                     timeLocation();
                     return;
                 }
-                for (int i = 0; i < omarkers.Count-1; i++)
+                for (int i = 0; i < omarkers.Count - 1; i++)
                 {
-                    if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i+1].Time.TotalMilliseconds)
+                    if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
                     {
-                        player.SetPosition(omarkers[i+1].Time.TotalMilliseconds);
+                        player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
                         timeLocation();
                         return;
                     }
