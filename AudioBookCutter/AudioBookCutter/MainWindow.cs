@@ -168,10 +168,7 @@ namespace AudioBookCutter
 
         private void timeLocation()
         {
-            //if (timer1.Enabled == true)
-            //{
             seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
-            //}
         }
 
         private void updateMarkers()
@@ -560,8 +557,7 @@ namespace AudioBookCutter
                     }
                     else
                     {
-                        MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                        if (MessageBox.Show("Ki akarod cserélni az eddigi markereket a megnyitottakra?", "Marker csere?", buttons) == DialogResult.Yes)
+                        if (MessageBox.Show("Ki akarod cserélni az eddigi markereket a megnyitottakra?", "Marker csere?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             for (int i = 0; i < pmarkers.Count; i++)
                             {
