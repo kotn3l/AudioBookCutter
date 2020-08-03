@@ -362,6 +362,7 @@ namespace AudioBookCutter
                 btnSubtract.Enabled = true;
                 cut.Enabled = true;
                 saveMarker.Enabled = true;
+                btnSkip.Enabled = true;
             }
             else
             {
@@ -372,6 +373,7 @@ namespace AudioBookCutter
                 btnSubtract.Enabled = false;
                 cut.Enabled = false;
                 saveMarker.Enabled = false;
+                btnSkip.Enabled = false;
             }
         }
         private void lb_Markers_SelectedIndexChanged(object sender, EventArgs e)
@@ -561,7 +563,23 @@ namespace AudioBookCutter
 
         private void btnSkip_Click(object sender, EventArgs e)
         {
-
+            if (player != null)
+            {
+                List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
+                if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition())
+                {
+                    player.SetPosition(omarkers[0].Time.TotalMilliseconds);
+                    return;
+                }
+                for (int i = 0; i < omarkers.Count-1; i++)
+                {
+                    if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i+1].Time.TotalMilliseconds)
+                    {
+                        player.SetPosition(omarkers[i+1].Time.TotalMilliseconds);
+                        return;
+                    }
+                }
+            }
         }
     }
 
