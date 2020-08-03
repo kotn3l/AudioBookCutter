@@ -53,10 +53,17 @@ namespace AudioBookCutter
             bool ms = false;
             for (int i = 0; i < cue.Tracks.Length; i++)
             {
+                if (ms)
+                {
+                    break;
+                }
                 if (cue[i][0].Frames.ToString().Length == 3)
                 {
                     ms = true;
-                    break;
+                }
+                if (cue[i][0].Frames > 75)
+                {
+                    ms = true;
                 }
             }
             for (int i = 1; i < cue.Tracks.Length; i++)
