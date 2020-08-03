@@ -15,6 +15,7 @@ namespace AudioBookCutter
             CueSheet cue = new CueSheet();
             List<TimeSpan> ordered = new List<TimeSpan>(markers.OrderBy(time => time.TotalMilliseconds));
             cue.Title = Path.GetFileNameWithoutExtension(audio.aPath);
+            cue.Comments = new string[1] { "OG" };
             cue.AddTrack("1. fejezet", "na", DataType.AUDIO);
             cue.AddIndex(0, 1, 0, 0, 0);
             int j = 1;
@@ -33,6 +34,7 @@ namespace AudioBookCutter
             CueSheet cue = new CueSheet();
             List<TimeSpan> ordered = new List<TimeSpan>(markers.OrderBy(time => time.TotalMilliseconds));
             cue.Title = Path.GetFileNameWithoutExtension(audio.aPath);
+            cue.Comments = new string[1] { "MS" };
             cue.AddTrack("1. fejezet", "na", DataType.AUDIO);
             cue.AddIndex(0, 1, 0, 0, 0);
             int j = 1;
@@ -51,7 +53,7 @@ namespace AudioBookCutter
             CueSheet cue = new CueSheet(path);
             List<Marker> markers = new List<Marker>();
             bool ms = false;
-            for (int i = 0; i < cue.Tracks.Length; i++)
+            /*for (int i = 0; i < cue.Tracks.Length; i++)
             {
                 if (ms)
                 {
@@ -65,6 +67,10 @@ namespace AudioBookCutter
                 {
                     ms = true;
                 }
+            }*/
+            if (cue.Comments[0] == "MS")
+            {
+                ms = true;
             }
             for (int i = 1; i < cue.Tracks.Length; i++)
             {
