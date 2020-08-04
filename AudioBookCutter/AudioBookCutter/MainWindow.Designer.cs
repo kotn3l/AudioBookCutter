@@ -423,6 +423,7 @@
             this.Controls.Add(this.now);
             this.Controls.Add(this.trackLength);
             this.Controls.Add(this.audioWaveImage);
+            this.KeyPreview = true;
             this.Menu = this.mainMenu1;
             this.Name = "MainWindow";
             this.Text = "Main";

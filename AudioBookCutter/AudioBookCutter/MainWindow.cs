@@ -46,7 +46,6 @@ namespace AudioBookCutter
             {
                  "MS", "SS", "MM", "HH"
             };
-            this.KeyPreview = true;
             resized = false;
             lb_rendering.BringToFront();
         }
@@ -58,14 +57,25 @@ namespace AudioBookCutter
             {
                 openAudio.PerformClick();
                 e.Handled = true;
+                return;
             }
             if (e.Control && e.KeyCode == Keys.M)
+            {
+                if (markerCurrent.Enabled)
+                {
+                    markerCurrent.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.M)
             {
                 if (markerOther.Enabled)
                 {
                     markerOther.PerformClick();
                 }
                 e.Handled = true;
+                return;
             }
             if (e.Control && e.KeyCode == Keys.D)
             {
@@ -74,6 +84,7 @@ namespace AudioBookCutter
                     btnDeleteMarker.PerformClick();
                 }
                 e.Handled = true;
+                return;
             }
             if (e.Control && e.KeyCode == Keys.C)
             {
@@ -82,14 +93,34 @@ namespace AudioBookCutter
                     cut.PerformClick();
                 }
                 e.Handled = true;
+                return;
             }
-            if (e.Control && e.KeyCode == Keys.F)
+            if (e.KeyCode == Keys.F)
             {
                 if (lb_Markers.Enabled)
                 {
                     lb_Markers.Focus();
                 }
                 e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.N)
+            {
+                if (btnSkip.Enabled)
+                {
+                    btnSkip.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                if (saveMarker.Enabled)
+                {
+                    saveMarker.PerformClick();
+                }
+                e.Handled = true;
+                return;
             }
         }
         private void audioWave()
