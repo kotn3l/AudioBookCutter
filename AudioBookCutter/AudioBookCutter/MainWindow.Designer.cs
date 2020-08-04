@@ -426,7 +426,7 @@
             this.KeyPreview = true;
             this.Menu = this.mainMenu1;
             this.Name = "MainWindow";
-            this.Text = "Main";
+            this.Text = "Audio Book Cutter";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
