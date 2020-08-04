@@ -161,6 +161,13 @@ namespace AudioBookCutter
             openFileDialog1.Multiselect = true;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                if (audio != null)
+                {
+                    abcDispose();
+                    //markers = new List<Marker>();
+                    //pmarkers = new List<PictureBox>();
+                    resetDataSource();
+                }
                 if (openFileDialog1.FileNames.Length > 1)
                 {
                     ffmpeg = new Command();
@@ -175,6 +182,8 @@ namespace AudioBookCutter
                 enableOtherControls();
                 player = new AudioPlayer(audio.aPath);
                 trackLength.Text = FormatTimeSpan(player.GetLength());
+                timeLocation();
+                updateMarkers();
                 Thread t = new Thread(() => audioWave());
                 t.IsBackground = true;
                 t.Start();
@@ -240,7 +249,6 @@ namespace AudioBookCutter
                 timer1.Enabled = true;
                 buttonChange(true);
                 player.TogglePlayPause();
-
             }
         }
         private void _audioPlayer_PlaybackStopped()
@@ -300,10 +308,6 @@ namespace AudioBookCutter
                 pause.Enabled = false;
                 stop.Enabled = false;
             }
-        }
-        private IWavePlayer CreateWavePlayer()
-        {
-            return new WaveOutEvent();
         }
 
         private void cut_Click(object sender, EventArgs e)
@@ -538,15 +542,23 @@ namespace AudioBookCutter
             }
         }
 
+        private void abcDispose()
+        {
+            player.Dispose();
+            audio.Dispose();
+            player = null;
+            audio = null;
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                removeMarker(i);
+            }
+        }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (player != null)
             {
                 player.Stop();
-                player.Dispose();
-                audio.Dispose();
-                player = null;
-                audio = null;
+                abcDispose();
             }
             base.OnClosing(e);
             Environment.Exit(Environment.ExitCode);
