@@ -53,6 +53,31 @@ namespace AudioBookCutter
         //HOTKEYS
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.S)
+            {
+                if (_playbackState == PlaybackState.Playing || _playbackState == PlaybackState.Paused)
+                {
+                    stop.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.Space)
+            {
+                if (player != null)
+                {
+                    if (_playbackState == PlaybackState.Playing)
+                    {
+                        pause.PerformClick();
+                    }
+                    else if (_playbackState == PlaybackState.Paused || _playbackState == PlaybackState.Stopped)
+                    {
+                        start.PerformClick();
+                    }
+                }
+                e.Handled = true;
+                return;
+            }
             if (e.Control && e.KeyCode == Keys.O)
             {
                 openAudio.PerformClick();
@@ -95,7 +120,7 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.KeyCode == Keys.F)
+            if (e.KeyCode == Keys.L)
             {
                 if (lb_Markers.Enabled)
                 {
@@ -191,6 +216,7 @@ namespace AudioBookCutter
                 enableOtherControls();
                 player = new AudioPlayer(audio.aPath);
                 trackLength.Text = FormatTimeSpan(player.GetLength());
+                _playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
                 Thread t = new Thread(() => audioWave());
@@ -276,12 +302,14 @@ namespace AudioBookCutter
         {
             _playbackState = PlaybackState.Playing;
             buttonChange(true);
+            timer1.Enabled = true;
         }
 
         private void _audioPlayer_PlaybackPaused()
         {
             _playbackState = PlaybackState.Paused;
             buttonChange(false);
+            timer1.Enabled = false;
         }
 
         private void pause_Click(object sender, EventArgs e)
