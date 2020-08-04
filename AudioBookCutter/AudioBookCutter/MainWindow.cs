@@ -104,7 +104,16 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.KeyCode == Keys.N)
+            if (e.KeyCode == Keys.H)
+            {
+                if (markerHour.Enabled)
+                {
+                    markerHour.Focus();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.K)
             {
                 if (btnSkip.Enabled)
                 {
