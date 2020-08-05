@@ -236,6 +236,7 @@ namespace AudioBookCutter
                 Thread t = new Thread(() => audioWave());
                 t.IsBackground = true;
                 t.Start();
+                resized = false;
                 this.Text = "Audio Book Cutter - "+ audio.OriginalName + @"/" + Path.GetFileName(audio.aPath);
             }
         }
