@@ -212,8 +212,6 @@ namespace AudioBookCutter
                 if (audio != null)
                 {
                     abcDispose();
-                    //markers = new List<Marker>();
-                    //pmarkers = new List<PictureBox>();
                     resetDataSource();
                 }
                 if (openFileDialog1.FileNames.Length > 1)
@@ -602,10 +600,7 @@ namespace AudioBookCutter
                     {
                         if (MessageBox.Show("Ki akarod cserélni az eddigi markereket a megnyitottakra?", "Marker csere?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            for (int i = 0; i < pmarkers.Count; i++)
-                            {
-                                removeMarker(i);
-                            }
+                            removeAllMarkers();
                             for (int i = 0; i < omarkers.Count; i++)
                             {
                                 addMarker(omarkers[i]);
@@ -636,6 +631,15 @@ namespace AudioBookCutter
             this.Controls.Remove(pmarkers[i]);
             pmarkers.RemoveAt(i);
             markers.RemoveAt(i);
+        }
+        private void removeAllMarkers()
+        {
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                this.Controls.Remove(pmarkers[i]);
+            }
+            pmarkers.Clear();
+            markers.Clear();
         }
 
         private void resetDataSource()
@@ -676,10 +680,7 @@ namespace AudioBookCutter
             audio.Dispose();
             player = null;
             audio = null;
-            for (int i = 0; i < pmarkers.Count; i++)
-            {
-                removeMarker(i);
-            }
+            removeAllMarkers();
         }
     }
 
