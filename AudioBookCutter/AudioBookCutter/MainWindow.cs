@@ -337,10 +337,7 @@ namespace AudioBookCutter
             timer1.Enabled = false;
             buttonChange(false);
             timeLocation();
-            if (player.PlaybackStopType == AudioPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile)
-            {
-                now.Text = "00:00.00";
-            }
+            now.Text = "00:00:00.00";
         }
         private void _audioPlayer_PlaybackResumed()
         {

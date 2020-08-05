@@ -58,6 +58,12 @@ namespace AudioBookCutter
             {
                 output.Pause();
                 this.SetPosition(0);
+                PlaybackStopType = PlaybackStopTypes.PlaybackStoppedByUser;
+
+                if (PlaybackStopped != null)
+                {
+                    PlaybackStopped();
+                }
             }
         }
 
