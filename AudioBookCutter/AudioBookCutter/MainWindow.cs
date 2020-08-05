@@ -157,6 +157,34 @@ namespace AudioBookCutter
                 return;
             }
         }
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
+        {
+            if (audio != null && resized)
+            {
+                resized = false;
+                audioWaveImage.Width = this.Width - 16;
+                Thread t = new Thread(() => audioWave());
+                t.IsBackground = true;
+                t.Start();
+                timeLocation();
+                updateMarkers();
+            }
+        }
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (player != null)
+            {
+                player.Stop();
+                abcDispose();
+            }
+            base.OnClosing(e);
+            Environment.Exit(Environment.ExitCode);
+        }
+        private void MainWindow_Resize(object sender, EventArgs e)
+        {
+            resized = true;
+        }
+
         private void audioWave()
         {
             renderText(true);
@@ -174,20 +202,6 @@ namespace AudioBookCutter
                 Invoke(new Action<bool>(renderText), render);
             }
         }
-        private void MainWindow_ResizeEnd(object sender, EventArgs e)
-        {
-            if (audio != null && resized)
-            {
-                resized = false;
-                audioWaveImage.Width = this.Width - 16;
-                Thread t = new Thread(() => audioWave());
-                t.IsBackground = true;
-                t.Start();
-                timeLocation();
-                updateMarkers();
-            }
-        }
-
         private void openAudio_Click(object sender, EventArgs e)
         {
             openFileDialog1 = new OpenFileDialog();
@@ -226,27 +240,14 @@ namespace AudioBookCutter
             }
         }
 
-        private void enableOtherControls()
-        {
-            markerCurrent.Enabled = true;
-            markerOther.Enabled = true;
-            markerHour.Enabled = true;
-            markerMinute.Enabled = true;
-            markerSeconds.Enabled = true;
-            markerMiliseconds.Enabled = true;
-            openMarker.Enabled = true;
-        }
-
         private static string FormatTimeSpan(TimeSpan ts)
         {
             return string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D2}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
         }
-
         private void timeLocation()
         {
             seeker.Location = new Point((int)((player.GetPosition() / (player.GetLengthInMSeconds())) * audioWaveImage.Width), seeker.Location.Y);
         }
-
         private void updateMarkers()
         {
             for (int i = 0; i < pmarkers.Count; i++)
@@ -286,6 +287,50 @@ namespace AudioBookCutter
                 player.TogglePlayPause();
             }
         }
+        private void pause_Click(object sender, EventArgs e)
+        {
+            player.Pause();
+            buttonChange(false);
+        }
+        private void stop_Click(object sender, EventArgs e)
+        {
+            player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
+            player.Stop();
+            buttonChange(false);
+        }
+        private void audioWaveImage_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Point coordinates = me.Location;
+            seeker.Location = new Point(coordinates.X, seeker.Location.Y);
+            if (player != null)
+            {
+                player.SetPosition(locationTime());
+            }
+        }
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            if (player != null)
+            {
+                List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
+                if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition())
+                {
+                    player.SetPosition(omarkers[0].Time.TotalMilliseconds);
+                    timeLocation();
+                    return;
+                }
+                for (int i = 0; i < omarkers.Count - 1; i++)
+                {
+                    if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
+                    {
+                        player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
+                        timeLocation();
+                        return;
+                    }
+                }
+            }
+        }
+
         private void _audioPlayer_PlaybackStopped()
         {
             _playbackState = PlaybackState.Stopped;
@@ -297,14 +342,12 @@ namespace AudioBookCutter
                 now.Text = "00:00.00";
             }
         }
-
         private void _audioPlayer_PlaybackResumed()
         {
             _playbackState = PlaybackState.Playing;
             buttonChange(true);
             timer1.Enabled = true;
         }
-
         private void _audioPlayer_PlaybackPaused()
         {
             _playbackState = PlaybackState.Paused;
@@ -312,19 +355,16 @@ namespace AudioBookCutter
             timer1.Enabled = false;
         }
 
-        private void pause_Click(object sender, EventArgs e)
+        private void enableOtherControls()
         {
-            player.Pause();
-            buttonChange(false);
+            markerCurrent.Enabled = true;
+            markerOther.Enabled = true;
+            markerHour.Enabled = true;
+            markerMinute.Enabled = true;
+            markerSeconds.Enabled = true;
+            markerMiliseconds.Enabled = true;
+            openMarker.Enabled = true;
         }
-
-        private void stop_Click(object sender, EventArgs e)
-        {
-            player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedByUser;
-            player.Stop();
-            buttonChange(false);
-        }
-
         private void buttonChange(bool playing)
         {
             if (playing && timer1.Enabled)
@@ -346,81 +386,6 @@ namespace AudioBookCutter
                 stop.Enabled = false;
             }
         }
-
-        private void cut_Click(object sender, EventArgs e)
-        {
-            saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = audio.aPath;
-            saveFileDialog1.Title = "Add meg a vágott fájloknak a helyét és nevét!";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                ffmpeg = new Command();
-                List<TimeSpan> times = new List<TimeSpan>();
-                for (int i = 0; i < markers.Count; i++)
-                {
-                    times.Add(markers[i].Time);
-                }
-                ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
-            }
-        }
-
-        private void audioWaveImage_Click(object sender, EventArgs e)
-        {
-            MouseEventArgs me = (MouseEventArgs)e;
-            Point coordinates = me.Location;
-            seeker.Location = new Point(coordinates.X, seeker.Location.Y);
-            if (player != null)
-            {
-                player.SetPosition(locationTime());
-            }
-        }
-
-        private void resetDataSource()
-        {
-            lb_Markers.DataSource = null;
-            lb_Markers.DataSource = markers.OrderBy(m => m.Time).ToList();
-        }
-
-        private void markerCurrent_Click(object sender, EventArgs e)
-        {
-            if (audio != null)
-            {
-                Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
-                addMarker(mmarker);
-                resetDataSource();
-            }
-        }
-
-        private void addMarker(Marker marker)
-        {
-            PictureBox pmarker = new PictureBox();
-            pmarker.Size = new Size(2, seeker.Size.Height);
-            pmarker.Location = new Point(marker.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-            pmarker.BackColor = Color.Blue;
-            this.Controls.Add(pmarker);
-            pmarker.BringToFront();
-            pmarkers.Add(pmarker);
-            markers.Add(marker);
-        }
-
-        private void markerOther_Click(object sender, EventArgs e)
-        {
-            if (audio != null)
-            {
-                TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
-                if (ts <= player.GetLength())
-                {
-                    Marker mmarker = new Marker(ts);
-                    addMarker(mmarker);
-                    resetDataSource();
-                }
-                else
-                {
-                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
-                }
-            }
-        }
-
         private void opButtons(bool enable)
         {
             if (enable)
@@ -448,33 +413,49 @@ namespace AudioBookCutter
                 btnSkip.Enabled = false;
             }
         }
-        private void lb_Markers_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void cut_Click(object sender, EventArgs e)
         {
-            if (pmarkers.Count > 0)
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = audio.aPath;
+            saveFileDialog1.Title = "Add meg a vágott fájloknak a helyét és nevét!";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                opButtons(true);
-            }
-            else
-            {
-                opButtons(false);
-            }
-
-
-            for (int i = 0; i < pmarkers.Count; i++)
-            {
-                if (lb_Markers.SelectedValue == markers[i])
+                ffmpeg = new Command();
+                List<TimeSpan> times = new List<TimeSpan>();
+                for (int i = 0; i < markers.Count; i++)
                 {
-                    pmarkers[i].BackColor = Color.Green;
-                    pmarkers[i].Width = 3;
+                    times.Add(markers[i].Time);
+                }
+                ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
+            }
+        }
+        private void markerCurrent_Click(object sender, EventArgs e)
+        {
+            if (audio != null)
+            {
+                Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
+                addMarker(mmarker);
+                resetDataSource();
+            }
+        }
+        private void markerOther_Click(object sender, EventArgs e)
+        {
+            if (audio != null)
+            {
+                TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
+                if (ts <= player.GetLength())
+                {
+                    Marker mmarker = new Marker(ts);
+                    addMarker(mmarker);
+                    resetDataSource();
                 }
                 else
                 {
-                    pmarkers[i].BackColor = Color.Blue;
-                    pmarkers[i].Width = 2;
+                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
                 }
             }
         }
-
         private void btnDeleteMarker_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < pmarkers.Count; i++)
@@ -487,14 +468,6 @@ namespace AudioBookCutter
                 }
             }
         }
-
-        private void removeMarker(int i)
-        {
-            this.Controls.Remove(pmarkers[i]);
-            pmarkers.RemoveAt(i);
-            markers.RemoveAt(i);
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < pmarkers.Count; i++)
@@ -536,7 +509,6 @@ namespace AudioBookCutter
                 }
             }
         }
-
         private void btnSubtract_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < pmarkers.Count; i++)
@@ -578,29 +550,6 @@ namespace AudioBookCutter
                 }
             }
         }
-
-        private void abcDispose()
-        {
-            player.Dispose();
-            audio.Dispose();
-            player = null;
-            audio = null;
-            for (int i = 0; i < pmarkers.Count; i++)
-            {
-                removeMarker(i);
-            }
-        }
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (player != null)
-            {
-                player.Stop();
-                abcDispose();
-            }
-            base.OnClosing(e);
-            Environment.Exit(Environment.ExitCode);
-        }
-
         private void saveMarker_Click(object sender, EventArgs e)
         {
             saveFileDialog1 = new SaveFileDialog();
@@ -617,7 +566,22 @@ namespace AudioBookCutter
                 manager.saveMarkersMS(times, saveFileDialog1.FileName + ".cue", audio);
             }
         }
-
+        private void saveMarkerFrames_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = audio.aPath;
+            saveFileDialog1.Title = "Add meg a menteni kívánt markerek gyűjtőnevét!";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                manager = new CUEManager();
+                List<TimeSpan> times = new List<TimeSpan>();
+                for (int i = 0; i < markers.Count; i++)
+                {
+                    times.Add(markers[i].Time);
+                }
+                manager.saveMarkersOG(times, saveFileDialog1.FileName + ".cue", audio);
+            }
+        }
         private void openMarker_Click(object sender, EventArgs e)
         {
             openFileDialog1 = new OpenFileDialog();
@@ -658,49 +622,65 @@ namespace AudioBookCutter
                 }
             }
         }
-
-        private void MainWindow_Resize(object sender, EventArgs e)
+        private void addMarker(Marker marker)
         {
-            resized = true;
+            PictureBox pmarker = new PictureBox();
+            pmarker.Size = new Size(2, seeker.Size.Height);
+            pmarker.Location = new Point(marker.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+            pmarker.BackColor = Color.Blue;
+            this.Controls.Add(pmarker);
+            pmarker.BringToFront();
+            pmarkers.Add(pmarker);
+            markers.Add(marker);
+        }
+        private void removeMarker(int i)
+        {
+            this.Controls.Remove(pmarkers[i]);
+            pmarkers.RemoveAt(i);
+            markers.RemoveAt(i);
         }
 
-        private void btnSkip_Click(object sender, EventArgs e)
+        private void resetDataSource()
         {
-            if (player != null)
+            lb_Markers.DataSource = null;
+            lb_Markers.DataSource = markers.OrderBy(m => m.Time).ToList();
+        }
+        private void lb_Markers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (pmarkers.Count > 0)
             {
-                List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
-                if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition())
+                opButtons(true);
+            }
+            else
+            {
+                opButtons(false);
+            }
+
+
+            for (int i = 0; i < pmarkers.Count; i++)
+            {
+                if (lb_Markers.SelectedValue == markers[i])
                 {
-                    player.SetPosition(omarkers[0].Time.TotalMilliseconds);
-                    timeLocation();
-                    return;
+                    pmarkers[i].BackColor = Color.Green;
+                    pmarkers[i].Width = 3;
                 }
-                for (int i = 0; i < omarkers.Count - 1; i++)
+                else
                 {
-                    if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
-                    {
-                        player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
-                        timeLocation();
-                        return;
-                    }
+                    pmarkers[i].BackColor = Color.Blue;
+                    pmarkers[i].Width = 2;
                 }
             }
         }
 
-        private void saveMarkerFrames_Click(object sender, EventArgs e)
+        private void abcDispose()
         {
-            saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = audio.aPath;
-            saveFileDialog1.Title = "Add meg a menteni kívánt markerek gyűjtőnevét!";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            player.Dispose();
+            audio.Dispose();
+            player = null;
+            audio = null;
+            for (int i = 0; i < pmarkers.Count; i++)
             {
-                manager = new CUEManager();
-                List<TimeSpan> times = new List<TimeSpan>();
-                for (int i = 0; i < markers.Count; i++)
-                {
-                    times.Add(markers[i].Time);
-                }
-                manager.saveMarkersOG(times, saveFileDialog1.FileName + ".cue", audio);
+                removeMarker(i);
             }
         }
     }
