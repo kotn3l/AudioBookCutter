@@ -15,6 +15,7 @@ using NAudio.Wave.SampleProviders;
 using System.Threading;
 using System.Diagnostics;
 using Serilog;
+using Serilog.Core;
 
 namespace AudioBookCutter
 {
@@ -34,6 +35,7 @@ namespace AudioBookCutter
         private CUEManager manager;
         private bool resized;
         private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        private string errorMsg = "Egy hiba lépett fel az alkalmazásban. Kérlek zárd be a programot, és csatold az exe mellett lévő log fájlt GitHubon egy issue létrehozásával, vagy küldd erre az eemail címre: kotn3l@gmail.com";
 
         public MainWindow()
         {
@@ -50,6 +52,10 @@ namespace AudioBookCutter
             };
             resized = false;
             lb_rendering.BringToFront();
+            if (File.Exists(workingDir + @"/log.log"))
+            {
+                File.Delete(workingDir + @"/log.log");
+            }
             var log =
             new LoggerConfiguration()
             .WriteTo.File(workingDir+@"/log.log")
@@ -195,9 +201,18 @@ namespace AudioBookCutter
 
         private void audioWave()
         {
-            renderText(true);
-            audioWaveImage.Image = audio.audioWave(this.Width - 16);
-            renderText(false);
+            try
+            {
+                renderText(true);
+                audioWaveImage.Image = audio.audioWave(this.Width - 16);
+                renderText(false);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Error occured in audio wave rendering");
+                MessageBox.Show(errorMsg);
+            }
+            
         }
         public void renderText(bool render)
         {
@@ -217,28 +232,46 @@ namespace AudioBookCutter
             openFileDialog1.Multiselect = true;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (audio != null)
+                try
                 {
-                    abcDispose();
-                    resetDataSource();
+                    if (audio != null)
+                    {
+                        abcDispose();
+                        resetDataSource();
+                        Log.Information("Reopening");
+                    }
+                    if (openFileDialog1.FileNames.Length > 1)
+                    {
+                        Log.Information("Multiple files opened: {0}", openFileDialog1.FileNames);
+                        ffmpeg = new Command();
+                        string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
+                        audio = new Audio(result, openFileDialog1.FileNames[0]);
+                        Log.Information("Multiple files merged, result: {0}", Path.GetFileName(audio.aPath));
+                    }
+                    else
+                    {
+                        audio = new Audio(openFileDialog1.FileNames[0], openFileDialog1.FileNames[0]);
+                        Log.Information("One file opened: {0}", Path.GetFileName(audio.aPath));
+                    }
                 }
-                if (openFileDialog1.FileNames.Length > 1)
+                catch (Exception ex)
                 {
-                    Log.Information("Multiple files opened: {0}", openFileDialog1.FileNames);
-                    ffmpeg = new Command();
-                    string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
-                    audio = new Audio(result, openFileDialog1.FileNames[0]);
-                    Log.Information("Multiple files merged, result: {0}", Path.GetFileName(audio.aPath));
-                }
-                else
-                {
-                    audio = new Audio(openFileDialog1.FileNames[0], openFileDialog1.FileNames[0]);
-                    Log.Information("One file opened: {0}", Path.GetFileName(audio.aPath));
+                    Log.Error(ex, "Error occured while opening files");
+                    MessageBox.Show(errorMsg);
                 }
                 buttonChange(false);
                 enableOtherControls();
-                player = new AudioPlayer(audio.aPath);
+                try
+                {
+                    player = new AudioPlayer(audio.aPath);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Error occured while creating player");
+                    MessageBox.Show(errorMsg);
+                }
                 trackLength.Text = FormatTimeSpan(player.GetLength());
+                Log.Information("Track length: {0}", trackLength.Text);
                 _playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
@@ -282,19 +315,27 @@ namespace AudioBookCutter
 
         private void start_Click(object sender, EventArgs e)
         {
-            if (audio != null)
+            try
             {
-                if (_playbackState == PlaybackState.Stopped)
+                if (audio != null)
                 {
-                    player = new AudioPlayer(audio.aPath);
-                    player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
-                    player.PlaybackPaused += _audioPlayer_PlaybackPaused;
-                    player.PlaybackResumed += _audioPlayer_PlaybackResumed;
-                    player.PlaybackStopped += _audioPlayer_PlaybackStopped;
+                    if (_playbackState == PlaybackState.Stopped)
+                    {
+                        player = new AudioPlayer(audio.aPath);
+                        player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
+                        player.PlaybackPaused += _audioPlayer_PlaybackPaused;
+                        player.PlaybackResumed += _audioPlayer_PlaybackResumed;
+                        player.PlaybackStopped += _audioPlayer_PlaybackStopped;
+                    }
+                    timer1.Enabled = true;
+                    buttonChange(true);
+                    player.TogglePlayPause();
                 }
-                timer1.Enabled = true;
-                buttonChange(true);
-                player.TogglePlayPause();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error occured while trying to play audio");
+                MessageBox.Show(errorMsg);
             }
         }
         private void pause_Click(object sender, EventArgs e)
@@ -313,14 +354,23 @@ namespace AudioBookCutter
             MouseEventArgs me = (MouseEventArgs)e;
             Point coordinates = me.Location;
             seeker.Location = new Point(coordinates.X, seeker.Location.Y);
-            if (player != null)
+            try
             {
-                player.SetPosition(locationTime());
+                if (player != null)
+                {
+                    player.SetPosition(locationTime());
+                }
             }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error occured while trying to seek into track");
+                MessageBox.Show(errorMsg);
+            }
+            
         }
         private void btnSkip_Click(object sender, EventArgs e)
         {
-            if (player != null)
+            if (player != null && (markers.Count > 0 && markers != null))
             {
                 List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
                 if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition())
@@ -348,18 +398,21 @@ namespace AudioBookCutter
             buttonChange(false);
             timeLocation();
             now.Text = "00:00:00.00";
+            Log.Information("Playback stopped");
         }
         private void _audioPlayer_PlaybackResumed()
         {
             _playbackState = PlaybackState.Playing;
             buttonChange(true);
             timer1.Enabled = true;
+            Log.Information("Playback started");
         }
         private void _audioPlayer_PlaybackPaused()
         {
             _playbackState = PlaybackState.Paused;
             buttonChange(false);
             timer1.Enabled = false;
+            Log.Information("Playback paused");
         }
 
         private void enableOtherControls()
@@ -428,13 +481,22 @@ namespace AudioBookCutter
             saveFileDialog1.Title = "Add meg a vágott fájloknak a helyét és nevét!";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                ffmpeg = new Command();
-                List<TimeSpan> times = new List<TimeSpan>();
-                for (int i = 0; i < markers.Count; i++)
+                try
                 {
-                    times.Add(markers[i].Time);
+                    ffmpeg = new Command();
+                    List<TimeSpan> times = new List<TimeSpan>();
+                    for (int i = 0; i < markers.Count; i++)
+                    {
+                        times.Add(markers[i].Time);
+                    }
+                    ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
                 }
-                ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Error occured while trying to cut audio");
+                    MessageBox.Show(errorMsg);
+                }
+                
             }
         }
         private void markerCurrent_Click(object sender, EventArgs e)
@@ -443,6 +505,7 @@ namespace AudioBookCutter
             {
                 Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
                 addMarker(mmarker);
+                Log.Information("Marker added at {0}", FormatTimeSpan(mmarker.Time));
                 resetDataSource();
             }
         }
@@ -450,16 +513,26 @@ namespace AudioBookCutter
         {
             if (audio != null)
             {
-                TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
-                if (ts <= player.GetLength())
+                try
                 {
-                    Marker mmarker = new Marker(ts);
-                    addMarker(mmarker);
-                    resetDataSource();
+                    TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
+                    Log.Information("User entered manual timespan: {0}", FormatTimeSpan(ts));
+                    if (ts <= player.GetLength())
+                    {
+                        Marker mmarker = new Marker(ts);
+                        addMarker(mmarker);
+                        Log.Information("Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                        resetDataSource();
+                    }
+                    else
+                    {
+                        MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                    Log.Error(ex, "Error occured while trying to add manual markers");
+                    MessageBox.Show(errorMsg);
                 }
             }
         }
@@ -469,6 +542,7 @@ namespace AudioBookCutter
             {
                 if (lb_Markers.SelectedValue == markers[i])
                 {
+                    Log.Information("Marker deleted at {0}", FormatTimeSpan(markers[i].Time));
                     removeMarker(i);
                     resetDataSource();
                     return;
@@ -564,13 +638,22 @@ namespace AudioBookCutter
             saveFileDialog1.Title = "Add meg a menteni kívánt markerek gyűjtőnevét!";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                manager = new CUEManager();
-                List<TimeSpan> times = new List<TimeSpan>();
-                for (int i = 0; i < markers.Count; i++)
+                try
                 {
-                    times.Add(markers[i].Time);
+                    manager = new CUEManager();
+                    List<TimeSpan> times = new List<TimeSpan>();
+                    for (int i = 0; i < markers.Count; i++)
+                    {
+                        times.Add(markers[i].Time);
+                    }
+                    manager.saveMarkersMS(times, saveFileDialog1.FileName + ".cue", audio);
+                    Log.Information("Marker (ms) saved at: {0}", saveFileDialog1.FileName + ".cue");
                 }
-                manager.saveMarkersMS(times, saveFileDialog1.FileName + ".cue", audio);
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Error occured while trying to save markers (ms)");
+                    MessageBox.Show(errorMsg);
+                }
             }
         }
         private void saveMarkerFrames_Click(object sender, EventArgs e)
@@ -580,13 +663,23 @@ namespace AudioBookCutter
             saveFileDialog1.Title = "Add meg a menteni kívánt markerek gyűjtőnevét!";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                manager = new CUEManager();
-                List<TimeSpan> times = new List<TimeSpan>();
-                for (int i = 0; i < markers.Count; i++)
+                try
                 {
-                    times.Add(markers[i].Time);
+                    manager = new CUEManager();
+                    List<TimeSpan> times = new List<TimeSpan>();
+                    for (int i = 0; i < markers.Count; i++)
+                    {
+                        times.Add(markers[i].Time);
+                    }
+                    manager.saveMarkersOG(times, saveFileDialog1.FileName + ".cue", audio);
+                    Log.Information("Marker (frames) saved at: {0}", saveFileDialog1.FileName + ".cue");
                 }
-                manager.saveMarkersOG(times, saveFileDialog1.FileName + ".cue", audio);
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Error occured while trying to save markers (frames)");
+                    MessageBox.Show(errorMsg);
+                }
+                
             }
         }
         private void openMarker_Click(object sender, EventArgs e)
@@ -595,35 +688,46 @@ namespace AudioBookCutter
             openFileDialog1.Filter = "cue fájlok|*.cue";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                manager = new CUEManager();
-                if (manager.max(openFileDialog1.FileName) <= player.GetLength())
+                try
                 {
-                    List<Marker> omarkers = manager.openMarkers(openFileDialog1.FileName);
-                    if (markers == null || markers.Count == 0)
+                    manager = new CUEManager();
+                    if (manager.max(openFileDialog1.FileName) <= player.GetLength())
                     {
-                        for (int i = 0; i < omarkers.Count; i++)
+                        List<Marker> omarkers = manager.openMarkers(openFileDialog1.FileName);
+                        if (markers == null || markers.Count == 0)
                         {
-                            addMarker(omarkers[i]);
-                        }
-                        resetDataSource();
-                    }
-                    else
-                    {
-                        if (MessageBox.Show("Ki akarod cserélni az eddigi markereket a megnyitottakra?", "Marker csere?", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        {
-                            removeAllMarkers();
                             for (int i = 0; i < omarkers.Count; i++)
                             {
                                 addMarker(omarkers[i]);
                             }
                             resetDataSource();
+                            Log.Information("Markers loaded");
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Ki akarod cserélni az eddigi markereket a megnyitottakra?", "Marker csere?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                removeAllMarkers();
+                                for (int i = 0; i < omarkers.Count; i++)
+                                {
+                                    addMarker(omarkers[i]);
+                                }
+                                resetDataSource();
+                                Log.Information("Markers loaded, deleted old markers");
+                            }
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("A megnyitott marker az audio fájlon kívűlre mutat!");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("A megnyitott marker az audio fájlon kívűlre mutat!");
+                    Log.Error(ex, "Error occured while trying to open markers");
+                    MessageBox.Show(errorMsg);
                 }
+                
             }
         }
         private void addMarker(Marker marker)
@@ -651,6 +755,7 @@ namespace AudioBookCutter
             }
             pmarkers.Clear();
             markers.Clear();
+            Log.Information("Removed all markers");
         }
 
         private void resetDataSource()
