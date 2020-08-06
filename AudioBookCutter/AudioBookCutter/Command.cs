@@ -52,7 +52,7 @@ namespace AudioBookCutter
             temp = argument + " -ss " + ordered[i-1] + " -to "+ length + end + i + fileFormat + "\"";
             Execute(temp);
             Log.Information(command + "Cut from {0} to {1} done", ordered[i - 1], length);
-            Log.Information(command + "{0} files were saved", i);
+            Log.Information(command + "{0} files were saved", i+1);
         }
         private void init()
         {

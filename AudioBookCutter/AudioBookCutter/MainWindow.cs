@@ -54,9 +54,8 @@ namespace AudioBookCutter
             resized = false;
             lb_rendering.BringToFront();
             emptyLogs();
-            var log =
-            new LoggerConfiguration()
-            .WriteTo.File(workingDir+@"/log.log")
+            var log = new LoggerConfiguration()
+            .WriteTo.File(workingDir+@"/log.log", outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}")
             .CreateLogger();
             Log.Logger = log;
             Log.Information(main + "Application started successfully");
@@ -496,6 +495,7 @@ namespace AudioBookCutter
                     {
                         times.Add(markers[i].Time);
                     }
+                    Log.Information(main + "Cut initiated with {0} markers", times.Count);
                     ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
                 }
                 catch (Exception ex)
