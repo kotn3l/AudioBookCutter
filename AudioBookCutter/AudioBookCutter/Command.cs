@@ -17,13 +17,10 @@ namespace AudioBookCutter
         private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
         private string temp = @"\temp\";
         private string cut = @"\cut\";
+        private string command = "[COMMAND] ";
 
-        public Command()
+        public Command(ILogger log)
         {
-            var log =
-            new LoggerConfiguration()
-            .WriteTo.File(workingDir + @"/command.log")
-            .CreateLogger();
             Log.Logger = log;
         }
         public void cutByTimeSpans(List<TimeSpan> times, TimeSpan totalTime, Audio audio, string save)
@@ -34,25 +31,28 @@ namespace AudioBookCutter
         {
             init();
             List<TimeSpan> ordered = new List<TimeSpan>(times.OrderBy(time => time.TotalMilliseconds));
-            Log.Information("{0} will be cut in these timestamps: {1}", Path.GetFileName(path), ordered);
+            Log.Information(command + "{0} will be cut in these timestamps: {1}", Path.GetFileName(path), ordered);
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
             string end = " -c copy " + "\"" + save;
             string temp;
             temp = argument + " -ss 00:00:00.0 -to " + ordered[0] + end + 0 + fileFormat + "\"";
             Execute(temp);
+            Log.Information(command + "Cut from 00:00:00.0 to {0} done", ordered[0]);
             temp = "";
             int i = 1;
             while (i < ordered.Count)
             {
                 temp = argument + " -ss " + ordered[i - 1] + " -to " + ordered[i] + end + i + fileFormat + "\"";
                 Execute(temp);
+                Log.Information(command + "Cut from {0} to {1} done", ordered[i - 1], ordered[i]);
                 temp = "";
                 i++;
             }
             temp = argument + " -ss " + ordered[i-1] + " -to "+ length + end + i + fileFormat + "\"";
             Execute(temp);
-            closeLog();
+            Log.Information(command + "Cut from {0} to {1} done", ordered[i - 1], length);
+            Log.Information(command + "{0} files were saved", i);
         }
         private void init()
         {
@@ -63,7 +63,7 @@ namespace AudioBookCutter
             try
             {
                 startInfo.FileName = workingDir + "\\ffmpeg.exe";
-                Log.Information("FFmpeg.exe found");
+                Log.Information(command + "FFmpeg.exe found");
             }
             catch (Exception e)
             {
@@ -86,7 +86,7 @@ namespace AudioBookCutter
             }
             argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + output + "\"";
             Execute(argument);
-            closeLog();
+            Log.Information(command + "Multiple files merged, result: {0}", Path.GetFileName(output));
             return output;
         }
         private string Execute(string argument)
@@ -100,13 +100,8 @@ namespace AudioBookCutter
                 output = exeProcess.StandardError.ReadToEnd();
                 exeProcess.WaitForExit();
             }
-            Log.Warning("\n"+output);
+            Log.Warning(command + "\n" + output);
             return output;
-        }
-
-        private void closeLog()
-        {
-            Log.CloseAndFlush();
         }
 
         public void emptyTemp()
@@ -122,7 +117,7 @@ namespace AudioBookCutter
                 {
                     dir.Delete(true);
                 }
-                Log.Information("Emptied temp folder");
+                Log.Information(command + "Emptied temp folder");
             }
             catch (IOException)
             {

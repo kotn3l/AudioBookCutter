@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using NAudio.Wave;
+using Serilog;
 
 namespace WaveFormRendererLib
 {
     public class WaveFormRenderer
     {
         private AudioFileReader reader;
-        public Image Render(string selectedFile, WaveFormRendererSettings settings)
+        private static string rrender = "[RENDER] ";
+        public Image Render(string selectedFile, WaveFormRendererSettings settings, ILogger log)
         {
-            return Render(selectedFile, new MaxPeakProvider(), settings);
+            return Render(selectedFile, new MaxPeakProvider(), settings, log);
         }        
 
         public void Dispose()
@@ -22,14 +25,19 @@ namespace WaveFormRendererLib
                 reader = null;
             }
         }
-        public Image Render(string selectedFile, IPeakProvider peakProvider, WaveFormRendererSettings settings)
+        public Image Render(string selectedFile, IPeakProvider peakProvider, WaveFormRendererSettings settings, ILogger log)
         {
+            Log.Logger = log;
             using (reader = new AudioFileReader(selectedFile))
             {
                 int bytesPerSample = (reader.WaveFormat.BitsPerSample / 8);
+                Log.Information(rrender + "Bytes Per Sample: {0}", bytesPerSample);
                 var samples = reader.Length / (bytesPerSample);
+                Log.Information(rrender + "Samples: {0}", samples);
                 var samplesPerPixel = (int)(samples / settings.Width);
+                Log.Information(rrender + "Samples Per Pixel: {0}", samplesPerPixel);
                 var stepSize = settings.PixelsPerPeak + settings.SpacerPixels;
+                Log.Information(rrender + "Step Size: {0}", stepSize);
                 peakProvider.Init(reader, samplesPerPixel * stepSize);
                 return Render(peakProvider, settings);
             }
@@ -37,7 +45,7 @@ namespace WaveFormRendererLib
 
         private static Image Render(IPeakProvider peakProvider, WaveFormRendererSettings settings)
         {
-            System.Diagnostics.Debug.WriteLine(DateTime.Now.Second +"."+ DateTime.Now.Millisecond);
+            Log.Information(rrender + "Render started");
             if (settings.DecibelScale)
                 peakProvider = new DecibelPeakProvider(peakProvider, 48);
 
@@ -81,7 +89,7 @@ namespace WaveFormRendererLib
                     currentPeak = nextPeak;
                 }
             }
-            System.Diagnostics.Debug.WriteLine(DateTime.Now.Second + "." + DateTime.Now.Millisecond);
+            Log.Information(rrender + "Render finished");
             return b;
         }
 

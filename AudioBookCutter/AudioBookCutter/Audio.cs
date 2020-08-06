@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WaveFormRendererLib;
 using System.IO;
+using Serilog;
 
 namespace AudioBookCutter
 {
@@ -34,7 +35,7 @@ namespace AudioBookCutter
         }
 
         private WaveFormRenderer renderer;
-        public Image audioWave(int Width)
+        public Image audioWave(int Width, ILogger log)
         {
             //MaxPeakProvider maxPeakProvider = new MaxPeakProvider();
             //RmsPeakProvider rmsPeakProvider = new RmsPeakProvider(1000); // e.g. 200
@@ -49,7 +50,7 @@ namespace AudioBookCutter
             myRendererSettings.BackgroundColor = Color.LightGray;
 
             renderer = new WaveFormRenderer();
-            return renderer.Render(this.apath, samplingPeakProvider, myRendererSettings);
+            return renderer.Render(this.apath, samplingPeakProvider, myRendererSettings, log);
         }
 
         public Audio(string path, string originalname)
