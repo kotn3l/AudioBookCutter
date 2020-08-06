@@ -100,7 +100,7 @@ namespace AudioBookCutter
                 output = exeProcess.StandardError.ReadToEnd();
                 exeProcess.WaitForExit();
             }
-            Log.Warning(output);
+            Log.Warning("\n"+output);
             return output;
         }
 
