@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
+using Serilog;
 
 namespace AudioBookCutter
 {
@@ -17,6 +18,14 @@ namespace AudioBookCutter
         private string temp = @"\temp\";
         private string cut = @"\cut\";
 
+        public Command()
+        {
+            var log =
+            new LoggerConfiguration()
+            .WriteTo.File(workingDir + @"/command.log")
+            .CreateLogger();
+            Log.Logger = log;
+        }
         public void cutByTimeSpans(List<TimeSpan> times, TimeSpan totalTime, Audio audio, string save)
         {
             cutByTimeSpansIn(times, totalTime, audio.aPath, save);
@@ -25,6 +34,7 @@ namespace AudioBookCutter
         {
             init();
             List<TimeSpan> ordered = new List<TimeSpan>(times.OrderBy(time => time.TotalMilliseconds));
+            Log.Information("{0} will be cut in these timestamps: {1}", Path.GetFileName(path), ordered);
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
             string end = " -c copy " + "\"" + save;
@@ -42,6 +52,7 @@ namespace AudioBookCutter
             }
             temp = argument + " -ss " + ordered[i-1] + " -to "+ length + end + i + fileFormat + "\"";
             Execute(temp);
+            closeLog();
         }
         private void init()
         {
@@ -49,8 +60,15 @@ namespace AudioBookCutter
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\ffmpeg.exe";
-
+            try
+            {
+                startInfo.FileName = workingDir + "\\ffmpeg.exe";
+                Log.Information("FFmpeg.exe found");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Command init failed");
+            }
             Directory.CreateDirectory(workingDir + temp);
             Directory.CreateDirectory(workingDir + cut);
         }
@@ -68,6 +86,7 @@ namespace AudioBookCutter
             }
             argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + output + "\"";
             Execute(argument);
+            closeLog();
             return output;
         }
         private string Execute(string argument)
@@ -78,11 +97,16 @@ namespace AudioBookCutter
             string output;
             using (Process exeProcess = Process.Start(startInfo))
             {
-                string error = exeProcess.StandardError.ReadToEnd();
                 output = exeProcess.StandardError.ReadToEnd();
                 exeProcess.WaitForExit();
             }
+            Log.Warning(output);
             return output;
+        }
+
+        private void closeLog()
+        {
+            Log.CloseAndFlush();
         }
 
         public void emptyTemp()
@@ -98,6 +122,7 @@ namespace AudioBookCutter
                 {
                     dir.Delete(true);
                 }
+                Log.Information("Emptied temp folder");
             }
             catch (IOException)
             {

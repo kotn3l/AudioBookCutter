@@ -35,7 +35,7 @@ namespace AudioBookCutter
         private CUEManager manager;
         private bool resized;
         private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-        private string errorMsg = "Egy hiba lépett fel az alkalmazásban. Kérlek zárd be a programot, és csatold az exe mellett lévő log fájlt GitHubon egy issue létrehozásával, vagy küldd erre az eemail címre: kotn3l@gmail.com";
+        private string errorMsg = "Egy hiba lépett fel az alkalmazásban. Kérlek zárd be a programot, és csatold az exe mellett lévő log fájlokat GitHubon egy issue létrehozásával, vagy küldd erre az e-mail címre: kotn3l@gmail.com";
 
         public MainWindow()
         {
@@ -52,10 +52,7 @@ namespace AudioBookCutter
             };
             resized = false;
             lb_rendering.BringToFront();
-            if (File.Exists(workingDir + @"/log.log"))
-            {
-                File.Delete(workingDir + @"/log.log");
-            }
+            emptyLogs();
             var log =
             new LoggerConfiguration()
             .WriteTo.File(workingDir+@"/log.log")
@@ -197,6 +194,17 @@ namespace AudioBookCutter
         private void MainWindow_Resize(object sender, EventArgs e)
         {
             resized = true;
+        }
+        private void emptyLogs()
+        {
+            if (File.Exists(workingDir + @"/log.log"))
+            {
+                File.Delete(workingDir + @"/log.log");
+            }
+            if (File.Exists(workingDir + @"/command.log"))
+            {
+                File.Delete(workingDir + @"/command.log");
+            }
         }
 
         private void audioWave()
