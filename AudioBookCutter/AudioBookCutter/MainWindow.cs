@@ -55,7 +55,7 @@ namespace AudioBookCutter
             emptyLogs();
             var log =
             new LoggerConfiguration()
-            .WriteTo.File(workingDir+@"/log.log")
+            .WriteTo.File(workingDir+@"/main.log")
             .CreateLogger();
             Log.Logger = log;
         }
@@ -197,9 +197,9 @@ namespace AudioBookCutter
         }
         private void emptyLogs()
         {
-            if (File.Exists(workingDir + @"/log.log"))
+            if (File.Exists(workingDir + @"/main.log"))
             {
-                File.Delete(workingDir + @"/log.log");
+                File.Delete(workingDir + @"/main.log");
             }
             if (File.Exists(workingDir + @"/command.log"))
             {
