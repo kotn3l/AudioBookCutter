@@ -237,6 +237,7 @@ namespace AudioBookCutter
                     if (audio != null)
                     {
                         abcDispose();
+                        removeAllMarkers();
                         resetDataSource();
                         Log.Information("Reopening");
                     }
@@ -515,8 +516,8 @@ namespace AudioBookCutter
             {
                 try
                 {
+                    Log.Information("User entered manual timespan values: {0}:{1}:{2}.{3}", markerHour.Text, markerMinute.Text, markerSeconds.Text, markerMiliseconds.Text);
                     TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
-                    Log.Information("User entered manual timespan: {0}", FormatTimeSpan(ts));
                     if (ts <= player.GetLength())
                     {
                         Marker mmarker = new Marker(ts);
@@ -796,7 +797,6 @@ namespace AudioBookCutter
             audio.Dispose();
             player = null;
             audio = null;
-            removeAllMarkers();
         }
     }
 
