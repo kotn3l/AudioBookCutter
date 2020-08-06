@@ -14,6 +14,7 @@ using System.Drawing.Imaging;
 using NAudio.Wave.SampleProviders;
 using System.Threading;
 using System.Diagnostics;
+using Serilog;
 
 namespace AudioBookCutter
 {
@@ -32,6 +33,7 @@ namespace AudioBookCutter
         private List<PictureBox> pmarkers;
         private CUEManager manager;
         private bool resized;
+        private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
         public MainWindow()
         {
@@ -48,6 +50,11 @@ namespace AudioBookCutter
             };
             resized = false;
             lb_rendering.BringToFront();
+            var log =
+            new LoggerConfiguration()
+            .WriteTo.File(workingDir+@"/log.log")
+            .CreateLogger();
+            Log.Logger = log;
         }
 
         //HOTKEYS
@@ -177,6 +184,7 @@ namespace AudioBookCutter
                 player.Stop();
                 abcDispose();
             }
+            Log.CloseAndFlush();
             base.OnClosing(e);
             Environment.Exit(Environment.ExitCode);
         }
@@ -216,13 +224,16 @@ namespace AudioBookCutter
                 }
                 if (openFileDialog1.FileNames.Length > 1)
                 {
+                    Log.Information("Multiple files opened: {0}", openFileDialog1.FileNames);
                     ffmpeg = new Command();
                     string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
                     audio = new Audio(result, openFileDialog1.FileNames[0]);
+                    Log.Information("Multiple files merged, result: {0}", Path.GetFileName(audio.aPath));
                 }
                 else
                 {
                     audio = new Audio(openFileDialog1.FileNames[0], openFileDialog1.FileNames[0]);
+                    Log.Information("One file opened: {0}", Path.GetFileName(audio.aPath));
                 }
                 buttonChange(false);
                 enableOtherControls();
