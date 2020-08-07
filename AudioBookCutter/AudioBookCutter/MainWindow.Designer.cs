@@ -153,7 +153,7 @@
             // 
             // start
             // 
-            this.start.AccessibleDescription = "Gomb a lejátszás elindításához.";
+            this.start.AccessibleDescription = "A lejátszás elindításához.";
             this.start.AccessibleName = "Lejátszás";
             this.start.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.start.Enabled = false;
@@ -176,7 +176,7 @@
             // 
             // pause
             // 
-            this.pause.AccessibleDescription = "Gomb a lejátszás szüneteltetéséhez.";
+            this.pause.AccessibleDescription = "A lejátszás szüneteltetéséhez.";
             this.pause.AccessibleName = "Szünet";
             this.pause.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.pause.Enabled = false;
@@ -190,7 +190,7 @@
             // 
             // stop
             // 
-            this.stop.AccessibleDescription = "Gomb a lejátszás leállításához.";
+            this.stop.AccessibleDescription = "A lejátszás leállításához.";
             this.stop.AccessibleName = "Megállítás";
             this.stop.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.stop.Enabled = false;
@@ -215,6 +215,9 @@
             // 
             // markerCurrent
             // 
+            this.markerCurrent.AccessibleDescription = "Markert helyez a seeker jelenlegi pozíciójába.";
+            this.markerCurrent.AccessibleName = "Jelenlegi marker lehelyezés.";
+            this.markerCurrent.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.markerCurrent.Enabled = false;
             this.markerCurrent.Location = new System.Drawing.Point(151, 191);
             this.markerCurrent.Name = "markerCurrent";
@@ -226,6 +229,9 @@
             // 
             // markerOther
             // 
+            this.markerOther.AccessibleDescription = "Markert helyez a lentebb megadott időhöz.";
+            this.markerOther.AccessibleName = "Marker megadott időhöz.";
+            this.markerOther.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.markerOther.Enabled = false;
             this.markerOther.Location = new System.Drawing.Point(151, 231);
             this.markerOther.Name = "markerOther";
@@ -237,6 +243,9 @@
             // 
             // markerHour
             // 
+            this.markerHour.AccessibleDescription = "A manuális marker óra mezője.";
+            this.markerHour.AccessibleName = "Óra";
+            this.markerHour.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerHour.Enabled = false;
             this.markerHour.Location = new System.Drawing.Point(151, 260);
             this.markerHour.Name = "markerHour";
@@ -246,6 +255,9 @@
             // 
             // markerMinute
             // 
+            this.markerMinute.AccessibleDescription = "A manuális marker perc mezője.";
+            this.markerMinute.AccessibleName = "Perc";
+            this.markerMinute.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerMinute.Enabled = false;
             this.markerMinute.Location = new System.Drawing.Point(178, 260);
             this.markerMinute.Name = "markerMinute";
@@ -255,6 +267,9 @@
             // 
             // markerSeconds
             // 
+            this.markerSeconds.AccessibleDescription = "A manuális marker másodperc mezője.";
+            this.markerSeconds.AccessibleName = "Másodperc";
+            this.markerSeconds.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerSeconds.Enabled = false;
             this.markerSeconds.Location = new System.Drawing.Point(205, 260);
             this.markerSeconds.Name = "markerSeconds";
@@ -264,6 +279,9 @@
             // 
             // markerMiliseconds
             // 
+            this.markerMiliseconds.AccessibleDescription = "A manuális marker milliszekundum mezője.";
+            this.markerMiliseconds.AccessibleName = "Milliszekundum";
+            this.markerMiliseconds.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerMiliseconds.Enabled = false;
             this.markerMiliseconds.Location = new System.Drawing.Point(232, 260);
             this.markerMiliseconds.Name = "markerMiliseconds";
@@ -300,6 +318,8 @@
             // 
             // lbl_Time
             // 
+            this.lbl_Time.AccessibleDescription = "Címkék a manuális marker adatainak bevitelére.";
+            this.lbl_Time.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.lbl_Time.AutoSize = true;
             this.lbl_Time.Location = new System.Drawing.Point(150, 282);
             this.lbl_Time.Name = "lbl_Time";
@@ -368,6 +388,8 @@
             // 
             // label4
             // 
+            this.label4.AccessibleDescription = "Marker szerkesztésének címke.";
+            this.label4.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(150, 308);
             this.label4.Name = "label4";
