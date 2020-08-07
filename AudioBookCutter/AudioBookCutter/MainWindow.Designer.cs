@@ -72,6 +72,9 @@
             // 
             // audioWaveImage
             // 
+            this.audioWaveImage.AccessibleDescription = "A megnyitott hangfájl hangullám reprezentációja képben.";
+            this.audioWaveImage.AccessibleName = "Audio wave";
+            this.audioWaveImage.AccessibleRole = System.Windows.Forms.AccessibleRole.Graphic;
             this.audioWaveImage.Location = new System.Drawing.Point(0, 31);
             this.audioWaveImage.Name = "audioWaveImage";
             this.audioWaveImage.Size = new System.Drawing.Size(800, 145);
@@ -130,6 +133,9 @@
             // 
             // trackLength
             // 
+            this.trackLength.AccessibleDescription = "A megnyitott hangfájl teljes hossza.";
+            this.trackLength.AccessibleName = "Audio hossza";
+            this.trackLength.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.trackLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackLength.AutoSize = true;
             this.trackLength.Location = new System.Drawing.Point(718, 9);
@@ -144,6 +150,9 @@
             // 
             // now
             // 
+            this.now.AccessibleDescription = "Az audiofájlban a seeker jelenlegi helyzete.";
+            this.now.AccessibleName = "Jelenlegi idő";
+            this.now.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.now.AutoSize = true;
             this.now.Location = new System.Drawing.Point(9, 9);
             this.now.Name = "now";
@@ -204,6 +213,9 @@
             // 
             // cut
             // 
+            this.cut.AccessibleDescription = "A gomb elindítja a vágást a markerek mentén.";
+            this.cut.AccessibleName = "Vágás gomb";
+            this.cut.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.cut.Enabled = false;
             this.cut.Location = new System.Drawing.Point(393, 192);
             this.cut.Name = "cut";
@@ -329,6 +341,9 @@
             // 
             // lb_Markers
             // 
+            this.lb_Markers.AccessibleDescription = "Markerek listája időrendben.";
+            this.lb_Markers.AccessibleName = "Markerek listája";
+            this.lb_Markers.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
             this.lb_Markers.FormattingEnabled = true;
             this.lb_Markers.Location = new System.Drawing.Point(295, 192);
             this.lb_Markers.Name = "lb_Markers";
@@ -338,6 +353,9 @@
             // 
             // btnDeleteMarker
             // 
+            this.btnDeleteMarker.AccessibleDescription = "Törli a kiválasztott markert.";
+            this.btnDeleteMarker.AccessibleName = "Marker törlése";
+            this.btnDeleteMarker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDeleteMarker.Enabled = false;
             this.btnDeleteMarker.Location = new System.Drawing.Point(153, 399);
             this.btnDeleteMarker.Name = "btnDeleteMarker";
@@ -349,6 +367,9 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.AccessibleDescription = "Markerek szerkesztéséhez megadható érték.";
+            this.numericUpDown1.AccessibleName = "Marker szerkesztéshez érték.";
+            this.numericUpDown1.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.numericUpDown1.Enabled = false;
             this.numericUpDown1.Location = new System.Drawing.Point(199, 326);
             this.numericUpDown1.Name = "numericUpDown1";
@@ -357,6 +378,9 @@
             // 
             // lbScale
             // 
+            this.lbScale.AccessibleDescription = "Mértékegységek felsorolva a markerek szerekesztéséhez.";
+            this.lbScale.AccessibleName = "Mértékegység szerkesztéshez";
+            this.lbScale.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
             this.lbScale.Enabled = false;
             this.lbScale.FormattingEnabled = true;
             this.lbScale.Location = new System.Drawing.Point(153, 324);
@@ -366,6 +390,9 @@
             // 
             // btnAdd
             // 
+            this.btnAdd.AccessibleDescription = "Hozzáadja a kiválasztott markerhez a beírt értéket a kiválasztott mértékkel.";
+            this.btnAdd.AccessibleName = "Hozzáadás";
+            this.btnAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnAdd.Enabled = false;
             this.btnAdd.Location = new System.Drawing.Point(199, 357);
             this.btnAdd.Name = "btnAdd";
@@ -377,6 +404,9 @@
             // 
             // btnSubtract
             // 
+            this.btnSubtract.AccessibleDescription = "Kivonja a kiválasztott markerból a beírt értéket a kiválasztott mértékkel.";
+            this.btnSubtract.AccessibleName = "Kivonás";
+            this.btnSubtract.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSubtract.Enabled = false;
             this.btnSubtract.Location = new System.Drawing.Point(248, 357);
             this.btnSubtract.Name = "btnSubtract";
@@ -399,6 +429,9 @@
             // 
             // lb_rendering
             // 
+            this.lb_rendering.AccessibleDescription = "Akkor jelenik meg, ha még az audiofájl hullámja nem jelent meg.";
+            this.lb_rendering.AccessibleName = "Rendering címke.";
+            this.lb_rendering.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.lb_rendering.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lb_rendering.AutoSize = true;
             this.lb_rendering.BackColor = System.Drawing.Color.Transparent;
@@ -427,6 +460,9 @@
             // 
             // MainWindow
             // 
+            this.AccessibleDescription = "Az applikáció ablaka";
+            this.AccessibleName = "Fő ablak";
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
