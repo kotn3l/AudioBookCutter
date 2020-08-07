@@ -167,6 +167,42 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
+            if (e.KeyCode == Keys.Add)
+            {
+                if (btnAdd.Enabled)
+                {
+                    btnAdd.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.Subtract)
+            {
+                if (btnSubtract.Enabled)
+                {
+                    btnSubtract.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.I)
+            {
+                if (lbScale.Enabled)
+                {
+                    lbScale.Focus();
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.E)
+            {
+                if (numericUpDown1.Enabled)
+                {
+                    numericUpDown1.Focus();
+                }
+                e.Handled = true;
+                return;
+            }
         }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
