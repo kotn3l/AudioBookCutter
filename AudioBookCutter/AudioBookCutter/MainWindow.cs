@@ -167,7 +167,7 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.KeyCode == Keys.Add)
+            if (e.Control && e.KeyCode == Keys.P)
             {
                 if (btnAdd.Enabled)
                 {
@@ -176,7 +176,7 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.KeyCode == Keys.Subtract)
+            if (e.Control && e.KeyCode == Keys.I)
             {
                 if (btnSubtract.Enabled)
                 {
@@ -185,7 +185,7 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.KeyCode == Keys.I)
+            if (e.KeyCode == Keys.W)
             {
                 if (lbScale.Enabled)
                 {
