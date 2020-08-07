@@ -153,6 +153,9 @@
             // 
             // start
             // 
+            this.start.AccessibleDescription = "Gomb a lejátszás elindításához.";
+            this.start.AccessibleName = "Lejátszás";
+            this.start.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.start.Enabled = false;
             this.start.Location = new System.Drawing.Point(12, 191);
             this.start.Name = "start";
@@ -173,6 +176,9 @@
             // 
             // pause
             // 
+            this.pause.AccessibleDescription = "Gomb a lejátszás szüneteltetéséhez.";
+            this.pause.AccessibleName = "Szünet";
+            this.pause.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.pause.Enabled = false;
             this.pause.Location = new System.Drawing.Point(53, 191);
             this.pause.Name = "pause";
@@ -184,6 +190,9 @@
             // 
             // stop
             // 
+            this.stop.AccessibleDescription = "Gomb a lejátszás leállításához.";
+            this.stop.AccessibleName = "Megállítás";
+            this.stop.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.stop.Enabled = false;
             this.stop.Location = new System.Drawing.Point(106, 191);
             this.stop.Name = "stop";
@@ -382,6 +391,9 @@
             // 
             // btnSkip
             // 
+            this.btnSkip.AccessibleDescription = "A lejátszás a következő markertől folytatódik.";
+            this.btnSkip.AccessibleName = "Következő marker";
+            this.btnSkip.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSkip.Enabled = false;
             this.btnSkip.Location = new System.Drawing.Point(12, 220);
             this.btnSkip.Name = "btnSkip";
