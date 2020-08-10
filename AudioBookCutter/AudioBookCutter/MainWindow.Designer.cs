@@ -75,6 +75,7 @@
             this.audioWaveImage.AccessibleDescription = "A megnyitott hangfájl hangullám reprezentációja képben.";
             this.audioWaveImage.AccessibleName = "Audio wave";
             this.audioWaveImage.AccessibleRole = System.Windows.Forms.AccessibleRole.Graphic;
+            this.audioWaveImage.BackColor = System.Drawing.Color.LightGray;
             this.audioWaveImage.Location = new System.Drawing.Point(0, 31);
             this.audioWaveImage.Name = "audioWaveImage";
             this.audioWaveImage.Size = new System.Drawing.Size(800, 145);
