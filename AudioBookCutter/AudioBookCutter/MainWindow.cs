@@ -26,7 +26,7 @@ namespace AudioBookCutter
             Playing, Stopped, Paused
         }
 
-        private PlaybackState _playbackState;
+        private PlaybackState playbackState;
         private AudioPlayer player;
         private Audio audio = null;
         private Command ffmpeg;
@@ -66,7 +66,7 @@ namespace AudioBookCutter
         {
             if (e.KeyCode == Keys.S)
             {
-                if (_playbackState == PlaybackState.Playing || _playbackState == PlaybackState.Paused)
+                if (playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
                 {
                     stop.PerformClick();
                 }
@@ -77,11 +77,11 @@ namespace AudioBookCutter
             {
                 if (player != null)
                 {
-                    if (_playbackState == PlaybackState.Playing)
+                    if (playbackState == PlaybackState.Playing)
                     {
                         pause.PerformClick();
                     }
-                    else if (_playbackState == PlaybackState.Paused || _playbackState == PlaybackState.Stopped)
+                    else if (playbackState == PlaybackState.Paused || playbackState == PlaybackState.Stopped)
                     {
                         start.PerformClick();
                     }
@@ -314,7 +314,7 @@ namespace AudioBookCutter
                 }
                 trackLength.Text = FormatTimeSpan(player.GetLength());
                 Log.Information(main + "Track length: {0}", trackLength.Text);
-                _playbackState = PlaybackState.Stopped;
+                playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
                 Thread t = new Thread(() => audioWave());
@@ -361,7 +361,7 @@ namespace AudioBookCutter
             {
                 if (audio != null)
                 {
-                    if (_playbackState == PlaybackState.Stopped)
+                    if (playbackState == PlaybackState.Stopped)
                     {
                         player = new AudioPlayer(audio.aPath);
                         player.PlaybackStopType = AudioPlayer.PlaybackStopTypes.PlaybackStoppedReachingEndOfFile;
@@ -435,7 +435,7 @@ namespace AudioBookCutter
 
         private void _audioPlayer_PlaybackStopped()
         {
-            _playbackState = PlaybackState.Stopped;
+            playbackState = PlaybackState.Stopped;
             timer1.Enabled = false;
             buttonChange(false);
             timeLocation();
@@ -444,14 +444,14 @@ namespace AudioBookCutter
         }
         private void _audioPlayer_PlaybackResumed()
         {
-            _playbackState = PlaybackState.Playing;
+            playbackState = PlaybackState.Playing;
             buttonChange(true);
             timer1.Enabled = true;
             Log.Information(main + "Playback started");
         }
         private void _audioPlayer_PlaybackPaused()
         {
-            _playbackState = PlaybackState.Paused;
+            playbackState = PlaybackState.Paused;
             buttonChange(false);
             timer1.Enabled = false;
             Log.Information(main + "Playback paused");
@@ -883,8 +883,6 @@ namespace AudioBookCutter
             player = null;
             audio = null;
         }
-
-        
     }
 
 }
