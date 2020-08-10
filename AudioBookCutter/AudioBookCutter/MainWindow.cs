@@ -800,6 +800,49 @@ namespace AudioBookCutter
             markers.Clear();
             Log.Information(main + "Removed all markers");
         }
+        private void markerHour_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (numericOnly(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void markerMinute_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (numericOnly(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void markerSeconds_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (numericOnly(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void markerMiliseconds_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (numericOnly(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void numericUpDown1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (numericOnly(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private bool numericOnly(char character)
+        {
+            if (!char.IsControl(character) && !char.IsDigit(character))
+            {
+                return true;
+            }
+            return false;
+        }
 
         private void resetDataSource()
         {
@@ -840,6 +883,8 @@ namespace AudioBookCutter
             player = null;
             audio = null;
         }
+
+        
     }
 
 }

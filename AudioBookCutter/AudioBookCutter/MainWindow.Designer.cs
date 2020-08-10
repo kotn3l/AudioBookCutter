@@ -264,6 +264,7 @@
             this.markerHour.Size = new System.Drawing.Size(21, 20);
             this.markerHour.TabIndex = 10;
             this.markerHour.Text = "0";
+            this.markerHour.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.markerHour_KeyPress);
             // 
             // markerMinute
             // 
@@ -276,6 +277,7 @@
             this.markerMinute.Size = new System.Drawing.Size(21, 20);
             this.markerMinute.TabIndex = 11;
             this.markerMinute.Text = "0";
+            this.markerMinute.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.markerMinute_KeyPress);
             // 
             // markerSeconds
             // 
@@ -288,6 +290,7 @@
             this.markerSeconds.Size = new System.Drawing.Size(21, 20);
             this.markerSeconds.TabIndex = 12;
             this.markerSeconds.Text = "0";
+            this.markerSeconds.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.markerSeconds_KeyPress);
             // 
             // markerMiliseconds
             // 
@@ -300,6 +303,7 @@
             this.markerMiliseconds.Size = new System.Drawing.Size(57, 20);
             this.markerMiliseconds.TabIndex = 13;
             this.markerMiliseconds.Text = "0";
+            this.markerMiliseconds.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.markerMiliseconds_KeyPress);
             // 
             // label1
             // 
@@ -375,6 +379,7 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown1.TabIndex = 20;
+            this.numericUpDown1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericUpDown1_KeyPress);
             // 
             // lbScale
             // 
