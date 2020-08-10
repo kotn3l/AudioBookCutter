@@ -598,41 +598,49 @@ namespace AudioBookCutter
             {
                 if (lb_Markers.SelectedValue == markers[i])
                 {
-                    if (lbScale.SelectedValue.ToString() == "MS")
+                    try
                     {
-                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Added "+ numericUpDown1.Value + " ms to "+ i+1 + "th marker");
-                        return;
+                        if (lbScale.SelectedValue.ToString() == "MS")
+                        {
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Added " + numericUpDown1.Value + " ms to " + i + 1 + "th marker");
+                            return;
+                        }
+                        else if (lbScale.SelectedValue.ToString() == "SS")
+                        {
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, (int)numericUpDown1.Value));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Added " + numericUpDown1.Value + " s to " + i + 1 + "th marker");
+                            return;
+                        }
+                        else if (lbScale.SelectedValue.ToString() == "MM")
+                        {
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, (int)numericUpDown1.Value, 0));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Added " + numericUpDown1.Value + " m to " + i + 1 + "th marker");
+                            return;
+                        }
+                        else if (lbScale.SelectedValue.ToString() == "HH")
+                        {
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan((int)numericUpDown1.Value, 0, 0));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Added " + numericUpDown1.Value + " h to " + i + 1 + "th marker");
+                            return;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-                    else if (lbScale.SelectedValue.ToString() == "SS")
+                    catch (Exception ex)
                     {
-                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, (int)numericUpDown1.Value));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Added " + numericUpDown1.Value + " s to " + i + 1 + "th marker");
-                        return;
-                    }
-                    else if (lbScale.SelectedValue.ToString() == "MM")
-                    {
-                        markers[i].Time = markers[i].Time.Add(new TimeSpan(0, (int)numericUpDown1.Value, 0));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Added " + numericUpDown1.Value + " m to " + i + 1 + "th marker");
-                        return;
-                    }
-                    else if (lbScale.SelectedValue.ToString() == "HH")
-                    {
-                        markers[i].Time = markers[i].Time.Add(new TimeSpan((int)numericUpDown1.Value, 0, 0));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Added " + numericUpDown1.Value + " h to " + i + 1 + "th marker");
-                        return;
-                    }
-                    else
-                    {
-                        return;
+                        Log.Error(ex, "Error occured while trying to add to the " + i+1 +"th marker");
+                        MessageBox.Show(errorMsg);
                     }
                 }
             }
@@ -643,41 +651,49 @@ namespace AudioBookCutter
             {
                 if (lb_Markers.SelectedValue == markers[i])
                 {
-                    if (lbScale.SelectedValue.ToString() == "MS")
+                    try
                     {
-                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Subtracted " + numericUpDown1.Value + " ms from " + i + 1 + "th marker");
-                        return;
+                        if (lbScale.SelectedValue.ToString() == "MS")
+                        {
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Subtracted " + numericUpDown1.Value + " ms from " + i + 1 + "th marker");
+                            return;
+                        }
+                        else if (lbScale.SelectedValue.ToString() == "SS")
+                        {
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, (int)numericUpDown1.Value));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Subtracted " + numericUpDown1.Value + " s from " + i + 1 + "th marker");
+                            return;
+                        }
+                        else if (lbScale.SelectedValue.ToString() == "MM")
+                        {
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, (int)numericUpDown1.Value, 0));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Subtracted " + numericUpDown1.Value + " m from " + i + 1 + "th marker");
+                            return;
+                        }
+                        else if (lbScale.SelectedValue.ToString() == "HH")
+                        {
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan((int)numericUpDown1.Value, 0, 0));
+                            pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                            resetDataSource();
+                            Log.Information("Subtracted " + numericUpDown1.Value + " h from " + i + 1 + "th marker");
+                            return;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-                    else if (lbScale.SelectedValue.ToString() == "SS")
+                    catch (Exception ex)
                     {
-                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, (int)numericUpDown1.Value));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Subtracted " + numericUpDown1.Value + " s from " + i + 1 + "th marker");
-                        return;
-                    }
-                    else if (lbScale.SelectedValue.ToString() == "MM")
-                    {
-                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, (int)numericUpDown1.Value, 0));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Subtracted " + numericUpDown1.Value + " m from " + i + 1 + "th marker");
-                        return;
-                    }
-                    else if (lbScale.SelectedValue.ToString() == "HH")
-                    {
-                        markers[i].Time = markers[i].Time.Subtract(new TimeSpan((int)numericUpDown1.Value, 0, 0));
-                        pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                        resetDataSource();
-                        Log.Information("Subtracted " + numericUpDown1.Value + " h from " + i + 1 + "th marker");
-                        return;
-                    }
-                    else
-                    {
-                        return;
+                        Log.Error(ex, "Error occured while trying to subtract from the " + i + 1 + "th marker");
+                        MessageBox.Show(errorMsg);
                     }
                 }
             }
