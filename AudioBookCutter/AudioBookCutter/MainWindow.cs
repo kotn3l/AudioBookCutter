@@ -206,15 +206,18 @@ namespace AudioBookCutter
         }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-            if (audio != null && resized)
+            if (resized)
             {
                 resized = false;
                 audioWaveImage.Width = this.Width - 16;
-                Thread t = new Thread(() => audioWave());
-                t.IsBackground = true;
-                t.Start();
-                timeLocation();
-                updateMarkers();
+                if (audio != null)
+                {
+                    Thread t = new Thread(() => audioWave());
+                    t.IsBackground = true;
+                    t.Start();
+                    timeLocation();
+                    updateMarkers();
+                }
             }
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -226,8 +229,6 @@ namespace AudioBookCutter
             }
             Log.Information(main + "Application is closing");
             Log.CloseAndFlush();
-            base.OnClosing(e);
-            Environment.Exit(Environment.ExitCode);
         }
         private void MainWindow_Resize(object sender, EventArgs e)
         {
@@ -335,9 +336,12 @@ namespace AudioBookCutter
         }
         private void updateMarkers()
         {
-            for (int i = 0; i < pmarkers.Count; i++)
+            if (player != null)
             {
-                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), pmarkers[i].Location.Y);
+                for (int i = 0; i < pmarkers.Count; i++)
+                {
+                    pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), pmarkers[i].Location.Y);
+                }
             }
         }
         private double locationTime()
@@ -533,6 +537,7 @@ namespace AudioBookCutter
                     }
                     Log.Information(main + "Cut initiated with {0} markers", times.Count);
                     ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
+                    MessageBox.Show("Vágás befejezve!");
                 }
                 catch (Exception ex)
                 {
