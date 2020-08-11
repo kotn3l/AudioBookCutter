@@ -28,3 +28,5 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 | Markerek mentése | Az összes elhelyzett marker mentésre kerül: vagy ms, vagy frames formátumban | - | PASS |
 | Markerek betöltése | A program által elmentett markerek hiba nélkül beimportálódnak | - | PASS |
 | Vágás | A megnyitott hang a markerek szerinti időpontokban elvágásra kerülnek, majd elmentődnek a felhasználó által kiválasztott helyre | - | PASS |
+| Forrógombok | A dokumentált forrógombok működőképesek | - | PASS |
+| Címkézett controlok | Az összes formon lévő control címkézett | - | PASS |
