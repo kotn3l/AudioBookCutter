@@ -7,9 +7,9 @@ Több infó a dokumentumokban.
 
 ## Használata
 #### 1. Hanganyag megnyitása
-- Fájl > "Hanganyagok megnyitása...", vagy CTRL + O billentyűkombináció
+- Fájl > "Hanganyagok megnyitása...", vagy **CTRL + O** billentyűkombináció
 - Több fájl megnyitása esetén a fájlokat sorrendben kell kiválasztani!
-- Tipp, ha a fájlok névszerinti sorrendben vannak: egyszer kattintsünk rá az első fájlra (hogy ki legyen jelölve), majd keressük meg az utolsót, majd arra SHIFT billentyűvel együtt kattintsunk. Az összes fájl sorrendben lesz kijelölve és beimportálva.
+- Tipp, ha a fájlok névszerinti sorrendben vannak: egyszer kattintsünk rá az első fájlra (hogy ki legyen jelölve), majd keressük meg az utolsót, majd arra **SHIFT** billentyűvel együtt kattintsunk. Az összes fájl sorrendben lesz kijelölve és beimportálva.
 
 #### 2. Markerek hozzáadása
 - Markert hozzáadhatunk a seeker aktuális pozíciójához a "Marker a jelenlegi pozícióba" gombbal, vagy **CTRL + N** billentyűkombinációval
