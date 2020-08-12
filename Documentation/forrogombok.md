@@ -14,8 +14,8 @@
 | ------------ | ------------ |
 | **L** | A marker listára fókuszál. Benne a fel és le gombokkal tudunk navigálni |
 | **H** | A manuálisan beírható marker órájára mutat. Onnantól jobbra lépni a **TAB** billentyűvel |
-| **W** | A marker szerkeszétéshez való mértékegység listára fókuszál. Benne a fel és le gombokkal tudunk navigálni |
-| **E** | A marker szerkeszétéshez való értéket itt tudjuk megadni. |
+| **W** | A marker szerkesztéséhez való mértékegység listára fókuszál. Benne a fel és le gombokkal tudunk navigálni |
+| **E** | A marker szerkesztéséhez való értéket itt tudjuk megadni. |
 
 ## Markerek
 | Billentyű kombináció  | Akció  |
