@@ -95,7 +95,7 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.Control && e.KeyCode == Keys.M)
+            if (e.Control && e.KeyCode == Keys.N)
             {
                 if (markerCurrent.Enabled)
                 {
