@@ -12,8 +12,8 @@ Több infó a dokumentumokban.
 - Tipp, ha a fájlok névszerinti sorrendben vannak: egyszer kattintsünk rá az első fájlra (hogy ki legyen jelölve), majd keressük meg az utolsót, majd arra SHIFT billentyűvel együtt kattintsunk. Az összes fájl sorrendben lesz kijelölve és beimportálva.
 
 #### 2. Markerek hozzáadása
-- Markert hozzáadhatunk a seeker aktuális pozíciójához a "Marker a jelenlegi pozícióba" gombbal, vagy CTRL + N billentyűkombinációval
-- Manuálisan is elhelyezhetünk markert, ha a "Marker ehhez az időhoz" gomb alá beírjuk a kívánt értéket. Az érték órájára fókuszálhatunk a H billentyűvel, onnantól pedig a percre, másodperce, milliszekundumra a TAB billentyűvel tudunk továbblépni. (Sorban) Az értékek beírása után a "Marker ehhez az időhoz" gombbal, vagy M billentyűvel helyezhetjük le a markert.
+- Markert hozzáadhatunk a seeker aktuális pozíciójához a "Marker a jelenlegi pozícióba" gombbal, vagy **CTRL + N** billentyűkombinációval
+- Manuálisan is elhelyezhetünk markert, ha a "Marker ehhez az időhoz" gomb alá beírjuk a kívánt értéket. Az érték órájára fókuszálhatunk a H billentyűvel, onnantól pedig a percre, másodperce, milliszekundumra a **TAB** billentyűvel tudunk továbblépni. (Sorban) Az értékek beírása után a "Marker ehhez az időhoz" gombbal, vagy **M** billentyűvel helyezhetjük le a markert.
 
 #### 2a. Markerek szerkesztése
 - Az összes felhelyezett marker a marker listában megjelenik, amelyre az **L** billenytűvel fókuszálhatunk. A listán belül a markerek között a **fel** és **le** billentyűkkel navigálhatunk.
