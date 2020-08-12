@@ -11,6 +11,12 @@ Több infó a dokumentumokban.
 - Több fájl megnyitása esetén a fájlokat sorrendben kell kiválasztani!
 - Tipp, ha a fájlok névszerinti sorrendben vannak: egyszer kattintsünk rá az első fájlra (hogy ki legyen jelölve), majd keressük meg az utolsót, majd arra **SHIFT** billentyűvel együtt kattintsunk. Az összes fájl sorrendben lesz kijelölve és beimportálva.
 
+#### 1a. Hang lejátszása
+- Az audio lejátszás elindíthatjuk a Play gombbal, vagy a **SPACE** billenytűvel.
+- A lejátszást megállíthatjuk az adott helyzetben a Pause gombbal, vagy szintén a **SPACE** billentyűvel.
+- A lejátszást teljesen megállíthatjuk a Stop gombbal, vagy az **S** billentyűvel.
+- Ha már helyeztünk fel markereket, akkor azok szerint előre ugorhatunk a lejátszásban az "Ugrás a következő markerhez" gombbal, vagy a **K** billentyűvel.
+
 #### 2. Markerek hozzáadása
 - Markert hozzáadhatunk a seeker aktuális pozíciójához a "Marker a jelenlegi pozícióba" gombbal, vagy **CTRL + N** billentyűkombinációval
 - Manuálisan is elhelyezhetünk markert, ha a "Marker ehhez az időhoz" gomb alá beírjuk a kívánt értéket. Az érték órájára fókuszálhatunk a H billentyűvel, onnantól pedig a percre, másodperce, milliszekundumra a **TAB** billentyűvel tudunk továbblépni. (Sorban) Az értékek beírása után a "Marker ehhez az időhoz" gombbal, vagy **M** billentyűvel helyezhetjük le a markert.
