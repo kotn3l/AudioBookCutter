@@ -24,6 +24,10 @@ Több infó a dokumentumokban.
 - A felhelyezett markereket elmenthetjük a Fájl > Marker mentése menüpont kiválasztásával. Itt kétféle opciónk van: ms-ben elmenteni, ami a preferált opció, és ehhez tartozik a **CTRL + S** billentyűkombináció.
 - Az elmentett markereket beimportálhatjuk a Fájl > Markerek megnyitása opcióval.
 
+#### 3. Vágás
+- Ha felhelyeztünk minden markert amit szerettünk volna, akkor a "Vágás" gombbal, vagy a **CTRL + C** billentyűkombinációval indíthatjuk el a vágást a megnyitott hanganyagon.
+- Egy felugró ablakban kiválaszhatjuk a menteni kivánt fájlok helyét és összegző nevét.
+
 ## What is AudioBookCutter?
 It can be used to cut any audiobooks (any mp3 format file, for that matter) at one, or at multiple user-placed timestamps. We can place markers at any given point in the opened audio file, and it will be cut there.
 
