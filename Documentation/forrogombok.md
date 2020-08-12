@@ -1,6 +1,6 @@
 # Forrógombok (WIP)
 
-##Általános
+## Általános
 | Billentyű kombináció  | Akció  |
 | ------------ | ------------ |
 | **CTRL + O** | Audiofájl megnyitása |
