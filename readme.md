@@ -17,7 +17,12 @@ Több infó a dokumentumokban.
 
 #### 2a. Markerek szerkesztése
 - Az összes felhelyezett marker a marker listában megjelenik, amelyre az **L** billenytűvel fókuszálhatunk. A listán belül a markerek között a **fel** és **le** billentyűkkel navigálhatunk.
-- A kiválasztott markert szerkeszthetjük: a mértékegység kiválasztásához a **W** billentyűvel fókuszálhatunk. Ez is egy lista, melyben a **fel** és **le** billentyűkkel navigálhatunk. Az érték beállítása az **E** billenytűvel történik.
+- A kiválasztott markert szerkeszthetjük: a mértékegység kiválasztásához a **W** billentyűvel fókuszálhatunk. Ez is egy lista, melyben a **fel** és **le** billentyűkkel navigálhatunk. Az érték beállítása az **E** billenytűvel történik. Ezután az értéket hozzáadhatjuk (**CTRL + P**) vagy kivonhatjuk (**CTRL + I**) a kiválasztott markerből.
+- A kiválasztott markert törölhetjük a "Marker törlése" gombbal, vagy a **CTRL + D** billentyűkombinációval.
+
+#### 2b. Markerek kezelése
+- A felhelyezett markereket elmenthetjük a Fájl > Marker mentése menüpont kiválasztásával. Itt kétféle opciónk van: ms-ben elmenteni, ami a preferált opció, és ehhez tartozik a **CTRL + S** billentyűkombináció.
+- Az elmentett markereket beimportálhatjuk a Fájl > Markerek megnyitása opcióval.
 
 ## What is AudioBookCutter?
 It can be used to cut any audiobooks (any mp3 format file, for that matter) at one, or at multiple user-placed timestamps. We can place markers at any given point in the opened audio file, and it will be cut there.
