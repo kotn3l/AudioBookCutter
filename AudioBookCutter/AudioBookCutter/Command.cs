@@ -16,7 +16,6 @@ namespace AudioBookCutter
         private string argumentStart = "-i ";
         private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
         private string temp = @"\temp\";
-        private string cut = @"\cut\";
         private string command = "[COMMAND] ";
 
         public Command(ILogger log)
@@ -70,7 +69,6 @@ namespace AudioBookCutter
                 Log.Error(e, "Command init failed");
             }
             Directory.CreateDirectory(workingDir + temp);
-            Directory.CreateDirectory(workingDir + cut);
         }
         public string mergeFiles(string[] files)
         {
