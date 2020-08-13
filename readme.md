@@ -41,5 +41,7 @@ It's written in C# using Windows Forms, while for cutting it is using the ffmpeg
 
 # CREDITS
 **FFmpeg** - https://ffmpeg.org/ - for merging and cutting audio
+
 **NAudio** - https://github.com/naudio/NAudio - for audio playback and audio wave rendering
+
 **Serilog** - https://serilog.net/ - for logging
