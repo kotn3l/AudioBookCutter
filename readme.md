@@ -38,3 +38,8 @@ Több infó a dokumentumokban.
 It can be used to cut any audiobooks (any mp3 format file, for that matter) at one, or at multiple user-placed timestamps. We can place markers at any given point in the opened audio file, and it will be cut there.
 
 It's written in C# using Windows Forms, while for cutting it is using the ffmpeg library.
+
+# CREDITS
+**FFmpeg** - https://ffmpeg.org/ - for merging and cutting audio
+**NAudio** - https://github.com/naudio/NAudio - for audio playback and audio wave rendering
+**Serilog** - https://serilog.net/ - for logging
