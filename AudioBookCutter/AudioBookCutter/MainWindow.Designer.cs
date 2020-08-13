@@ -57,7 +57,6 @@
             this.lbl_Time = new System.Windows.Forms.Label();
             this.lb_Markers = new System.Windows.Forms.ListBox();
             this.btnDeleteMarker = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.lbScale = new System.Windows.Forms.ListBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSubtract = new System.Windows.Forms.Button();
@@ -65,9 +64,9 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.lb_rendering = new System.Windows.Forms.Label();
             this.btnSkip = new System.Windows.Forms.Button();
+            this.tb_Edit = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // audioWaveImage
@@ -370,18 +369,6 @@
             this.btnDeleteMarker.UseVisualStyleBackColor = true;
             this.btnDeleteMarker.Click += new System.EventHandler(this.btnDeleteMarker_Click);
             // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.AccessibleDescription = "Markerek szerkesztéséhez megadható érték.";
-            this.numericUpDown1.AccessibleName = "Marker szerkesztéshez érték.";
-            this.numericUpDown1.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
-            this.numericUpDown1.Enabled = false;
-            this.numericUpDown1.Location = new System.Drawing.Point(199, 326);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(90, 20);
-            this.numericUpDown1.TabIndex = 20;
-            this.numericUpDown1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericUpDown1_KeyPress);
-            // 
             // lbScale
             // 
             this.lbScale.AccessibleDescription = "Mértékegységek felsorolva a markerek szerekesztéséhez.";
@@ -464,6 +451,19 @@
             this.btnSkip.UseVisualStyleBackColor = true;
             this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
+            // tb_Edit
+            // 
+            this.tb_Edit.AccessibleDescription = "A marker szerkesztéséhez ide kell beirni az értéket.";
+            this.tb_Edit.AccessibleName = "Marker szerkesztés érték";
+            this.tb_Edit.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
+            this.tb_Edit.Enabled = false;
+            this.tb_Edit.Location = new System.Drawing.Point(200, 324);
+            this.tb_Edit.Name = "tb_Edit";
+            this.tb_Edit.Size = new System.Drawing.Size(89, 20);
+            this.tb_Edit.TabIndex = 27;
+            this.tb_Edit.Text = "0";
+            this.tb_Edit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_Edit_KeyPress);
+            // 
             // MainWindow
             // 
             this.AccessibleDescription = "Az applikáció ablaka";
@@ -472,13 +472,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
+            this.Controls.Add(this.tb_Edit);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.lb_rendering);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSubtract);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lbScale);
-            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.btnDeleteMarker);
             this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
@@ -509,7 +509,6 @@
             this.Resize += new System.EventHandler(this.MainWindow_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,7 +543,6 @@
         private System.Windows.Forms.Label lbl_Time;
         private System.Windows.Forms.ListBox lb_Markers;
         private System.Windows.Forms.Button btnDeleteMarker;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.ListBox lbScale;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSubtract;
@@ -553,6 +551,7 @@
         private System.Windows.Forms.Label lb_rendering;
         private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.MenuItem saveMarkerFrames;
+        private System.Windows.Forms.TextBox tb_Edit;
     }
 }
 

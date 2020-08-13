@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using NAudio.Wave;
-using WaveFormRendererLib;
 using System.IO;
-using System.Drawing.Imaging;
-using NAudio.Wave.SampleProviders;
 using System.Threading;
-using System.Diagnostics;
 using Serilog;
-using Serilog.Core;
 
 namespace AudioBookCutter
 {
@@ -196,9 +187,9 @@ namespace AudioBookCutter
             }
             if (e.KeyCode == Keys.E)
             {
-                if (numericUpDown1.Enabled)
+                if (tb_Edit.Enabled)
                 {
-                    numericUpDown1.Focus();
+                    tb_Edit.Focus();
                 }
                 e.Handled = true;
                 return;
@@ -498,7 +489,7 @@ namespace AudioBookCutter
             {
                 btnDeleteMarker.Enabled = true;
                 lbScale.Enabled = true;
-                numericUpDown1.Enabled = true;
+                tb_Edit.Enabled = true;
                 btnAdd.Enabled = true;
                 btnSubtract.Enabled = true;
                 cut.Enabled = true;
@@ -510,7 +501,7 @@ namespace AudioBookCutter
             {
                 btnDeleteMarker.Enabled = false;
                 lbScale.Enabled = false;
-                numericUpDown1.Enabled = false;
+                tb_Edit.Enabled = false;
                 btnAdd.Enabled = false;
                 btnSubtract.Enabled = false;
                 cut.Enabled = false;
@@ -607,34 +598,34 @@ namespace AudioBookCutter
                     {
                         if (lbScale.SelectedValue.ToString() == "MS")
                         {
-                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, 0, 0, int.Parse(tb_Edit.Text)));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Added " + numericUpDown1.Value + " ms to " + i + 1 + "th marker");
+                            Log.Information("Added " + tb_Edit.Text + " ms to " + i + 1 + "th marker");
                             return;
                         }
                         else if (lbScale.SelectedValue.ToString() == "SS")
                         {
-                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, (int)numericUpDown1.Value));
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, 0, int.Parse(tb_Edit.Text)));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Added " + numericUpDown1.Value + " s to " + i + 1 + "th marker");
+                            Log.Information("Added " + tb_Edit.Text + " s to " + i + 1 + "th marker");
                             return;
                         }
                         else if (lbScale.SelectedValue.ToString() == "MM")
                         {
-                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, (int)numericUpDown1.Value, 0));
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(0, int.Parse(tb_Edit.Text), 0));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Added " + numericUpDown1.Value + " m to " + i + 1 + "th marker");
+                            Log.Information("Added " + tb_Edit.Text + " m to " + i + 1 + "th marker");
                             return;
                         }
                         else if (lbScale.SelectedValue.ToString() == "HH")
                         {
-                            markers[i].Time = markers[i].Time.Add(new TimeSpan((int)numericUpDown1.Value, 0, 0));
+                            markers[i].Time = markers[i].Time.Add(new TimeSpan(int.Parse(tb_Edit.Text), 0, 0));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Added " + numericUpDown1.Value + " h to " + i + 1 + "th marker");
+                            Log.Information("Added " + tb_Edit.Text + " h to " + i + 1 + "th marker");
                             return;
                         }
                         else
@@ -660,34 +651,34 @@ namespace AudioBookCutter
                     {
                         if (lbScale.SelectedValue.ToString() == "MS")
                         {
-                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, 0, 0, (int)numericUpDown1.Value));
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, 0, 0, int.Parse(tb_Edit.Text)));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Subtracted " + numericUpDown1.Value + " ms from " + i + 1 + "th marker");
+                            Log.Information("Subtracted " + tb_Edit.Text + " ms from " + i + 1 + "th marker");
                             return;
                         }
                         else if (lbScale.SelectedValue.ToString() == "SS")
                         {
-                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, (int)numericUpDown1.Value));
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, 0, int.Parse(tb_Edit.Text)));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Subtracted " + numericUpDown1.Value + " s from " + i + 1 + "th marker");
+                            Log.Information("Subtracted " + tb_Edit.Text + " s from " + i + 1 + "th marker");
                             return;
                         }
                         else if (lbScale.SelectedValue.ToString() == "MM")
                         {
-                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, (int)numericUpDown1.Value, 0));
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(0, int.Parse(tb_Edit.Text), 0));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Subtracted " + numericUpDown1.Value + " m from " + i + 1 + "th marker");
+                            Log.Information("Subtracted " + tb_Edit.Text + " m from " + i + 1 + "th marker");
                             return;
                         }
                         else if (lbScale.SelectedValue.ToString() == "HH")
                         {
-                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan((int)numericUpDown1.Value, 0, 0));
+                            markers[i].Time = markers[i].Time.Subtract(new TimeSpan(int.Parse(tb_Edit.Text), 0, 0));
                             pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
                             resetDataSource();
-                            Log.Information("Subtracted " + numericUpDown1.Value + " h from " + i + 1 + "th marker");
+                            Log.Information("Subtracted " + tb_Edit.Text + " h from " + i + 1 + "th marker");
                             return;
                         }
                         else
@@ -857,7 +848,7 @@ namespace AudioBookCutter
                 e.Handled = true;
             }
         }
-        private void numericUpDown1_KeyPress(object sender, KeyPressEventArgs e)
+        private void tb_Edit_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (numericOnly(e.KeyChar))
             {
