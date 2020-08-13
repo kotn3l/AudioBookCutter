@@ -427,7 +427,7 @@ namespace AudioBookCutter
                 }
                 for (int i = 0; i < omarkers.Count - 1; i++)
                 {
-                    if (player.GetPosition() >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
+                    if (player.GetPosition() + 2500 >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
                     {
                         player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
                         timeLocation();
