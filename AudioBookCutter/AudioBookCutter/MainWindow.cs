@@ -419,7 +419,7 @@ namespace AudioBookCutter
             if (player != null && (markers.Count > 0 && markers != null))
             {
                 List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
-                if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition())
+                if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition() + 2500)
                 {
                     player.SetPosition(omarkers[0].Time.TotalMilliseconds);
                     timeLocation();
