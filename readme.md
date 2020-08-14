@@ -7,8 +7,8 @@ Több infó a dokumentumokban.
 
 ## Használata
 #### 0. FFmpeg
-- Győződjünk meg róla, hogy az FFmpeg.exe egy mappában van az AudioBookCutter.exe-vel.
-- Ha nincs, akkor töltsük le, csomagoljuk ki, majd az FFmpeg bin mappájából másoljuk ki az FFmpeg.exe-t az AudioBookCutter mappájába.
+- Győződjünk meg róla, hogy az FFmpeg.exe egy mappában van az AudioBookCutter.exe-vel
+- Ha nincs, akkor töltsük le, csomagoljuk ki, majd az FFmpeg bin mappájából másoljuk ki az FFmpeg.exe-t az AudioBookCutter mappájába
 
 #### 1. Hanganyag megnyitása
 - Fájl > "Hanganyagok megnyitása...", vagy **CTRL + O** billentyűkombináció
