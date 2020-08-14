@@ -6,6 +6,10 @@ Egy C#-ban írott, és Windows Forms-al implementált szoftver, amely az ffmpeg 
 Több infó a dokumentumokban.
 
 ## Használata
+#### 0. FFmpeg
+- Győződjünk meg róla, hogy az FFmpeg.exe egy mappában van az AudioBookCutter.exe-vel.
+- Ha nincs, akkor töltsük le, csomagoljuk ki, majd az FFmpeg bin mappájából másoljuk ki az FFmpeg.exe-t az AudioBookCutter mappájába.
+
 #### 1. Hanganyag megnyitása
 - Fájl > "Hanganyagok megnyitása...", vagy **CTRL + O** billentyűkombináció
 - Több fájl megnyitása esetén a fájlokat sorrendben kell kiválasztani!
