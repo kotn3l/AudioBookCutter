@@ -1,5 +1,20 @@
 # Teszt
-Az alkalmazás fejlesztése során elengedhetetlen volt a folyamatos futtatás és tesztelés. A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
+Az alkalmazás fejlesztése során elengedhetetlen volt a folyamatos futtatás és tesztelés.
+
+Az alábbi bugok kerültek javításra a fejlesztés közben:
+
+| Bug leírása | Elvárt működés  | Fixed  |
+| ------------ | ------------ | ------------ |
+| 2020-07-15 Ha a fájl végére ért a lejátszás utána nem lehet újra elindítani | Utána is el kell tudnunk indítani. | FIXED 2020-07-27 |
+| 2020-07-17 Az FFmpeg parancs nem fut le | Az FFmpeg parancsnak hiba nélkül le kell futnia. | FIXED 2020-07-22 |
+| 2020-07-17 Lejátszás megállítása nem vitte az elejére a lejátszást | A lejátszás megállítása után ha újra elindítjuk, akkor az elejéről kezdi. | FIXED 2020-07-27 |
+| 2020-07-20 Nem lehet beletekerni az elindított lejátszásba | Bérhova bele lehet tekerni lejátszás közben is. | FIXED 2020-07-28 |
+| 2020-07-31 Az alkalmazás exceptionnel zárult be | A programnak hiba nélkül be kell záródnia. | FIXED 2020-08-03 |
+| 2020-08-04 Lejátszás forrógomb nem működik | - | FIXED 2020-08-05 |
+| 2020-08-05 Új hang megnyitása ha már meg volt egy nyitva | Az új audió megnyitása úgy működik, mintha először importálnánk azt. | FIXED 2020-08-05 |
+| 2020-08-05 Wave újrarenderelődik | A wave csak akkor renderelődjön újra, ha az ablak újraméretezve lett. | FIXED 2020-08-05 |
+
+A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
 
 A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem teljesít a program, azon megbukott, és az a hiba javításra szorul.
 
