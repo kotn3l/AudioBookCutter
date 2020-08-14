@@ -3,7 +3,7 @@ Az alkalmazás fejlesztése során elengedhetetlen volt a folyamatos futtatás �
 
 Az alábbi bugok kerültek javításra a fejlesztés közben:
 
-| Hiba felfedezés dátuma | Bug leírása | Elvárt működés  | Fix date  |
+| Hiba felfedezés dátuma | Bug leírása | Elvárt működés  | Hiba javításának dátuma  |
 | ------------ | ------------ | ------------ | ------------ |
 | 2020-07-15 | Ha a fájl végére ért a lejátszás utána nem lehet újra elindítani | Utána is el kell tudnunk indítani. | 2020-07-27 |
 | 2020-07-17 | Az FFmpeg parancs nem fut le | Az FFmpeg parancsnak hiba nélkül le kell futnia. | 2020-07-22 |
