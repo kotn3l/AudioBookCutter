@@ -14,9 +14,24 @@ Az alábbi bugok kerültek javításra a fejlesztés közben:
 | 2020-08-05 | Új hang megnyitása ha már meg volt egy nyitva | Az új audió megnyitása úgy működik, mintha először importálnánk azt. | 2020-08-05 |
 | 2020-08-05 | Wave újrarenderelődik | A wave csak akkor renderelődjön újra, ha az ablak újraméretezve lett. | 2020-08-05 |
 
+Teszteseteik:
+
+| Teszt neve röviden  | Elvárt működés  | Hiba  | Átment  |
+| ------------ | ------------ | ------------ | ------------ |
+| Ha a fájl végére ért a lejátszás utána nem lehet újra elindítani | Utána is el kell tudnunk indítani. | - | PASS |
+| Az FFmpeg parancs nem fut le | Az FFmpeg parancsnak hiba nélkül le kell futnia. | - | PASS |
+| Lejátszás megállítása nem vitte az elejére a lejátszást | A lejátszás megállítása után ha újra elindítjuk, akkor az elejéről kezdi. | - | PASS |
+| Nem lehet beletekerni az elindított lejátszásba | Bérhova bele lehet tekerni lejátszás közben is. | - | PASS |
+| Az alkalmazás exceptionnel zárult be | A programnak hiba nélkül be kell záródnia. | - | PASS |
+| Lejátszás forrógomb nem működik | - | - | PASS |
+| Új hang megnyitása ha már meg volt egy nyitva | Az új audió megnyitása úgy működik, mintha először importálnánk azt. | - | PASS |
+| Wave újrarenderelődik | A wave csak akkor renderelődjön újra, ha az ablak újraméretezve lett. | - | PASS |
+
 A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
 
 A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem teljesít a program, azon megbukott, és az a hiba javításra szorul.
+
+## Alpha teszt
 
 ### 2020-08-11
 | Teszt neve röviden  | Elvárt működés  | Hiba  | Átment  |
