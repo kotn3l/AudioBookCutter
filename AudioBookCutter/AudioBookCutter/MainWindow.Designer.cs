@@ -486,6 +486,7 @@
             this.lbFiles.AccessibleDescription = "Ebben a listában válaszhatjuk ki, hogy hova szeretnénk rakni a manuális markert.";
             this.lbFiles.AccessibleName = "Mergelt fájlok listája";
             this.lbFiles.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
+            this.lbFiles.Enabled = false;
             this.lbFiles.FormattingEnabled = true;
             this.lbFiles.Location = new System.Drawing.Point(151, 231);
             this.lbFiles.Name = "lbFiles";

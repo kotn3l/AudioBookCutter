@@ -268,6 +268,7 @@ namespace AudioBookCutter
         private void openAudio_Click(object sender, EventArgs e)
         {
             bool multipleb = false;
+            List<string> filenames = new List<string>();
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
@@ -286,6 +287,8 @@ namespace AudioBookCutter
                     {
                         multipleb = true;
                         btnSkipFile.Enabled = true;
+                        lbFiles.Enabled = true;
+                        lbFiles.DataSource = openFileDialog1.FileNames;
                         audioMultiple = new List<Audio>();
                         multiple = new List<Marker>();
                         pmultiple = new List<PictureBox>();
@@ -293,12 +296,20 @@ namespace AudioBookCutter
                         ffmpeg = new Command(Log.Logger);
                         string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
                         audio = new Audio(result, openFileDialog1.FileNames[0]);
+                        for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
+                        {
+                            filenames.Add(Path.GetFileName(openFileDialog1.FileNames[i]));
+                        }
+                        filenames.Add(Path.GetFileName(result));
                     }
                     else
                     {
                         audio = new Audio(openFileDialog1.FileNames[0], openFileDialog1.FileNames[0]);
+                        filenames.Add(Path.GetFileName(openFileDialog1.FileNames[0]));
                         Log.Information(main + "One file opened: {0}", Path.GetFileName(audio.aPath));
                     }
+                    lbFiles.DataSource = filenames;
+                    lbFiles.SelectedIndex = filenames.Count - 1;
                 }
                 catch (Exception ex)
                 {
