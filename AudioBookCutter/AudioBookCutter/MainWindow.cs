@@ -41,9 +41,6 @@ namespace AudioBookCutter
             audioWaveImage.Width = this.Width - 16;
             markers = new List<Marker>();
             pmarkers = new List<PictureBox>();
-            audioMultiple = new List<Audio>();
-            multiple = new List<Marker>();
-            pmultiple = new List<PictureBox>();
             label1.SendToBack();
             label2.SendToBack();
             label3.SendToBack();
@@ -270,7 +267,7 @@ namespace AudioBookCutter
         }
         private void openAudio_Click(object sender, EventArgs e)
         {
-            bool multiple = false;
+            bool multipleb = false;
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
@@ -287,7 +284,10 @@ namespace AudioBookCutter
                     }
                     if (openFileDialog1.FileNames.Length > 1)
                     {
-                        multiple = true;
+                        multipleb = true;
+                        audioMultiple = new List<Audio>();
+                        multiple = new List<Marker>();
+                        pmultiple = new List<PictureBox>();
                         Log.Information(main + "Multiple files opened: {0}", openFileDialog1.FileNames);
                         ffmpeg = new Command(Log.Logger);
                         string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
@@ -320,7 +320,7 @@ namespace AudioBookCutter
                 playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
-                if (multiple)
+                if (multipleb)
                 {
                     placeMultiple(openFileDialog1.FileNames);
                 }
@@ -347,6 +347,10 @@ namespace AudioBookCutter
                 for (int i = 0; i < pmarkers.Count; i++)
                 {
                     pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), pmarkers[i].Location.Y);
+                }
+                for (int i = 0; i < pmultiple.Count; i++)
+                {
+                    pmultiple[i].Location = new Point(multiple[i].calculateX(this.Width - 16, player.GetLength()), pmultiple[i].Location.Y);
                 }
             }
         }
