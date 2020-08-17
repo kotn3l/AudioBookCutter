@@ -65,6 +65,7 @@
             this.lb_rendering = new System.Windows.Forms.Label();
             this.btnSkip = new System.Windows.Forms.Button();
             this.tb_Edit = new System.Windows.Forms.TextBox();
+            this.btnSkipFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -361,7 +362,7 @@
             this.btnDeleteMarker.AccessibleName = "Marker törlése";
             this.btnDeleteMarker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDeleteMarker.Enabled = false;
-            this.btnDeleteMarker.Location = new System.Drawing.Point(153, 399);
+            this.btnDeleteMarker.Location = new System.Drawing.Point(153, 431);
             this.btnDeleteMarker.Name = "btnDeleteMarker";
             this.btnDeleteMarker.Size = new System.Drawing.Size(136, 23);
             this.btnDeleteMarker.TabIndex = 19;
@@ -376,7 +377,7 @@
             this.lbScale.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
             this.lbScale.Enabled = false;
             this.lbScale.FormattingEnabled = true;
-            this.lbScale.Location = new System.Drawing.Point(153, 324);
+            this.lbScale.Location = new System.Drawing.Point(153, 356);
             this.lbScale.Name = "lbScale";
             this.lbScale.Size = new System.Drawing.Size(40, 56);
             this.lbScale.TabIndex = 21;
@@ -387,7 +388,7 @@
             this.btnAdd.AccessibleName = "Hozzáadás";
             this.btnAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnAdd.Enabled = false;
-            this.btnAdd.Location = new System.Drawing.Point(199, 357);
+            this.btnAdd.Location = new System.Drawing.Point(199, 389);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(42, 23);
             this.btnAdd.TabIndex = 22;
@@ -401,7 +402,7 @@
             this.btnSubtract.AccessibleName = "Kivonás";
             this.btnSubtract.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSubtract.Enabled = false;
-            this.btnSubtract.Location = new System.Drawing.Point(248, 357);
+            this.btnSubtract.Location = new System.Drawing.Point(248, 389);
             this.btnSubtract.Name = "btnSubtract";
             this.btnSubtract.Size = new System.Drawing.Size(41, 23);
             this.btnSubtract.TabIndex = 23;
@@ -414,7 +415,7 @@
             this.label4.AccessibleDescription = "Marker szerkesztésének címke.";
             this.label4.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(150, 308);
+            this.label4.Location = new System.Drawing.Point(150, 340);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 13);
             this.label4.TabIndex = 24;
@@ -457,12 +458,26 @@
             this.tb_Edit.AccessibleName = "Marker szerkesztés érték";
             this.tb_Edit.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.tb_Edit.Enabled = false;
-            this.tb_Edit.Location = new System.Drawing.Point(200, 324);
+            this.tb_Edit.Location = new System.Drawing.Point(200, 356);
             this.tb_Edit.Name = "tb_Edit";
             this.tb_Edit.Size = new System.Drawing.Size(89, 20);
             this.tb_Edit.TabIndex = 27;
             this.tb_Edit.Text = "0";
             this.tb_Edit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_Edit_KeyPress);
+            // 
+            // btnSkipFile
+            // 
+            this.btnSkipFile.AccessibleDescription = "A lejátszás a következő fájltól folytatódik.";
+            this.btnSkipFile.AccessibleName = "Következő fájl";
+            this.btnSkipFile.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSkipFile.Enabled = false;
+            this.btnSkipFile.Location = new System.Drawing.Point(12, 249);
+            this.btnSkipFile.Name = "btnSkipFile";
+            this.btnSkipFile.Size = new System.Drawing.Size(133, 23);
+            this.btnSkipFile.TabIndex = 28;
+            this.btnSkipFile.Text = "To next div";
+            this.btnSkipFile.UseVisualStyleBackColor = true;
+            this.btnSkipFile.Click += new System.EventHandler(this.btnSkipFile_Click);
             // 
             // MainWindow
             // 
@@ -472,6 +487,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
+            this.Controls.Add(this.btnSkipFile);
             this.Controls.Add(this.tb_Edit);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.lb_rendering);
@@ -552,6 +568,7 @@
         private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.MenuItem saveMarkerFrames;
         private System.Windows.Forms.TextBox tb_Edit;
+        private System.Windows.Forms.Button btnSkipFile;
     }
 }
 

@@ -285,6 +285,7 @@ namespace AudioBookCutter
                     if (openFileDialog1.FileNames.Length > 1)
                     {
                         multipleb = true;
+                        btnSkipFile.Enabled = true;
                         audioMultiple = new List<Audio>();
                         multiple = new List<Marker>();
                         pmultiple = new List<PictureBox>();
@@ -447,20 +448,32 @@ namespace AudioBookCutter
             if (player != null && (markers.Count > 0 && markers != null))
             {
                 List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
-                if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition() + 2500)
+                skip(omarkers);
+            }
+        }
+        private void btnSkipFile_Click(object sender, EventArgs e)
+        {
+            if (player != null && (multiple.Count > 0 && multiple != null))
+            {
+                List<Marker> omarkers = new List<Marker>(multiple.OrderBy(marker => marker.Time.TotalMilliseconds));
+                skip(omarkers);
+            }
+        }
+        private void skip(List<Marker> omarkers)
+        {
+            if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition() + 2500)
+            {
+                player.SetPosition(omarkers[0].Time.TotalMilliseconds);
+                timeLocation();
+                return;
+            }
+            for (int i = 0; i < omarkers.Count - 1; i++)
+            {
+                if (player.GetPosition() + 2500 >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
                 {
-                    player.SetPosition(omarkers[0].Time.TotalMilliseconds);
+                    player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
                     timeLocation();
                     return;
-                }
-                for (int i = 0; i < omarkers.Count - 1; i++)
-                {
-                    if (player.GetPosition() + 2500 >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
-                    {
-                        player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
-                        timeLocation();
-                        return;
-                    }
                 }
             }
         }
