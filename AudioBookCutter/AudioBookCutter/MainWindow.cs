@@ -41,6 +41,9 @@ namespace AudioBookCutter
             audioWaveImage.Width = this.Width - 16;
             markers = new List<Marker>();
             pmarkers = new List<PictureBox>();
+            audioMultiple = new List<Audio>();
+            multiple = new List<Marker>();
+            pmultiple = new List<PictureBox>();
             label1.SendToBack();
             label2.SendToBack();
             label3.SendToBack();
@@ -267,6 +270,7 @@ namespace AudioBookCutter
         }
         private void openAudio_Click(object sender, EventArgs e)
         {
+            bool multiple;
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
@@ -283,12 +287,8 @@ namespace AudioBookCutter
                     }
                     if (openFileDialog1.FileNames.Length > 1)
                     {
+                        multiple = true;
                         Log.Information(main + "Multiple files opened: {0}", openFileDialog1.FileNames);
-                        for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
-                        {
-                            audioMultiple.Add(new Audio(openFileDialog1.FileNames[i], openFileDialog1.FileNames[i]));
-
-                        }
                         ffmpeg = new Command(Log.Logger);
                         string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
                         audio = new Audio(result, openFileDialog1.FileNames[0]);
@@ -320,6 +320,10 @@ namespace AudioBookCutter
                 playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
+                if (openFileDialog1.FileNames.Length > 1)
+                {
+                    placeMultiple(openFileDialog1.FileNames);
+                }
                 Thread t = new Thread(() => audioWave());
                 t.IsBackground = true;
                 t.Start();
@@ -353,6 +357,24 @@ namespace AudioBookCutter
                 return player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width);
             }
             return 0;
+        }
+        private void placeMultiple(string[] files)
+        {
+            for (int i = 0; i < files.Length-1; i++)
+            {
+                audioMultiple.Add(new Audio(files[i], files[i]));
+                AudioPlayer ap = new AudioPlayer(audioMultiple[i].aPath);
+                Marker mdiv = new Marker(ap.GetLength());
+                multiple.Add(mdiv);
+                ap.Dispose();
+                PictureBox div = new PictureBox();
+                div.Size = new Size(1, seeker.Size.Height);
+                div.Location = new Point(mdiv.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                div.BackColor = Color.Blue;
+                this.Controls.Add(div);
+                div.BringToFront();
+                pmultiple.Add(div);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
