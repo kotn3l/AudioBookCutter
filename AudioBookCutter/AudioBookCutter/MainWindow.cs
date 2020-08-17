@@ -270,7 +270,7 @@ namespace AudioBookCutter
         }
         private void openAudio_Click(object sender, EventArgs e)
         {
-            bool multiple;
+            bool multiple = false;
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
@@ -320,7 +320,7 @@ namespace AudioBookCutter
                 playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
-                if (openFileDialog1.FileNames.Length > 1)
+                if (multiple)
                 {
                     placeMultiple(openFileDialog1.FileNames);
                 }
@@ -360,20 +360,20 @@ namespace AudioBookCutter
         }
         private void placeMultiple(string[] files)
         {
-            for (int i = 0; i < files.Length-1; i++)
+            for (int i = 0; i < files.Length - 1; i++)
             {
                 audioMultiple.Add(new Audio(files[i], files[i]));
+            }
+            AudioPlayer p = new AudioPlayer(audioMultiple[0].aPath);
+            Marker ddiv = new Marker(p.GetLength());
+            p.Dispose();
+            addDiv(ddiv);
+            for (int i = 1; i < audioMultiple.Count; i++)
+            {
                 AudioPlayer ap = new AudioPlayer(audioMultiple[i].aPath);
-                Marker mdiv = new Marker(ap.GetLength());
-                multiple.Add(mdiv);
+                Marker mdiv = new Marker(ap.GetLength()+multiple[i-1].Time);
                 ap.Dispose();
-                PictureBox div = new PictureBox();
-                div.Size = new Size(1, seeker.Size.Height);
-                div.Location = new Point(mdiv.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                div.BackColor = Color.Blue;
-                this.Controls.Add(div);
-                div.BringToFront();
-                pmultiple.Add(div);
+                addDiv(mdiv);
             }
         }
 
@@ -836,6 +836,17 @@ namespace AudioBookCutter
             pmarker.BringToFront();
             pmarkers.Add(pmarker);
             markers.Add(marker);
+        }
+        private void addDiv(Marker marker)
+        {
+            PictureBox div = new PictureBox();
+            div.Size = new Size(1, seeker.Size.Height);
+            div.Location = new Point(marker.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+            div.BackColor = Color.YellowGreen;
+            this.Controls.Add(div);
+            div.BringToFront();
+            multiple.Add(marker);
+            pmultiple.Add(div);
         }
         private void removeMarker(int i)
         {
