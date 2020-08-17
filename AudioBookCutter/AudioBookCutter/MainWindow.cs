@@ -280,6 +280,7 @@ namespace AudioBookCutter
                     {
                         abcDispose();
                         removeAllMarkers();
+                        removeAllDivs();
                         resetDataSource();
                         Log.Information(main + "Reopening");
                     }
@@ -891,6 +892,18 @@ namespace AudioBookCutter
             pmarkers.Clear();
             markers.Clear();
             Log.Information(main + "Removed all markers");
+        }
+        private void removeAllDivs()
+        {
+            for (int i = 0; i < pmultiple.Count; i++)
+            {
+                this.Controls.Remove(pmultiple[i]);
+            }
+            pmultiple.Clear();
+            multiple.Clear();
+            audioMultiple.Clear();
+            lbFiles.DataSource = null;
+            Log.Information(main + "Removed all dividers");
         }
         private void markerHour_KeyPress(object sender, KeyPressEventArgs e)
         {
