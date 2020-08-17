@@ -21,8 +21,14 @@ namespace AudioBookCutter
         private AudioPlayer player;
         private Audio audio = null;
         private Command ffmpeg;
+
         private List<Marker> markers;
         private List<PictureBox> pmarkers;
+
+        private List<Audio> audioMultiple;
+        private List<Marker> multiple;
+        private List<PictureBox> pmultiple;
+
         private CUEManager manager;
         private bool resized;
         private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
@@ -278,6 +284,11 @@ namespace AudioBookCutter
                     if (openFileDialog1.FileNames.Length > 1)
                     {
                         Log.Information(main + "Multiple files opened: {0}", openFileDialog1.FileNames);
+                        for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
+                        {
+                            audioMultiple.Add(new Audio(openFileDialog1.FileNames[i], openFileDialog1.FileNames[i]));
+
+                        }
                         ffmpeg = new Command(Log.Logger);
                         string result = ffmpeg.mergeFiles(openFileDialog1.FileNames);
                         audio = new Audio(result, openFileDialog1.FileNames[0]);
