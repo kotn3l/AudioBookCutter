@@ -201,6 +201,15 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
+            if (e.KeyCode == Keys.F)
+            {
+                if (lbFiles.Enabled)
+                {
+                    lbFiles.Focus();
+                }
+                e.Handled = true;
+                return;
+            }
         }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
