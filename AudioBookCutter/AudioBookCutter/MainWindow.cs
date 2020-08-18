@@ -25,6 +25,7 @@ namespace AudioBookCutter
         private List<Marker> markers;
         private List<PictureBox> pmarkers;
 
+        private List<string> filenames;
         private List<Audio> audioMultiple;
         private List<Marker> multiple;
         private List<PictureBox> pmultiple;
@@ -267,8 +268,8 @@ namespace AudioBookCutter
         }
         private void openAudio_Click(object sender, EventArgs e)
         {
+            filenames = new List<string>();
             bool multipleb = false;
-            List<string> filenames = new List<string>();
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
@@ -289,7 +290,6 @@ namespace AudioBookCutter
                         multipleb = true;
                         btnSkipFile.Enabled = true;
                         lbFiles.Enabled = true;
-                        lbFiles.DataSource = openFileDialog1.FileNames;
                         audioMultiple = new List<Audio>();
                         multiple = new List<Marker>();
                         pmultiple = new List<PictureBox>();
@@ -618,7 +618,20 @@ namespace AudioBookCutter
                 {
                     Log.Information(main + "User entered manual timespan values: {0}:{1}:{2}.{3}", markerHour.Text, markerMinute.Text, markerSeconds.Text, markerMiliseconds.Text);
                     TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
-                    if (ts <= player.GetLength())
+                    for (int i = 0; i < filenames.Count-1; i++)
+                    {
+                        if (lbFiles.SelectedIndex == i)
+                        {
+                            if (ts <= (i+1 < multiple.Count ? multiple[i+1].Time : player.GetLength()))
+                            {
+                                Marker mmarker = new Marker(multiple[i - 1].Time + ts);
+                                addMarker(mmarker);
+                                Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                                resetDataSource();
+                            }
+                        }
+                    }
+                    /*if (ts <= player.GetLength())
                     {
                         Marker mmarker = new Marker(ts);
                         addMarker(mmarker);
@@ -628,7 +641,7 @@ namespace AudioBookCutter
                     else
                     {
                         MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
-                    }
+                    }*/
                 }
                 catch (Exception ex)
                 {
@@ -902,6 +915,7 @@ namespace AudioBookCutter
             pmultiple.Clear();
             multiple.Clear();
             audioMultiple.Clear();
+            filenames.Clear();
             lbFiles.DataSource = null;
             Log.Information(main + "Removed all dividers");
         }
