@@ -16,7 +16,7 @@
 | **H** | A manuálisan beírható marker órájára mutat. Onnantól jobbra lépni a **TAB** billentyűvel |
 | **W** | A marker szerkesztéséhez való mértékegység listára fókuszál. Benne a fel és le gombokkal tudunk navigálni |
 | **E** | A marker szerkesztéséhez való értéket itt tudjuk megadni. |
-| **F** | A fájlok listájára fókuszál. Itt választhatjuk ki, hogy a mergelt fájlba szeretnénk a manuáls markert elhelyezni, vagy relatívan a fájlokba. Benne a fel és le gombokkal navigálhatunk. |
+| **F** | A fájlok listájára fókuszál. Itt választhatjuk ki, hogy a mergelt fájlba szeretnénk a manuális markert elhelyezni, vagy relatívan a fájlokba. Benne a fel és le gombokkal navigálhatunk. |
 
 ## Markerek
 | Billentyű kombináció  | Akció  |
