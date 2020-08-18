@@ -394,6 +394,7 @@ namespace AudioBookCutter
                 ap.Dispose();
                 addDiv(mdiv);
             }
+            Log.Information(main + "File lengths: {0}", multiple);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -626,9 +627,9 @@ namespace AudioBookCutter
                         {
                             if (ts <= multiple[0].Time)
                             {
+                                Log.Information(main + "User choose {0}", filenames[0]);
                                 Marker mmarker = new Marker(ts);
                                 addMarker(mmarker);
-                                Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
                                 resetDataSource();
                                 return;
                             }
@@ -644,9 +645,9 @@ namespace AudioBookCutter
                             {
                                 if (ts <= player.GetLength())
                                 {
+                                    Log.Information(main + "User choose to add in the merged file: {0}", filenames[filenames.Count - 1]);
                                     Marker mmarker = new Marker(ts);
                                     addMarker(mmarker);
-                                    Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
                                     resetDataSource();
                                     return;
                                 }
@@ -664,9 +665,9 @@ namespace AudioBookCutter
                                     {
                                         if (ts <= multiple[i].Time - multiple[i - 1].Time)
                                         {
+                                            Log.Information(main + "User choose {0}", filenames[i]);
                                             Marker mmarker = new Marker(multiple[i - 1].Time + ts);
                                             addMarker(mmarker);
-                                            Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
                                             resetDataSource();
                                             return;
                                         }
@@ -686,7 +687,6 @@ namespace AudioBookCutter
                         {
                             Marker mmarker = new Marker(ts);
                             addMarker(mmarker);
-                            Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
                             resetDataSource();
                             return;
                         }
@@ -934,9 +934,11 @@ namespace AudioBookCutter
                 pmarker.BringToFront();
                 pmarkers.Add(pmarker);
                 markers.Add(marker);
+                Log.Information(main + "Marker added at {0}", FormatTimeSpan(marker.Time));
             }
             else
             {
+                Log.Information(main + "Marker already exists at {0}", FormatTimeSpan(marker.Time));
                 MessageBox.Show("A hozzáadni kívánt marker már létezik!");
             }
         }

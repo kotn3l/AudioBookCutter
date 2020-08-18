@@ -248,7 +248,7 @@
             this.markerOther.AccessibleName = "Marker megadott időhöz.";
             this.markerOther.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.markerOther.Enabled = false;
-            this.markerOther.Location = new System.Drawing.Point(151, 293);
+            this.markerOther.Location = new System.Drawing.Point(151, 384);
             this.markerOther.Name = "markerOther";
             this.markerOther.Size = new System.Drawing.Size(138, 23);
             this.markerOther.TabIndex = 9;
@@ -262,7 +262,7 @@
             this.markerHour.AccessibleName = "Óra";
             this.markerHour.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerHour.Enabled = false;
-            this.markerHour.Location = new System.Drawing.Point(151, 322);
+            this.markerHour.Location = new System.Drawing.Point(151, 413);
             this.markerHour.Name = "markerHour";
             this.markerHour.Size = new System.Drawing.Size(21, 20);
             this.markerHour.TabIndex = 10;
@@ -275,7 +275,7 @@
             this.markerMinute.AccessibleName = "Perc";
             this.markerMinute.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerMinute.Enabled = false;
-            this.markerMinute.Location = new System.Drawing.Point(178, 322);
+            this.markerMinute.Location = new System.Drawing.Point(178, 413);
             this.markerMinute.Name = "markerMinute";
             this.markerMinute.Size = new System.Drawing.Size(21, 20);
             this.markerMinute.TabIndex = 11;
@@ -288,7 +288,7 @@
             this.markerSeconds.AccessibleName = "Másodperc";
             this.markerSeconds.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerSeconds.Enabled = false;
-            this.markerSeconds.Location = new System.Drawing.Point(205, 322);
+            this.markerSeconds.Location = new System.Drawing.Point(205, 413);
             this.markerSeconds.Name = "markerSeconds";
             this.markerSeconds.Size = new System.Drawing.Size(21, 20);
             this.markerSeconds.TabIndex = 12;
@@ -301,7 +301,7 @@
             this.markerMiliseconds.AccessibleName = "Milliszekundum";
             this.markerMiliseconds.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
             this.markerMiliseconds.Enabled = false;
-            this.markerMiliseconds.Location = new System.Drawing.Point(232, 322);
+            this.markerMiliseconds.Location = new System.Drawing.Point(232, 413);
             this.markerMiliseconds.Name = "markerMiliseconds";
             this.markerMiliseconds.Size = new System.Drawing.Size(57, 20);
             this.markerMiliseconds.TabIndex = 13;
@@ -311,7 +311,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(170, 325);
+            this.label1.Location = new System.Drawing.Point(170, 416);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 14;
@@ -320,7 +320,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 325);
+            this.label2.Location = new System.Drawing.Point(197, 416);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 15;
@@ -329,7 +329,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(224, 325);
+            this.label3.Location = new System.Drawing.Point(224, 416);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(10, 13);
             this.label3.TabIndex = 16;
@@ -340,7 +340,7 @@
             this.lbl_Time.AccessibleDescription = "Címkék a manuális marker adatainak bevitelére.";
             this.lbl_Time.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
             this.lbl_Time.AutoSize = true;
-            this.lbl_Time.Location = new System.Drawing.Point(150, 344);
+            this.lbl_Time.Location = new System.Drawing.Point(150, 435);
             this.lbl_Time.Name = "lbl_Time";
             this.lbl_Time.Size = new System.Drawing.Size(122, 13);
             this.lbl_Time.TabIndex = 17;
@@ -352,7 +352,7 @@
             this.lb_Markers.AccessibleName = "Markerek listája";
             this.lb_Markers.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
             this.lb_Markers.FormattingEnabled = true;
-            this.lb_Markers.Location = new System.Drawing.Point(295, 192);
+            this.lb_Markers.Location = new System.Drawing.Point(295, 191);
             this.lb_Markers.Name = "lb_Markers";
             this.lb_Markers.Size = new System.Drawing.Size(92, 264);
             this.lb_Markers.TabIndex = 18;
@@ -490,7 +490,7 @@
             this.lbFiles.FormattingEnabled = true;
             this.lbFiles.Location = new System.Drawing.Point(151, 231);
             this.lbFiles.Name = "lbFiles";
-            this.lbFiles.Size = new System.Drawing.Size(138, 56);
+            this.lbFiles.Size = new System.Drawing.Size(138, 147);
             this.lbFiles.TabIndex = 29;
             // 
             // MainWindow
