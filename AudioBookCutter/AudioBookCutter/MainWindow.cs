@@ -269,7 +269,6 @@ namespace AudioBookCutter
         private void openAudio_Click(object sender, EventArgs e)
         {
             filenames = new List<string>();
-            bool multipleb = false;
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "mp3 fájlok|*.mp3";
             openFileDialog1.Multiselect = true;
@@ -283,11 +282,11 @@ namespace AudioBookCutter
                         removeAllMarkers();
                         removeAllDivs();
                         resetDataSource();
+                        btnSkipFile.Enabled = false;
                         Log.Information(main + "Reopening");
                     }
                     if (openFileDialog1.FileNames.Length > 1)
                     {
-                        multipleb = true;
                         btnSkipFile.Enabled = true;
                         lbFiles.Enabled = true;
                         audioMultiple = new List<Audio>();
@@ -333,7 +332,7 @@ namespace AudioBookCutter
                 playbackState = PlaybackState.Stopped;
                 timeLocation();
                 updateMarkers();
-                if (multipleb)
+                if (multiple != null)
                 {
                     placeMultiple(openFileDialog1.FileNames);
                 }
@@ -361,9 +360,12 @@ namespace AudioBookCutter
                 {
                     pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), pmarkers[i].Location.Y);
                 }
-                for (int i = 0; i < pmultiple.Count; i++)
+                if (pmultiple != null)
                 {
-                    pmultiple[i].Location = new Point(multiple[i].calculateX(this.Width - 16, player.GetLength()), pmultiple[i].Location.Y);
+                    for (int i = 0; i < pmultiple.Count; i++)
+                    {
+                        pmultiple[i].Location = new Point(multiple[i].calculateX(this.Width - 16, player.GetLength()), pmultiple[i].Location.Y);
+                    }
                 }
             }
         }
@@ -618,44 +620,82 @@ namespace AudioBookCutter
                 {
                     Log.Information(main + "User entered manual timespan values: {0}:{1}:{2}.{3}", markerHour.Text, markerMinute.Text, markerSeconds.Text, markerMiliseconds.Text);
                     TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
-                    if (lbFiles.SelectedIndex == 0)
+                    if (multiple != null)
                     {
-                        if (ts <= multiple[0].Time)
+                        if (lbFiles.SelectedIndex == 0)
+                        {
+                            if (ts <= multiple[0].Time)
+                            {
+                                Marker mmarker = new Marker(ts);
+                                addMarker(mmarker);
+                                Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                                resetDataSource();
+                                return;
+                            }
+                            else
+                            {
+                                MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (lbFiles.SelectedIndex == filenames.Count - 1)
+                            {
+                                if (ts <= player.GetLength())
+                                {
+                                    Marker mmarker = new Marker(ts);
+                                    addMarker(mmarker);
+                                    Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                                    resetDataSource();
+                                    return;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 1; i < filenames.Count - 1; i++)
+                                {
+                                    if (lbFiles.SelectedIndex == i)
+                                    {
+                                        if (ts <= multiple[i].Time - multiple[i - 1].Time)
+                                        {
+                                            Marker mmarker = new Marker(multiple[i - 1].Time + ts);
+                                            addMarker(mmarker);
+                                            Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                                            resetDataSource();
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ts <= player.GetLength())
                         {
                             Marker mmarker = new Marker(ts);
                             addMarker(mmarker);
                             Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
                             resetDataSource();
+                            return;
                         }
-                    }
-                    else
-                    {
-                        for (int i = 1; i < filenames.Count - 1; i++)
+                        else
                         {
-                            if (lbFiles.SelectedIndex == i)
-                            {
-                                if (ts <= multiple[i].Time - multiple[i-1].Time)
-                                {
-                                    Marker mmarker = new Marker(multiple[i - 1].Time + ts);
-                                    addMarker(mmarker);
-                                    Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
-                                    resetDataSource();
-                                }
-                            }
+                            MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                            return;
                         }
                     }
-                    
-                    /*if (ts <= player.GetLength())
-                    {
-                        Marker mmarker = new Marker(ts);
-                        addMarker(mmarker);
-                        Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
-                        resetDataSource();
-                    }
-                    else
-                    {
-                        MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
-                    }*/
                 }
                 catch (Exception ex)
                 {
@@ -884,14 +924,32 @@ namespace AudioBookCutter
         }
         private void addMarker(Marker marker)
         {
-            PictureBox pmarker = new PictureBox();
-            pmarker.Size = new Size(2, seeker.Size.Height);
-            pmarker.Location = new Point(marker.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-            pmarker.BackColor = Color.Blue;
-            this.Controls.Add(pmarker);
-            pmarker.BringToFront();
-            pmarkers.Add(pmarker);
-            markers.Add(marker);
+            if (!markerAlreadyExists(marker))
+            {
+                PictureBox pmarker = new PictureBox();
+                pmarker.Size = new Size(2, seeker.Size.Height);
+                pmarker.Location = new Point(marker.calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
+                pmarker.BackColor = Color.Blue;
+                this.Controls.Add(pmarker);
+                pmarker.BringToFront();
+                pmarkers.Add(pmarker);
+                markers.Add(marker);
+            }
+            else
+            {
+                MessageBox.Show("A hozzáadni kívánt marker már létezik!");
+            }
+        }
+        private bool markerAlreadyExists(Marker marker)
+        {
+            for (int i = 0; i < markers.Count; i++)
+            {
+                if (marker.Time == markers[i].Time)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         private void addDiv(Marker marker)
         {
