@@ -377,7 +377,7 @@ namespace AudioBookCutter
         }
         private void placeMultiple(string[] files)
         {
-            for (int i = 0; i < files.Length - 1; i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 audioMultiple.Add(new Audio(files[i], files[i]));
             }
@@ -618,19 +618,33 @@ namespace AudioBookCutter
                 {
                     Log.Information(main + "User entered manual timespan values: {0}:{1}:{2}.{3}", markerHour.Text, markerMinute.Text, markerSeconds.Text, markerMiliseconds.Text);
                     TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
-                    for (int i = 0; i < filenames.Count-1; i++)
+                    if (lbFiles.SelectedIndex == 0)
                     {
-                        if (lbFiles.SelectedIndex == i)
+                        if (ts <= multiple[0].Time)
                         {
-                            if (ts <= (i+1 < multiple.Count ? multiple[i+1].Time : player.GetLength()))
+                            Marker mmarker = new Marker(ts);
+                            addMarker(mmarker);
+                            Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                            resetDataSource();
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 1; i < filenames.Count - 1; i++)
+                        {
+                            if (lbFiles.SelectedIndex == i)
                             {
-                                Marker mmarker = new Marker(multiple[i - 1].Time + ts);
-                                addMarker(mmarker);
-                                Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
-                                resetDataSource();
+                                if (ts <= multiple[i].Time - multiple[i-1].Time)
+                                {
+                                    Marker mmarker = new Marker(multiple[i - 1].Time + ts);
+                                    addMarker(mmarker);
+                                    Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                                    resetDataSource();
+                                }
                             }
                         }
                     }
+                    
                     /*if (ts <= player.GetLength())
                     {
                         Marker mmarker = new Marker(ts);
