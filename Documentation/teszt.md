@@ -69,4 +69,11 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 | Markerhez ugrás | A lejátszás a következő markertől folytatódik (HA van) | - | PASS |
 | Két ugyanolyan marker | A program nem enged ugyanoda lerakni egynél több markert | - | PASS |
 | Relatív marker elhelyezés | Bármely fájl kiválasztása esetén a marker a megfelelő helyre, relatívan lesz elhelyezve | - | PASS |
+| Marker szerkesztése | A program ellenőrzi, hogy a módosítani kívánt érték ne menjen 0 alá, illetve ne mutasson a hanganyagon kívülre | - | PASS |
 | Címkézett controlok | Az összes formon lévő control címkézett | - | PASS |
+
+## Béta teszt
+
+### 2020-08-13
+
+### 2020-08-19
