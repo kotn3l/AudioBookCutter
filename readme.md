@@ -23,7 +23,9 @@ Több infó a dokumentumokban.
 
 #### 2. Markerek hozzáadása
 - Markert hozzáadhatunk a seeker aktuális pozíciójához a "Marker a jelenlegi pozícióba" gombbal, vagy **CTRL + N** billentyűkombinációval
-- Manuálisan is elhelyezhetünk markert, ha a "Marker ehhez az időhoz" gomb alá beírjuk a kívánt értéket. Az érték órájára fókuszálhatunk a H billentyűvel, onnantól pedig a percre, másodperce, milliszekundumra a **TAB** billentyűvel tudunk továbblépni. (Sorban) Az értékek beírása után a "Marker ehhez az időhoz" gombbal, vagy **M** billentyűvel helyezhetjük le a markert.
+- Manuálisan is elhelyezhetünk markert, ha a "Marker ehhez az időhoz" gomb alá beírjuk a kívánt értéket. Az érték órájára fókuszálhatunk a **H** billentyűvel, onnantól pedig a percre, másodperce, milliszekundumra a **TAB** billentyűvel tudunk továbblépni. (Sorban) Az értékek beírása után a "Marker ehhez az időhoz" gombbal, vagy **M** billentyűvel helyezhetjük le a markert.
+- Alapértelmezetten, ha több hanganyagot nyitunk meg, a program mergeli, és abban helyezhetünk el markert. Ám a fájlok listájában, melyre az **F** billenytűvel fókuszálhatunk, kiválaszhatjuk melyik fájlban szeretnénk markert elhelyezni. A listában a **fel** és **le** gombokkal navigálhatunk.
+- Ez által relatívan is tudunk markert elhelyezni, pl: 1.mp3, 2.mp3, 3.mp3 fájl mergelve: kiválasztjuk a 2.mp3-at, majd abban elhelyezünk egy markert 10 másodperchez. A marker a mergel fájlban relatívan fog megjelenni, és úgy elmentődni.
 
 #### 2a. Markerek szerkesztése
 - Az összes felhelyezett marker a marker listában megjelenik, amelyre az **L** billenytűvel fókuszálhatunk. A listán belül a markerek között a **fel** és **le** billentyűkkel navigálhatunk.
