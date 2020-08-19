@@ -1044,16 +1044,19 @@ namespace AudioBookCutter
         }
         private void removeAllDivs()
         {
-            for (int i = 0; i < pmultiple.Count; i++)
+            if (pmultiple != null)
             {
-                this.Controls.Remove(pmultiple[i]);
+                for (int i = 0; i < pmultiple.Count; i++)
+                {
+                    this.Controls.Remove(pmultiple[i]);
+                }
+                pmultiple.Clear();
+                multiple.Clear();
+                audioMultiple.Clear();
+                filenames.Clear();
+                lbFiles.DataSource = null;
+                Log.Information(main + "Removed all dividers");
             }
-            pmultiple.Clear();
-            multiple.Clear();
-            audioMultiple.Clear();
-            filenames.Clear();
-            lbFiles.DataSource = null;
-            Log.Information(main + "Removed all dividers");
         }
         private void markerHour_KeyPress(object sender, KeyPressEventArgs e)
         {
