@@ -27,6 +27,20 @@ Teszteseteik:
 | Új hang megnyitása ha már meg volt egy nyitva | Az új audió megnyitása úgy működik, mintha először importálnánk azt. | - | PASS |
 | Wave újrarenderelődik | A wave csak akkor renderelődjön újra, ha az ablak újraméretezve lett. | - | PASS |
 
+Funkciók bevezetése:
+
+| Funckió bevezetésének dátuma | Funkció leírása | Funckió impl. befejezése  |
+| ------------ | ------------ | ------------ |
+| 2020-07-20 | Több hanganyag megnyitása és mergelése | 2020-07-24 |
+| 2020-07-20 | Markerek szerkesztése | 2020-07-21 |
+| 2020-07-24 | Markerek mentése/betöltése | 2020-07-29 |
+| 2020-07-30 | Hanghullám renderelési idő csökkentése | 2020-08-10 |
+| 2020-07-31 | Többféle marker mentési lehetőség | 2020-08-03 |
+| 2020-08-07 | Akadálymentesítési címkék | 2020-08-07 |
+| 2020-08-14 | Relatív marker elhelyezés | 2020-08-18 |
+
+
+
 A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
 
 A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem teljesít a program, azon megbukott, és az a hiba javításra szorul.
