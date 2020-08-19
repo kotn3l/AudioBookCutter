@@ -60,3 +60,13 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 | Vágás | A megnyitott hang a markerek szerinti időpontokban elvágásra kerülnek, majd elmentődnek a felhasználó által kiválasztott helyre | - | PASS |
 | Forrógombok | A dokumentált forrógombok működőképesek | - | PASS |
 | Címkézett controlok | Az összes formon lévő control címkézett | - | PASS |
+
+### 2020-08-19
+| Teszt neve röviden  | Elvárt működés  | Hiba  | Átment  |
+| ------------ | ------------ | ------------ | ------------ |
+| Több fájl megnyitása, fájlok listába kerülnek | A fájlok nevei a listába bekerülnek, és lehet közülük választani | - | PASS |
+| Divhez ugrás | A lejátszás a következő divtől folytatódik (HA van) | - | PASS |
+| Markerhez ugrás | A lejátszás a következő markertől folytatódik (HA van) | - | PASS |
+| Két ugyanolyan marker | A program nem enged ugyanoda lerakni egynél több markert | - | PASS |
+| Relatív marker elhelyezés | Bármely fájl kiválasztása esetén a marker a megfelelő helyre, relatívan lesz elhelyezve | - | PASS |
+| Címkézett controlok | Az összes formon lévő control címkézett | - | PASS |
