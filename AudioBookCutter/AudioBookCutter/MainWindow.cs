@@ -218,6 +218,24 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
+            if (e.KeyCode == Keys.Left)
+            {
+                if (player != null)
+                {
+                    skipOne(false);
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                if (player != null)
+                {
+                    skipOne(true);
+                }
+                e.Handled = true;
+                return;
+            }
         }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
@@ -507,6 +525,17 @@ namespace AudioBookCutter
                     timeLocation();
                     return;
                 }
+            }
+        }
+        private void skipOne(bool add)
+        {
+            if (add)
+            {
+                player.SetPosition(player.GetPosition() + new TimeSpan(0,0,1).TotalMilliseconds);
+            }
+            else
+            {
+                player.SetPosition(player.GetPosition() - new TimeSpan(0, 0, 1).TotalMilliseconds);
             }
         }
 
