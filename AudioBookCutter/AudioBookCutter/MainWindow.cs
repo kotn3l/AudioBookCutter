@@ -236,6 +236,15 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
+            if (e.KeyCode == Keys.U)
+            {
+                if (btnManualSkip.Enabled)
+                {
+                    btnManualSkip.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
         }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {

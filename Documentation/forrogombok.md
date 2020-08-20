@@ -9,6 +9,7 @@
 | **C** | Pause |
 | **V** | Megállítja a lejátszást |
 | **K** | A következő markerhez ugrik |
+| **U** | A manuálisan beírható marker idejéhez ugrik |
 | **Bal nyíl** | Lejátszás közben hátrafelé teker (1 mp-vel) |
 | **Jobb nyíl** | Lejátszás közben előrefelé teker (1 mp-vel) |
 
