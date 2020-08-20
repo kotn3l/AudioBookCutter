@@ -5,8 +5,9 @@
 | ------------ | ------------ |
 | **CTRL + O** | Audiofájl megnyitása |
 | **CTRL + S** | Markerek mentése (ms) |
-| **SPACE** | Play/Pause |
-| **S** | Megállítja a lejátszást |
+| **X** | Play |
+| **C** | Pause |
+| **V** | Megállítja a lejátszást |
 | **K** | A következő markerhez ugrik |
 
 ## Fókusz
