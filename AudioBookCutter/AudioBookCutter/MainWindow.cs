@@ -538,6 +538,86 @@ namespace AudioBookCutter
                 player.SetPosition(player.GetPosition() - new TimeSpan(0, 0, 1).TotalMilliseconds);
             }
         }
+        private void btnManualSkip_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (player != null)
+                {
+                    TimeSpan ts = new TimeSpan(0, int.Parse(markerHour.Text), int.Parse(markerMinute.Text), int.Parse(markerSeconds.Text), int.Parse(markerMiliseconds.Text));
+                    if (multiple != null)
+                    {
+                        if (lbFiles.SelectedIndex == 0)
+                        {
+                            if (ts <= multiple[0].Time)
+                            {
+                                player.SetPosition(ts.TotalMilliseconds);
+                                return;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ebben a fájlban nem tudsz ehhez az időhöz ugrani!");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (lbFiles.SelectedIndex == filenames.Count - 1)
+                            {
+                                if (ts <= player.GetLength())
+                                {
+                                    player.SetPosition(ts.TotalMilliseconds);
+                                    return;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Nem ugorhatsz fájlon kívüli időhöz!");
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 1; i < filenames.Count - 1; i++)
+                                {
+                                    if (lbFiles.SelectedIndex == i)
+                                    {
+                                        if (ts <= multiple[i].Time - multiple[i - 1].Time)
+                                        {
+                                            player.SetPosition((multiple[i - 1].Time + ts).TotalMilliseconds);
+                                            return;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Ebben a fájlban nem tudsz ehhez az időhöz ugrani!");
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ts <= player.GetLength())
+                        {
+                            player.SetPosition(ts.TotalMilliseconds);
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nem ugorhatsz fájlon kívüli időhöz!");
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error occured while trying to seek by manual marker");
+                MessageBox.Show(errorMsg);
+            }
+            
+        }
 
         private void _audioPlayer_PlaybackStopped()
         {
@@ -572,6 +652,7 @@ namespace AudioBookCutter
             markerSeconds.Enabled = true;
             markerMiliseconds.Enabled = true;
             openMarker.Enabled = true;
+            btnManualSkip.Enabled = true;
         }
         private void buttonChange(bool playing)
         {

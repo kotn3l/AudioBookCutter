@@ -67,6 +67,7 @@
             this.tb_Edit = new System.Windows.Forms.TextBox();
             this.btnSkipFile = new System.Windows.Forms.Button();
             this.lbFiles = new System.Windows.Forms.ListBox();
+            this.btnManualSkip = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -493,6 +494,20 @@
             this.lbFiles.Size = new System.Drawing.Size(138, 147);
             this.lbFiles.TabIndex = 29;
             // 
+            // btnManualSkip
+            // 
+            this.btnManualSkip.AccessibleDescription = "A lejátszás a beírt manuális markertől folytatódik.";
+            this.btnManualSkip.AccessibleName = "Ugrás a beírt értékhez";
+            this.btnManualSkip.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnManualSkip.Enabled = false;
+            this.btnManualSkip.Location = new System.Drawing.Point(12, 289);
+            this.btnManualSkip.Name = "btnManualSkip";
+            this.btnManualSkip.Size = new System.Drawing.Size(133, 23);
+            this.btnManualSkip.TabIndex = 30;
+            this.btnManualSkip.Text = "To manual marker";
+            this.btnManualSkip.UseVisualStyleBackColor = true;
+            this.btnManualSkip.Click += new System.EventHandler(this.btnManualSkip_Click);
+            // 
             // MainWindow
             // 
             this.AccessibleDescription = "Az applikáció ablaka";
@@ -501,6 +516,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 462);
+            this.Controls.Add(this.btnManualSkip);
             this.Controls.Add(this.lbFiles);
             this.Controls.Add(this.btnSkipFile);
             this.Controls.Add(this.tb_Edit);
@@ -585,6 +601,7 @@
         private System.Windows.Forms.TextBox tb_Edit;
         private System.Windows.Forms.Button btnSkipFile;
         private System.Windows.Forms.ListBox lbFiles;
+        private System.Windows.Forms.Button btnManualSkip;
     }
 }
 
