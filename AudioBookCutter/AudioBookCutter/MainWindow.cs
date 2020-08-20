@@ -62,7 +62,7 @@ namespace AudioBookCutter
         //HOTKEYS
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.S)
+            if (e.KeyCode == Keys.V)
             {
                 if (playbackState == PlaybackState.Playing || playbackState == PlaybackState.Paused)
                 {
@@ -71,17 +71,25 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.X)
+            {
+                if (player != null)
+                {
+                    if (playbackState == PlaybackState.Paused || playbackState == PlaybackState.Stopped)
+                    {
+                        start.PerformClick();
+                    }
+                }
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.C)
             {
                 if (player != null)
                 {
                     if (playbackState == PlaybackState.Playing)
                     {
                         pause.PerformClick();
-                    }
-                    else if (playbackState == PlaybackState.Paused || playbackState == PlaybackState.Stopped)
-                    {
-                        start.PerformClick();
                     }
                 }
                 e.Handled = true;
