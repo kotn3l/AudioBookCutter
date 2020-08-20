@@ -9,6 +9,8 @@
 | **C** | Pause |
 | **V** | Megállítja a lejátszást |
 | **K** | A következő markerhez ugrik |
+| **Bal nyíl** | Lejátszás közben hátrafelé teker (1 mp-vel) |
+| **Jobb nyíl** | Lejátszás közben előrefelé teker (1 mp-vel) |
 
 ## Fókusz
 | Billentyű kombináció  | Akció  |
