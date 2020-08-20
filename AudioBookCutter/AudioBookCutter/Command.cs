@@ -32,20 +32,20 @@ namespace AudioBookCutter
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
             string end = " -c copy " + "\"" + save;
             string temp;
-            temp = argument + " -ss 00:00:00.0 -to " + ordered[0] + end + 0 + fileFormat + "\"";
+            temp = argument + " -ss 00:00:00.0 -to " + ordered[0] + end + 0.ToString().PadLeft(3, '0') + fileFormat + "\"";
             Execute(temp);
             Log.Information(command + "Cut from 00:00:00.0 to {0} done", ordered[0]);
             temp = "";
             int i = 1;
             while (i < ordered.Count)
             {
-                temp = argument + " -ss " + ordered[i - 1] + " -to " + ordered[i] + end + i + fileFormat + "\"";
+                temp = argument + " -ss " + ordered[i - 1] + " -to " + ordered[i] + end + i.ToString().PadLeft(3, '0') + fileFormat + "\"";
                 Execute(temp);
                 Log.Information(command + "Cut from {0} to {1} done", ordered[i - 1], ordered[i]);
                 temp = "";
                 i++;
             }
-            temp = argument + " -ss " + ordered[i-1] + " -to "+ length + end + i + fileFormat + "\"";
+            temp = argument + " -ss " + ordered[i-1] + " -to "+ length + end + i.ToString().PadLeft(3, '0') + fileFormat + "\"";
             Execute(temp);
             Log.Information(command + "Cut from {0} to {1} done", ordered[i - 1], length);
             Log.Information(command + "{0} files were saved", i+1);
