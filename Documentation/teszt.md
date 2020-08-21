@@ -38,6 +38,9 @@ Funkciók bevezetése:
 | 2020-07-31 | Többféle marker mentési lehetőség | 2020-08-03 |
 | 2020-08-07 | Akadálymentesítési címkék | 2020-08-07 |
 | 2020-08-14 | Relatív marker elhelyezés | 2020-08-18 |
+| 2020-08-20 | Vágás auto fájlnevezés változtatása | 2020-08-20 |
+| 2020-08-20 | Ugrás manuális markerhez | 2020-08-20 |
+| 2020-08-20 | 1mp-s beletekerés | 2020-08-20 |
 
 
 
