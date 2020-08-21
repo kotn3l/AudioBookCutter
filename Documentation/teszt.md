@@ -93,4 +93,20 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 
 ### 2020-08-13
 
+Javaslatok:
+
+- Relatív marker elhelyezés
+
 ### 2020-08-19
+
+Javaslatok:
+
+- Vágás auto fájlnevezés változtatása
+- Ugrás manuális markerhez
+- 1mp-s beletekerés
+- Forrógombok változtatása
+
+Hibák:
+
+- Minél bentebb van a vágás, annál jobban csúszik el
+- Nem pontos a vágás
