@@ -89,6 +89,12 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 | Marker szerkesztése | A program ellenőrzi, hogy a módosítani kívánt érték ne menjen 0 alá, illetve ne mutasson a hanganyagon kívülre | - | PASS |
 | Címkézett controlok | Az összes formon lévő control címkézett | - | PASS |
 
+### 2020-08-25
+| Teszt neve röviden  | Elvárt működés  | Hiba  | Átment  |
+| ------------ | ------------ | ------------ | ------------ |
+| FFmpeg merge | Hangfájlok mergelése hiba nélkül megtörténik és megnyitódik | - | PASS |
+| FFmpeg cut | A hangfájl a markerek mentén elvágásra és mentésre kerül | - | PASS |
+
 ## Béta teszt
 
 ### 2020-08-13
@@ -110,3 +116,5 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 
 - Minél bentebb van a vágás, annál jobban csúszik el
 - Nem pontos a vágás
+
+### 2020-08-25
