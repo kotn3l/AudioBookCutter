@@ -30,7 +30,7 @@ namespace AudioBookCutter
             Log.Information(command + "{0} will be cut in these timestamps: {1}", Path.GetFileName(path), ordered);
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
-            string end = " -c copy -copyts " + "\"" + save;
+            string end = " -c copy " + "\"" + save;
             string temp;
             temp = "-ss 00:00:00.0" + argument + " -to " + ordered[0] + end + 1.ToString().PadLeft(3, '0') + fileFormat + "\"";
             Execute(temp);
