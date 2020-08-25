@@ -30,7 +30,7 @@ namespace AudioBookCutter
             Log.Information(command + "{0} will be cut in these timestamps: {1}", Path.GetFileName(path), ordered);
             string fileFormat = Path.GetExtension(path);
             string argument = argumentStart + "\"" + Path.GetFullPath(path) + "\"";
-            string end = " -c copy " + "\"" + save;
+            string end = " -c copy -copyts -avoid_negative_ts 1 " + "\"" + save;
             string temp;
             temp = "-ss 00:00:00.0" + argument + " -to " + ordered[0] + end + 1.ToString().PadLeft(3, '0') + fileFormat + "\"";
             Execute(temp);
@@ -79,7 +79,7 @@ namespace AudioBookCutter
             {
                 argument += Path.GetFullPath(files[i]) + "|";
             }
-            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy " + "\"" + output + "\"";
+            argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy -vsync 2 " + "\"" + output + "\"";
             Execute(argument);
             Log.Information(command + "Multiple files merged, result: {0}", Path.GetFileName(output));
             return output;
