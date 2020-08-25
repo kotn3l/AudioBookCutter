@@ -366,25 +366,25 @@ namespace AudioBookCutter
                 {
                     player = new AudioPlayer(audio.aPath);
                     trackLength.Text = FormatTimeSpan(player.GetLength());
+                    Log.Information(main + "Track length: {0}", trackLength.Text);
+                    playbackState = PlaybackState.Stopped;
+                    timeLocation();
+                    updateMarkers();
+                    if (multiple != null)
+                    {
+                        placeMultiple(openFileDialog1.FileNames);
+                    }
+                    Thread t = new Thread(() => audioWave());
+                    t.IsBackground = true;
+                    t.Start();
+                    resized = false;
+                    this.Text = "Audio Book Cutter - " + audio.OriginalName + @"/" + Path.GetFileName(audio.aPath);
                 }
                 catch (Exception ex)
                 {
                     Log.Error(ex, "Error occured while creating player");
                     MessageBox.Show(errorMsg);
                 }
-                Log.Information(main + "Track length: {0}", trackLength.Text);
-                playbackState = PlaybackState.Stopped;
-                timeLocation();
-                updateMarkers();
-                if (multiple != null)
-                {
-                    placeMultiple(openFileDialog1.FileNames);
-                }
-                Thread t = new Thread(() => audioWave());
-                t.IsBackground = true;
-                t.Start();
-                resized = false;
-                this.Text = "Audio Book Cutter - "+ audio.OriginalName + @"/" + Path.GetFileName(audio.aPath);
             }
         }
 
