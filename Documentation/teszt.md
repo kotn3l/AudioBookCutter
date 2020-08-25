@@ -94,6 +94,7 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 | ------------ | ------------ | ------------ | ------------ |
 | FFmpeg merge | Hangfájlok mergelése hiba nélkül megtörténik és megnyitódik | - | PASS |
 | FFmpeg cut | A hangfájl a markerek mentén elvágásra és mentésre kerül | - | PASS |
+| Beletekerés billentyűvel | Bal és jobb gomb folyamatos lenyomásával bele lehet tekerni az aktuálisan lejátszott audiófájlba | - | PASS |
 
 ## Béta teszt
 
