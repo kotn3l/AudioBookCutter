@@ -365,13 +365,13 @@ namespace AudioBookCutter
                 try
                 {
                     player = new AudioPlayer(audio.aPath);
+                    trackLength.Text = FormatTimeSpan(player.GetLength());
                 }
                 catch (Exception ex)
                 {
                     Log.Error(ex, "Error occured while creating player");
                     MessageBox.Show(errorMsg);
                 }
-                trackLength.Text = FormatTimeSpan(player.GetLength());
                 Log.Information(main + "Track length: {0}", trackLength.Text);
                 playbackState = PlaybackState.Stopped;
                 timeLocation();
