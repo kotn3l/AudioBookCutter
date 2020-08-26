@@ -41,7 +41,7 @@ Funkciók bevezetése:
 | 2020-08-20 | Vágás auto fájlnevezés változtatása | 2020-08-20 |
 | 2020-08-20 | Ugrás manuális markerhez | 2020-08-20 |
 | 2020-08-20 | 1mp-s beletekerés | 2020-08-20 |
-
+| 2020-08-26 | Markerre ugrás | 2020-08-26 |
 
 
 A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
