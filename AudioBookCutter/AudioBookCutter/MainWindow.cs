@@ -843,15 +843,12 @@ namespace AudioBookCutter
         }
         private void btnDeleteMarker_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < pmarkers.Count; i++)
+            if (selectedMarkerIndex < markers.Count && selectedMarkerIndex >= 0)
             {
-                if (lb_Markers.SelectedValue == markers[i])
-                {
-                    Log.Information(main + "Marker deleted at {0}", FormatTimeSpan(markers[i].Time));
-                    removeMarker(i);
-                    resetDataSource();
-                    return;
-                }
+                Log.Information(main + "Marker deleted at {0}", FormatTimeSpan(markers[selectedMarkerIndex].Time));
+                removeMarker(selectedMarkerIndex);
+                resetDataSource();
+                return;
             }
         }
         private void btnAdd_Click(object sender, EventArgs e)
