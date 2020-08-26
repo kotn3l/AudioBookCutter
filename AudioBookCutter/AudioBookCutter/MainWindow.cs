@@ -1228,7 +1228,6 @@ namespace AudioBookCutter
         }
         
 
-
         private void resetDataSource()
         {
             lb_Markers.DataSource = null;

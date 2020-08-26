@@ -72,14 +72,25 @@ namespace AudioBookCutter
             emptyTemp();
             init();
             string fileFormat = Path.GetExtension(files[0]);
-            string argument = argumentStart + "\"concat:";
             string filename = Path.GetFileName(Path.GetDirectoryName(files[0]));
             string output = workingDir + temp + filename + "_merged" + fileFormat;
+            /*string argument = argumentStart + "\"concat:";
             for (int i = 0; i < files.Length - 1; i++)
             {
                 argument += Path.GetFullPath(files[i]) + "|";
             }
             argument += Path.GetFullPath(files[files.Length - 1]) + "\" -acodec copy -vsync 2 " + "\"" + output + "\"";
+            Execute(argument);
+            Log.Information(command + "Multiple files merged, result: {0}", Path.GetFileName(output));
+            return output;*/
+            string text = "";
+            for (int i = 0; i < files.Length - 1; i++)
+            {
+                text += "file \'" +Path.GetFullPath(files[i]) + "\'\n";
+            }
+            string textOut = workingDir + temp + filename + ".txt";
+            File.WriteAllText(textOut, text);
+            string argument = " -f concat -safe 0" + argumentStart + "\"" + textOut + "\"" + " -c copy " + "\"" + output + "\"";
             Execute(argument);
             Log.Information(command + "Multiple files merged, result: {0}", Path.GetFileName(output));
             return output;
