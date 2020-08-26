@@ -35,6 +35,7 @@ namespace AudioBookCutter
         private string workingDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
         private string main = "[MAIN] ";
         private string errorMsg = "Egy hiba lépett fel az alkalmazásban. Kérlek zárd be a programot, és csatold az exe mellett lévő log fájlt GitHubon egy issue létrehozásával, vagy küldd erre az e-mail címre: kotn3l@gmail.com";
+        private int selectedMarkerIndex = -1;
 
         public MainWindow()
         {
@@ -1228,6 +1229,8 @@ namespace AudioBookCutter
             }
             return false;
         }
+        
+
 
         private void resetDataSource()
         {
@@ -1244,20 +1247,61 @@ namespace AudioBookCutter
             {
                 opButtons(false);
             }
-
-
             for (int i = 0; i < pmarkers.Count; i++)
             {
                 if (lb_Markers.SelectedValue == markers[i])
                 {
                     pmarkers[i].BackColor = Color.Green;
                     pmarkers[i].Width = 3;
+                    selectedMarkerIndex = i;
                 }
                 else
                 {
                     pmarkers[i].BackColor = Color.Blue;
                     pmarkers[i].Width = 2;
                 }
+            }
+        }
+        private void lb_Markers_DoubleClick(object sender, EventArgs e)
+        {
+            markerJump();
+        }
+        private void lb_Markers_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                markerJump();
+                e.Handled = true;
+                return;
+            }
+            int i = lb_Markers.SelectedIndex;
+            if (e.KeyCode == Keys.Up)
+            {
+                i--;
+                indexCheck(ref i, lb_Markers.Items.Count);
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                i++;
+                indexCheck(ref i, lb_Markers.Items.Count);
+                e.Handled = true;
+                return;
+            }
+        }
+        private void indexCheck(ref int index, int maxIndex)
+        {
+            if (index < maxIndex && index >= 0)
+            {
+                lb_Markers.SelectedIndex = index;
+            }
+        }
+        private void markerJump()
+        {
+            if (player != null && (selectedMarkerIndex < markers.Count && selectedMarkerIndex >= 0))
+            {
+                player.SetPosition(markers[selectedMarkerIndex].Time.TotalMilliseconds);
             }
         }
 

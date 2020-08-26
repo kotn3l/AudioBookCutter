@@ -358,6 +358,8 @@
             this.lb_Markers.Size = new System.Drawing.Size(92, 264);
             this.lb_Markers.TabIndex = 18;
             this.lb_Markers.SelectedIndexChanged += new System.EventHandler(this.lb_Markers_SelectedIndexChanged);
+            this.lb_Markers.DoubleClick += new System.EventHandler(this.lb_Markers_DoubleClick);
+            this.lb_Markers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lb_Markers_KeyDown);
             // 
             // btnDeleteMarker
             // 
