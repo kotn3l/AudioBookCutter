@@ -96,6 +96,13 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 | FFmpeg cut | A hangfájl a markerek mentén elvágásra és mentésre kerül | - | PASS |
 | Beletekerés billentyűvel | Bal és jobb gomb folyamatos lenyomásával bele lehet tekerni az aktuálisan lejátszott audiófájlba | - | PASS |
 
+### 2020-08-26
+| Teszt neve röviden  | Elvárt működés  | Hiba  | Átment  |
+| ------------ | ------------ | ------------ | ------------ |
+| FFmpeg új merge | Hangfájlok mergelése hiba nélkül megtörténik és megnyitódik | - | PASS |
+| Markerre ugrás | A markerlistában kiválasztott markerre lehet ugrani dupla kattintással vagy az ENTER billentyűvel | - | PASS |
+
+
 ## Béta teszt
 
 ### 2020-08-13
@@ -119,3 +126,8 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 - Nem pontos a vágás
 
 ### 2020-08-25
+
+**Hibák:**
+
+- Minél bentebb van a vágás, annál jobban csúszik el
+- Nem pontos a vágás
