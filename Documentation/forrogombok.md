@@ -31,3 +31,5 @@
 | **CTRL + P** | A marker listában kiválasztott markerhez hozzáadja a kívánt mennyiséget. |
 | **CTRL + I** | A marker listában kiválasztott markerból kivonja a kívánt mennyiséget. |
 | **CTRL + C** | A markerek mentén elvégzi a vágást a megnyitott fájlon. |
+| **DUPLA KATTINTÁS** | A markerlistában dupla-kattintott markertől folytatódik a lejátszás. |
+| **ENTER** | A markerlistában kijelölt, majd entert lenyomott markertől folytatódik a lejátszás. |
