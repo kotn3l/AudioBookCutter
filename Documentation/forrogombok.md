@@ -27,7 +27,7 @@
 | ------------ | ------------ |
 | **CTRL + N** | Marker elhelyezése a seeker pozíciójába |
 | **M** | A manuálisan beírható markert helyezi el |
-| **CTRL + D** | A marker listában kiválasztott markert törli |
+| **DELETE** | A marker listában kiválasztott markert törli |
 | **CTRL + P** | A marker listában kiválasztott markerhez hozzáadja a kívánt mennyiséget. |
 | **CTRL + I** | A marker listában kiválasztott markerból kivonja a kívánt mennyiséget. |
 | **CTRL + C** | A markerek mentén elvégzi a vágást a megnyitott fájlon. |

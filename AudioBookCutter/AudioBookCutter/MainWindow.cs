@@ -120,7 +120,7 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
-            if (e.Control && e.KeyCode == Keys.D)
+            if (e.KeyCode == Keys.Delete)
             {
                 if (btnDeleteMarker.Enabled)
                 {
