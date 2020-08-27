@@ -851,144 +851,6 @@ namespace AudioBookCutter
                 return;
             }
         }
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < pmarkers.Count; i++)
-            {
-                if (lb_Markers.SelectedValue == markers[i])
-                {
-                    try
-                    {
-                        if (lbScale.SelectedValue.ToString() == "MS")
-                        {
-                            TimeSpan ts = new TimeSpan(0, 0, 0, 0, int.Parse(tb_Edit.Text));
-                            if (checkMarker(markers[i], ts, true))
-                            {
-                                markers[i].Time = markers[i].Time.Add(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Added " + tb_Edit.Text + " ms to " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else if (lbScale.SelectedValue.ToString() == "SS")
-                        {
-                            TimeSpan ts = new TimeSpan(0, 0, int.Parse(tb_Edit.Text));
-                            if (checkMarker(markers[i], ts, true))
-                            {
-                                markers[i].Time = markers[i].Time.Add(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Added " + tb_Edit.Text + " s to " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else if (lbScale.SelectedValue.ToString() == "MM")
-                        {
-                            TimeSpan ts = new TimeSpan(0, int.Parse(tb_Edit.Text), 0);
-                            if (checkMarker(markers[i], ts, true))
-                            {
-                                markers[i].Time = markers[i].Time.Add(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Added " + tb_Edit.Text + " m to " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else if (lbScale.SelectedValue.ToString() == "HH")
-                        {
-                            TimeSpan ts = new TimeSpan(int.Parse(tb_Edit.Text), 0, 0);
-                            if (checkMarker(markers[i], ts, true))
-                            {
-                                markers[i].Time = markers[i].Time.Add(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Added " + tb_Edit.Text + " h to " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Error occured while trying to add to the " + i+1 +"th marker");
-                        MessageBox.Show(errorMsg);
-                    }
-                }
-            }
-        }
-        private void btnSubtract_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < pmarkers.Count; i++)
-            {
-                if (lb_Markers.SelectedValue == markers[i])
-                {
-                    try
-                    {
-                        if (lbScale.SelectedValue.ToString() == "MS")
-                        {
-                            TimeSpan ts = new TimeSpan(0, 0, 0, 0, int.Parse(tb_Edit.Text));
-                            if (checkMarker(markers[i], ts, false))
-                            {
-                                markers[i].Time = markers[i].Time.Subtract(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Subtracted " + tb_Edit.Text + " ms from " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else if (lbScale.SelectedValue.ToString() == "SS")
-                        {
-                            TimeSpan ts = new TimeSpan(0, 0, int.Parse(tb_Edit.Text));
-                            if (checkMarker(markers[i], ts, false))
-                            {
-                                markers[i].Time = markers[i].Time.Subtract(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Subtracted " + tb_Edit.Text + " s from " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else if (lbScale.SelectedValue.ToString() == "MM")
-                        {
-                            TimeSpan ts = new TimeSpan(0, int.Parse(tb_Edit.Text), 0);
-                            if (checkMarker(markers[i], ts, false))
-                            {
-                                markers[i].Time = markers[i].Time.Subtract(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Subtracted " + tb_Edit.Text + " m from " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else if (lbScale.SelectedValue.ToString() == "HH")
-                        {
-                            TimeSpan ts = new TimeSpan(int.Parse(tb_Edit.Text), 0, 0);
-                            if (checkMarker(markers[i], ts, false))
-                            {
-                                markers[i].Time = markers[i].Time.Subtract(ts);
-                                pmarkers[i].Location = new Point(markers[i].calculateX(this.Width - 16, player.GetLength()), seeker.Location.Y);
-                                resetDataSource();
-                                Log.Information("Subtracted " + tb_Edit.Text + " h from " + i + 1 + "th marker");
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, "Error occured while trying to subtract from the " + i + 1 + "th marker");
-                        MessageBox.Show(errorMsg);
-                    }
-                }
-            }
-        }
         private void saveMarker_Click(object sender, EventArgs e)
         {
             saveFileDialog1 = new SaveFileDialog();
@@ -1119,27 +981,6 @@ namespace AudioBookCutter
             }
             return false;
         }
-        private bool checkMarker(Marker marker, TimeSpan time, bool add)
-        {
-            if (add)
-            {
-                if (marker.Time.Add(time) > player.GetLength())
-                {
-                    MessageBox.Show("A hozzáadni kívánt érték túlmutatna az audió hosszán!");
-                    return false;
-                }
-                else return true;
-            }
-            else
-            {
-                if (marker.Time.Subtract(time) < new TimeSpan(0))
-                {
-                    MessageBox.Show("A kivonni kívánt érték 0 alatt lenne!");
-                    return false;
-                }
-                else return true;
-            }
-        }
         private void addDiv(Marker marker)
         {
             PictureBox div = new PictureBox();
@@ -1211,13 +1052,6 @@ namespace AudioBookCutter
                 e.Handled = true;
             }
         }
-        private void tb_Edit_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (numericOnly(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
         private bool numericOnly(char character)
         {
             if (!char.IsControl(character) && !char.IsDigit(character))
@@ -1226,7 +1060,6 @@ namespace AudioBookCutter
             }
             return false;
         }
-        
 
         private void resetDataSource()
         {

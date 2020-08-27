@@ -56,18 +56,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbl_Time = new System.Windows.Forms.Label();
             this.lb_Markers = new System.Windows.Forms.ListBox();
-            this.btnDeleteMarker = new System.Windows.Forms.Button();
-            this.lbScale = new System.Windows.Forms.ListBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnSubtract = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.lb_rendering = new System.Windows.Forms.Label();
             this.btnSkip = new System.Windows.Forms.Button();
-            this.tb_Edit = new System.Windows.Forms.TextBox();
             this.btnSkipFile = new System.Windows.Forms.Button();
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.btnManualSkip = new System.Windows.Forms.Button();
+            this.btnDeleteMarker = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -361,71 +356,6 @@
             this.lb_Markers.DoubleClick += new System.EventHandler(this.lb_Markers_DoubleClick);
             this.lb_Markers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lb_Markers_KeyDown);
             // 
-            // btnDeleteMarker
-            // 
-            this.btnDeleteMarker.AccessibleDescription = "Törli a kiválasztott markert.";
-            this.btnDeleteMarker.AccessibleName = "Marker törlése";
-            this.btnDeleteMarker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDeleteMarker.Enabled = false;
-            this.btnDeleteMarker.Location = new System.Drawing.Point(396, 269);
-            this.btnDeleteMarker.Name = "btnDeleteMarker";
-            this.btnDeleteMarker.Size = new System.Drawing.Size(136, 23);
-            this.btnDeleteMarker.TabIndex = 19;
-            this.btnDeleteMarker.Text = "Marker törlése";
-            this.btnDeleteMarker.UseVisualStyleBackColor = true;
-            this.btnDeleteMarker.Click += new System.EventHandler(this.btnDeleteMarker_Click);
-            // 
-            // lbScale
-            // 
-            this.lbScale.AccessibleDescription = "Mértékegységek felsorolva a markerek szerekesztéséhez.";
-            this.lbScale.AccessibleName = "Mértékegység szerkesztéshez";
-            this.lbScale.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
-            this.lbScale.Enabled = false;
-            this.lbScale.FormattingEnabled = true;
-            this.lbScale.Location = new System.Drawing.Point(396, 207);
-            this.lbScale.Name = "lbScale";
-            this.lbScale.Size = new System.Drawing.Size(40, 56);
-            this.lbScale.TabIndex = 21;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.AccessibleDescription = "Hozzáadja a kiválasztott markerhez a beírt értéket a kiválasztott mértékkel.";
-            this.btnAdd.AccessibleName = "Hozzáadás";
-            this.btnAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnAdd.Enabled = false;
-            this.btnAdd.Location = new System.Drawing.Point(442, 240);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(42, 23);
-            this.btnAdd.TabIndex = 22;
-            this.btnAdd.Text = "+";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnSubtract
-            // 
-            this.btnSubtract.AccessibleDescription = "Kivonja a kiválasztott markerból a beírt értéket a kiválasztott mértékkel.";
-            this.btnSubtract.AccessibleName = "Kivonás";
-            this.btnSubtract.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSubtract.Enabled = false;
-            this.btnSubtract.Location = new System.Drawing.Point(491, 240);
-            this.btnSubtract.Name = "btnSubtract";
-            this.btnSubtract.Size = new System.Drawing.Size(41, 23);
-            this.btnSubtract.TabIndex = 23;
-            this.btnSubtract.Text = "-";
-            this.btnSubtract.UseVisualStyleBackColor = true;
-            this.btnSubtract.Click += new System.EventHandler(this.btnSubtract_Click);
-            // 
-            // label4
-            // 
-            this.label4.AccessibleDescription = "Marker szerkesztésének címke.";
-            this.label4.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(393, 191);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 13);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Marker szerkesztése";
-            // 
             // lb_rendering
             // 
             this.lb_rendering.AccessibleDescription = "Akkor jelenik meg, ha még az audiofájl hullámja nem jelent meg.";
@@ -456,19 +386,6 @@
             this.btnSkip.Text = "To next marker";
             this.btnSkip.UseVisualStyleBackColor = true;
             this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
-            // 
-            // tb_Edit
-            // 
-            this.tb_Edit.AccessibleDescription = "A marker szerkesztéséhez ide kell beirni az értéket.";
-            this.tb_Edit.AccessibleName = "Marker szerkesztés érték";
-            this.tb_Edit.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
-            this.tb_Edit.Enabled = false;
-            this.tb_Edit.Location = new System.Drawing.Point(443, 207);
-            this.tb_Edit.Name = "tb_Edit";
-            this.tb_Edit.Size = new System.Drawing.Size(89, 20);
-            this.tb_Edit.TabIndex = 27;
-            this.tb_Edit.Text = "0";
-            this.tb_Edit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_Edit_KeyPress);
             // 
             // btnSkipFile
             // 
@@ -510,6 +427,20 @@
             this.btnManualSkip.UseVisualStyleBackColor = true;
             this.btnManualSkip.Click += new System.EventHandler(this.btnManualSkip_Click);
             // 
+            // btnDeleteMarker
+            // 
+            this.btnDeleteMarker.AccessibleDescription = "Törli a kiválasztott markert.";
+            this.btnDeleteMarker.AccessibleName = "Marker törlése";
+            this.btnDeleteMarker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnDeleteMarker.Enabled = false;
+            this.btnDeleteMarker.Location = new System.Drawing.Point(393, 191);
+            this.btnDeleteMarker.Name = "btnDeleteMarker";
+            this.btnDeleteMarker.Size = new System.Drawing.Size(136, 23);
+            this.btnDeleteMarker.TabIndex = 19;
+            this.btnDeleteMarker.Text = "Marker törlése";
+            this.btnDeleteMarker.UseVisualStyleBackColor = true;
+            this.btnDeleteMarker.Click += new System.EventHandler(this.btnDeleteMarker_Click);
+            // 
             // MainWindow
             // 
             this.AccessibleDescription = "Az applikáció ablaka";
@@ -521,13 +452,8 @@
             this.Controls.Add(this.btnManualSkip);
             this.Controls.Add(this.lbFiles);
             this.Controls.Add(this.btnSkipFile);
-            this.Controls.Add(this.tb_Edit);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.lb_rendering);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnSubtract);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.lbScale);
             this.Controls.Add(this.btnDeleteMarker);
             this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
@@ -591,19 +517,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbl_Time;
         private System.Windows.Forms.ListBox lb_Markers;
-        private System.Windows.Forms.Button btnDeleteMarker;
-        private System.Windows.Forms.ListBox lbScale;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnSubtract;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label lb_rendering;
         private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.MenuItem saveMarkerFrames;
-        private System.Windows.Forms.TextBox tb_Edit;
         private System.Windows.Forms.Button btnSkipFile;
         private System.Windows.Forms.ListBox lbFiles;
         private System.Windows.Forms.Button btnManualSkip;
+        private System.Windows.Forms.Button btnDeleteMarker;
     }
 }
 
