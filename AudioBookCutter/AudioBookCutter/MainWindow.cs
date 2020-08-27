@@ -46,10 +46,6 @@ namespace AudioBookCutter
             label1.SendToBack();
             label2.SendToBack();
             label3.SendToBack();
-            lbScale.DataSource = new List<string>()
-            {
-                 "MS", "SS", "MM", "HH"
-            };
             resized = false;
             lb_rendering.BringToFront();
             emptyLogs();
@@ -170,42 +166,6 @@ namespace AudioBookCutter
                 if (saveMarker.Enabled)
                 {
                     saveMarker.PerformClick();
-                }
-                e.Handled = true;
-                return;
-            }
-            if (e.Control && e.KeyCode == Keys.P)
-            {
-                if (btnAdd.Enabled)
-                {
-                    btnAdd.PerformClick();
-                }
-                e.Handled = true;
-                return;
-            }
-            if (e.Control && e.KeyCode == Keys.I)
-            {
-                if (btnSubtract.Enabled)
-                {
-                    btnSubtract.PerformClick();
-                }
-                e.Handled = true;
-                return;
-            }
-            if (e.KeyCode == Keys.W)
-            {
-                if (lbScale.Enabled)
-                {
-                    lbScale.Focus();
-                }
-                e.Handled = true;
-                return;
-            }
-            if (e.KeyCode == Keys.E)
-            {
-                if (tb_Edit.Enabled)
-                {
-                    tb_Edit.Focus();
                 }
                 e.Handled = true;
                 return;
@@ -690,10 +650,6 @@ namespace AudioBookCutter
             if (enable)
             {
                 btnDeleteMarker.Enabled = true;
-                lbScale.Enabled = true;
-                tb_Edit.Enabled = true;
-                btnAdd.Enabled = true;
-                btnSubtract.Enabled = true;
                 cut.Enabled = true;
                 saveMarker.Enabled = true;
                 saveMarkerFrames.Enabled = true;
@@ -702,10 +658,6 @@ namespace AudioBookCutter
             else
             {
                 btnDeleteMarker.Enabled = false;
-                lbScale.Enabled = false;
-                tb_Edit.Enabled = false;
-                btnAdd.Enabled = false;
-                btnSubtract.Enabled = false;
                 cut.Enabled = false;
                 saveMarker.Enabled = false;
                 saveMarkerFrames.Enabled = false;

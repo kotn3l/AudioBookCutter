@@ -28,9 +28,7 @@ Több infó a dokumentumokban.
 - Ez által relatívan is tudunk markert elhelyezni, pl: 1.mp3, 2.mp3, 3.mp3 fájl mergelve: kiválasztjuk a 2.mp3-at, majd abban elhelyezünk egy markert 10 másodperchez. A marker a mergel fájlban relatívan fog megjelenni, és úgy elmentődni.
 
 #### 2a. Markerek szerkesztése
-- Az összes felhelyezett marker a marker listában megjelenik, amelyre az **L** billenytűvel fókuszálhatunk. A listán belül a markerek között a **fel** és **le** billentyűkkel navigálhatunk.
-- A kiválasztott markert szerkeszthetjük: a mértékegység kiválasztásához a **W** billentyűvel fókuszálhatunk. Ez is egy lista, melyben a **fel** és **le** billentyűkkel navigálhatunk. Az érték beállítása az **E** billenytűvel történik. Ezután az értéket hozzáadhatjuk (**CTRL + P**) vagy kivonhatjuk (**CTRL + I**) a kiválasztott markerből.
-- A kiválasztott markert törölhetjük a "Marker törlése" gombbal, vagy a **CTRL + D** billentyűkombinációval.
+- A kiválasztott markert törölhetjük a "Marker törlése" gombbal, vagy a **DELETE** billentyűkombinációval.
 
 #### 2b. Markerek kezelése
 - A felhelyezett markereket elmenthetjük a Fájl > Marker mentése menüpont kiválasztásával. Itt kétféle opciónk van: ms-ben elmenteni, ami a preferált opció, és ehhez tartozik a **CTRL + S** billentyűkombináció.

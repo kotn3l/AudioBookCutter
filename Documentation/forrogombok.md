@@ -18,8 +18,6 @@
 | ------------ | ------------ |
 | **L** | A marker listára fókuszál. Benne a fel és le gombokkal tudunk navigálni |
 | **H** | A manuálisan beírható marker órájára mutat. Onnantól jobbra lépni a **TAB** billentyűvel |
-| **W** | A marker szerkesztéséhez való mértékegység listára fókuszál. Benne a fel és le gombokkal tudunk navigálni |
-| **E** | A marker szerkesztéséhez való értéket itt tudjuk megadni. |
 | **F** | A fájlok listájára fókuszál. Itt választhatjuk ki, hogy a mergelt fájlba szeretnénk a manuális markert elhelyezni, vagy relatívan a fájlokba. Benne a fel és le gombokkal navigálhatunk. |
 
 ## Markerek
@@ -28,8 +26,6 @@
 | **CTRL + N** | Marker elhelyezése a seeker pozíciójába |
 | **M** | A manuálisan beírható markert helyezi el |
 | **DELETE** | A marker listában kiválasztott markert törli |
-| **CTRL + P** | A marker listában kiválasztott markerhez hozzáadja a kívánt mennyiséget. |
-| **CTRL + I** | A marker listában kiválasztott markerból kivonja a kívánt mennyiséget. |
 | **CTRL + C** | A markerek mentén elvégzi a vágást a megnyitott fájlon. |
 | **DUPLA KATTINTÁS** | A markerlistában dupla-kattintott markertől folytatódik a lejátszás. |
 | **ENTER** | A markerlistában kijelölt, majd entert lenyomott markertől folytatódik a lejátszás. |
