@@ -483,7 +483,7 @@ namespace AudioBookCutter
         {
             if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition() + 2500)
             {
-                player.SetPosition(omarkers[0].Time.TotalMilliseconds);
+                player.SetPosition(omarkers[0].Time.TotalMilliseconds+500);
                 timeLocation();
                 return;
             }
@@ -491,7 +491,7 @@ namespace AudioBookCutter
             {
                 if (player.GetPosition() + 2500 >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
                 {
-                    player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds);
+                    player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds+500);
                     timeLocation();
                     return;
                 }
@@ -1082,7 +1082,7 @@ namespace AudioBookCutter
         {
             if (player != null && (selectedMarkerIndex < markers.Count && selectedMarkerIndex >= 0))
             {
-                player.SetPosition(markers[selectedMarkerIndex].Time.TotalMilliseconds);
+                player.SetPosition(markers[selectedMarkerIndex].Time.TotalMilliseconds+500);
             }
         }
 
