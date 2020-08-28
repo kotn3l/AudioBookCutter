@@ -9,7 +9,7 @@
 ## Áttekintés
 Egy olyan programot fejlesztek, amely hangoskönyvek feldarabolását segíti.
 
-A felhasználó könnyedén elhelyezhet vágópontokat, *marker*eket (jelöléseket) a megnyitott mp3-fájlokban, majd azok mentén az applikáció az FFmpeg könyvtár segítségvel elvágja, vagy ahol esetlegesen szükséges, összeilleszti azt.
+A felhasználó könnyedén elhelyezhet vágópontokat, *marker*eket (jelöléseket) a megnyitott mp3-fájlokban, majd azok mentén az applikáció az FFmpeg könyvtár segítségvel elvágja azt.
 
 ## Jelenlegi helyzet
 A megrendelő szeretné a hangoskönyvek fejezetenkénti feldarabolását, összeillesztését egyszerűbbé tenni, ahelyett, hogy manuálisan kelljen parancssorban FFmpeg utasításokat kiadni, vagy esetleg más, harmadik féltől származó programot használni.
@@ -27,11 +27,6 @@ Ezek után (ha a felhasználói hibákat nem vesszük figyelembe) a hangoskönyv
 ## Forgatókönyv
 Az applikáció futtatása után a menüből ki kell választanunk a vágni kívánt fájlokat. Ha több fájlt választunk, azokat sorrendben kell kijelölni.
 
-A fájlok megnyitását követően a *timeline*on (idővonalon) megjelennek a hanganyagok, sorrendben, amelyekbe kedvünk szerint helyezhetünk *marker*eket.
+A fájlok megnyitását követően a *timeline*on (idővonalon) megjelennek a hanganyagok wave-ként, amelyekbe kedvünk szerint helyezhetünk *marker*eket.
 
 Lehetőség lesz a menüben a *marker*ek mentésére, illetve betöltésére is.
-
-Lesz olyan opció, mellyel befolyásolhatjuk azt, hogy a különböző forrásfájlokból beimportált audiót ne illessze össze. Példa: 
->**két darab mp3 fájlt nyitunk meg, A-t és B-t. Egy markert az A fájl közepébe, a másodikat pedig B fájl közepébe tesszük:**
-- Ha összeillesztést választunk, eredményünk három darab fájl lesz.
-- Ha nincs összeillesztés, az négy darab fájlt fog visszaadni.
