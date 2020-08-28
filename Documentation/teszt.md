@@ -137,3 +137,13 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 
 - Minél bentebb van a vágás, annál jobban csúszik el
 - Nem pontos a vágás
+- "Ez a marker már létezik"
+
+### 2020-08-28
+
+**Hibák:**
+
+- Minél bentebb van a vágás, annál jobban csúszik el
+- Nem pontos a vágás
+- "Ez a marker már létezik"
+- Markerhez tekerésnél mindig elcsúszik 2-5 mp-vel
