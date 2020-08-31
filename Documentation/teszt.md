@@ -147,3 +147,14 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 - Nem pontos a vágás
 - "Ez a marker már létezik"
 - Markerhez tekerésnél mindig elcsúszik 2-5 mp-vel
+- Ha az adott időhöz teszünk markert kb 9mp-ve elcsúszik
+
+### 2020-08-31
+
+**Javaslatok:**
+
+- 0-tól kezdve nevezze el a vágott fájlokat
+- Következő marker törlése
+- Törlés után ugorjunk vissza a előttelévő indexre
+
+**Hibák:**
