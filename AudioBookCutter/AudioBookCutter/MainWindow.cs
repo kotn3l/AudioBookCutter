@@ -696,9 +696,10 @@ namespace AudioBookCutter
         {
             if (audio != null)
             {
-                Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
-                addMarker(mmarker);
-                Log.Information(main + "Marker added at {0}", FormatTimeSpan(mmarker.Time));
+                Marker test = new Marker(TimeSpan.FromMilliseconds(player.GetPosition()));
+                //Marker mmarker = new Marker(TimeSpan.FromMilliseconds(player.GetLength().TotalMilliseconds * (seeker.Location.X / (double)audioWaveImage.Width)));
+                addMarker(test);
+                Log.Information(main + "Marker added at {0}", FormatTimeSpan(test.Time));
                 resetDataSource();
             }
         }
