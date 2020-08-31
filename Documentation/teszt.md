@@ -13,6 +13,7 @@ Az alábbi bugok kerültek javításra a fejlesztés közben:
 | 2020-08-04 | Lejátszás forrógomb nem működik | - | 2020-08-05 |
 | 2020-08-05 | Új hang megnyitása ha már meg volt egy nyitva | Az új audió megnyitása úgy működik, mintha először importálnánk azt. | 2020-08-05 |
 | 2020-08-05 | Wave újrarenderelődik | A wave csak akkor renderelődjön újra, ha az ablak újraméretezve lett. | 2020-08-05 |
+| 2020-08-27 | Adott időhöz tett marker elcsúszik | A seeker pozíciójába helyezett marker kb 9mp-vel csúszik. | 2020-08-31 |
 
 Teszteseteik:
 
