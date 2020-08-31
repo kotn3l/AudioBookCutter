@@ -27,6 +27,7 @@ Teszteseteik:
 | Lejátszás forrógomb nem működik | - | - | PASS |
 | Új hang megnyitása ha már meg volt egy nyitva | Az új audió megnyitása úgy működik, mintha először importálnánk azt. | - | PASS |
 | Wave újrarenderelődik | A wave csak akkor renderelődjön újra, ha az ablak újraméretezve lett. | - | PASS |
+| Adott időhöz tett marker elcsúszik | A seeker pozíciójába helyezett marker kb 9mp-vel csúszik. | - | PASS |
 
 Funkciók bevezetése:
 
@@ -49,7 +50,6 @@ Funkciók törlése:
 | Funckió törlésének dátuma | Funkció leírása |
 | ------------ | ------------ |
 | 2020-08-27 | Markerek szerkesztése |
-
 
 A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
 
