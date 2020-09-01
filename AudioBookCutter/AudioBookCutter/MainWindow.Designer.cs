@@ -58,8 +58,6 @@
             this.lb_Markers = new System.Windows.Forms.ListBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.lb_rendering = new System.Windows.Forms.Label();
-            this.btnSkip = new System.Windows.Forms.Button();
-            this.btnSkipFile = new System.Windows.Forms.Button();
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.btnManualSkip = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
@@ -372,34 +370,6 @@
             this.lb_rendering.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lb_rendering.Visible = false;
             // 
-            // btnSkip
-            // 
-            this.btnSkip.AccessibleDescription = "A lejátszás a következő markertől folytatódik.";
-            this.btnSkip.AccessibleName = "Következő marker";
-            this.btnSkip.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSkip.Enabled = false;
-            this.btnSkip.Location = new System.Drawing.Point(12, 231);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(133, 23);
-            this.btnSkip.TabIndex = 26;
-            this.btnSkip.Text = "To next marker";
-            this.btnSkip.UseVisualStyleBackColor = true;
-            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
-            // 
-            // btnSkipFile
-            // 
-            this.btnSkipFile.AccessibleDescription = "A lejátszás a következő fájltól folytatódik.";
-            this.btnSkipFile.AccessibleName = "Következő fájl";
-            this.btnSkipFile.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSkipFile.Enabled = false;
-            this.btnSkipFile.Location = new System.Drawing.Point(12, 260);
-            this.btnSkipFile.Name = "btnSkipFile";
-            this.btnSkipFile.Size = new System.Drawing.Size(133, 23);
-            this.btnSkipFile.TabIndex = 28;
-            this.btnSkipFile.Text = "To next div";
-            this.btnSkipFile.UseVisualStyleBackColor = true;
-            this.btnSkipFile.Click += new System.EventHandler(this.btnSkipFile_Click);
-            // 
             // lbFiles
             // 
             this.lbFiles.AccessibleDescription = "Ebben a listában válaszhatjuk ki, hogy hova szeretnénk rakni a manuális markert.";
@@ -411,6 +381,9 @@
             this.lbFiles.Name = "lbFiles";
             this.lbFiles.Size = new System.Drawing.Size(138, 147);
             this.lbFiles.TabIndex = 29;
+            this.lbFiles.SelectedIndexChanged += new System.EventHandler(this.lbFiles_SelectedIndexChanged);
+            this.lbFiles.DoubleClick += new System.EventHandler(this.lbFiles_DoubleClick);
+            this.lbFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbFiles_KeyDown);
             // 
             // btnManualSkip
             // 
@@ -418,7 +391,7 @@
             this.btnManualSkip.AccessibleName = "Ugrás a beírt értékhez";
             this.btnManualSkip.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnManualSkip.Enabled = false;
-            this.btnManualSkip.Location = new System.Drawing.Point(12, 289);
+            this.btnManualSkip.Location = new System.Drawing.Point(12, 231);
             this.btnManualSkip.Name = "btnManualSkip";
             this.btnManualSkip.Size = new System.Drawing.Size(133, 23);
             this.btnManualSkip.TabIndex = 30;
@@ -436,8 +409,6 @@
             this.ClientSize = new System.Drawing.Size(800, 462);
             this.Controls.Add(this.btnManualSkip);
             this.Controls.Add(this.lbFiles);
-            this.Controls.Add(this.btnSkipFile);
-            this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.lb_rendering);
             this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
@@ -503,9 +474,7 @@
         private System.Windows.Forms.ListBox lb_Markers;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label lb_rendering;
-        private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.MenuItem saveMarkerFrames;
-        private System.Windows.Forms.Button btnSkipFile;
         private System.Windows.Forms.ListBox lbFiles;
         private System.Windows.Forms.Button btnManualSkip;
     }

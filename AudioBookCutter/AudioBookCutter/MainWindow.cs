@@ -36,6 +36,7 @@ namespace AudioBookCutter
         private string main = "[MAIN] ";
         private string errorMsg = "Egy hiba lépett fel az alkalmazásban. Kérlek zárd be a programot, és csatold az exe mellett lévő log fájlt GitHubon egy issue létrehozásával, vagy küldd erre az e-mail címre: kotn3l@gmail.com";
         private int selectedMarkerIndex = -1;
+        private int selectedFileIndex = -1;
 
         public MainWindow()
         {
@@ -148,15 +149,6 @@ namespace AudioBookCutter
                 if (markerHour.Enabled)
                 {
                     markerHour.Focus();
-                }
-                e.Handled = true;
-                return;
-            }
-            if (e.KeyCode == Keys.K)
-            {
-                if (btnSkip.Enabled)
-                {
-                    btnSkip.PerformClick();
                 }
                 e.Handled = true;
                 return;
@@ -287,12 +279,10 @@ namespace AudioBookCutter
                         removeAllMarkers();
                         removeAllDivs();
                         resetDataSource();
-                        btnSkipFile.Enabled = false;
                         Log.Information(main + "Reopening");
                     }
                     if (openFileDialog1.FileNames.Length > 1)
                     {
-                        btnSkipFile.Enabled = true;
                         lbFiles.Enabled = true;
                         audioMultiple = new List<Audio>();
                         multiple = new List<Marker>();
@@ -463,40 +453,6 @@ namespace AudioBookCutter
             }
             
         }
-        private void btnSkip_Click(object sender, EventArgs e)
-        {
-            if (player != null && (markers.Count > 0 && markers != null))
-            {
-                List<Marker> omarkers = new List<Marker>(markers.OrderBy(marker => marker.Time.TotalMilliseconds));
-                skip(omarkers);
-            }
-        }
-        private void btnSkipFile_Click(object sender, EventArgs e)
-        {
-            if (player != null && (multiple.Count > 0 && multiple != null))
-            {
-                List<Marker> omarkers = new List<Marker>(multiple.OrderBy(marker => marker.Time.TotalMilliseconds));
-                skip(omarkers);
-            }
-        }
-        private void skip(List<Marker> omarkers)
-        {
-            if (omarkers[0].Time.TotalMilliseconds >= player.GetPosition() + 2500)
-            {
-                player.SetPosition(omarkers[0].Time.TotalMilliseconds+500);
-                timeLocation();
-                return;
-            }
-            for (int i = 0; i < omarkers.Count - 1; i++)
-            {
-                if (player.GetPosition() + 2500 >= omarkers[i].Time.TotalMilliseconds && player.GetPosition() <= omarkers[i + 1].Time.TotalMilliseconds)
-                {
-                    player.SetPosition(omarkers[i + 1].Time.TotalMilliseconds+500);
-                    timeLocation();
-                    return;
-                }
-            }
-        }
         private void skipOne(bool add)
         {
             if (add)
@@ -652,14 +608,12 @@ namespace AudioBookCutter
                 cut.Enabled = true;
                 saveMarker.Enabled = true;
                 saveMarkerFrames.Enabled = true;
-                btnSkip.Enabled = true;
             }
             else
             {
                 cut.Enabled = false;
                 saveMarker.Enabled = false;
                 saveMarkerFrames.Enabled = false;
-                btnSkip.Enabled = false;
             }
         }
 
@@ -1073,6 +1027,38 @@ namespace AudioBookCutter
                 return;
             }
         }
+        private void lbFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectedFileIndex = lbFiles.SelectedIndex;
+        }
+        private void lbFiles_DoubleClick(object sender, EventArgs e)
+        {
+            fileJump();
+        }
+        private void lbFiles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                fileJump();
+                e.Handled = true;
+                return;
+            }
+            int i = lbFiles.SelectedIndex;
+            if (e.KeyCode == Keys.Up)
+            {
+                i--;
+                indexCheckFile(ref i, lbFiles.Items.Count);
+                e.Handled = true;
+                return;
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                i++;
+                indexCheckFile(ref i, lbFiles.Items.Count);
+                e.Handled = true;
+                return;
+            }
+        }
         private void indexCheck(ref int index, int maxIndex)
         {
             if (index < maxIndex && index >= 0)
@@ -1080,11 +1066,26 @@ namespace AudioBookCutter
                 lb_Markers.SelectedIndex = index;
             }
         }
+        private void indexCheckFile(ref int index, int maxIndex)
+        {
+            if (index < maxIndex && index >= 0)
+            {
+                lbFiles.SelectedIndex = index;
+            }
+        }
+
         private void markerJump()
         {
             if (player != null && (selectedMarkerIndex < markers.Count && selectedMarkerIndex >= 0))
             {
                 player.SetPosition(markers[selectedMarkerIndex].Time.TotalMilliseconds+500);
+            }
+        }
+        private void fileJump()
+        {
+            if (player != null && (multiple.Count > 0 && multiple != null) && selectedFileIndex != multiple.Count)
+            {
+                player.SetPosition(multiple[selectedFileIndex].Time.TotalMilliseconds);
             }
         }
 
