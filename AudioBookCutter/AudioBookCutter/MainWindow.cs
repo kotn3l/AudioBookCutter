@@ -870,6 +870,7 @@ namespace AudioBookCutter
                 pmarker.BringToFront();
                 pmarkers.Add(pmarker);
                 markers.Add(marker);
+                lb_Markers.Focus();
                 Log.Information(main + "Marker added at {0}", FormatTimeSpan(marker.Time));
             }
             else
