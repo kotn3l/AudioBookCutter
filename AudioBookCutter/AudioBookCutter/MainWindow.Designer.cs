@@ -62,7 +62,6 @@
             this.btnSkipFile = new System.Windows.Forms.Button();
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.btnManualSkip = new System.Windows.Forms.Button();
-            this.btnDeleteMarker = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -216,11 +215,11 @@
             this.cut.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.cut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cut.Enabled = false;
-            this.cut.Location = new System.Drawing.Point(713, 191);
+            this.cut.Location = new System.Drawing.Point(682, 191);
             this.cut.Name = "cut";
-            this.cut.Size = new System.Drawing.Size(75, 23);
+            this.cut.Size = new System.Drawing.Size(106, 23);
             this.cut.TabIndex = 7;
-            this.cut.Text = "Vágás";
+            this.cut.Text = "Darabolás indítása";
             this.cut.UseVisualStyleBackColor = true;
             this.cut.Click += new System.EventHandler(this.cut_Click);
             // 
@@ -427,20 +426,6 @@
             this.btnManualSkip.UseVisualStyleBackColor = true;
             this.btnManualSkip.Click += new System.EventHandler(this.btnManualSkip_Click);
             // 
-            // btnDeleteMarker
-            // 
-            this.btnDeleteMarker.AccessibleDescription = "Törli a kiválasztott markert.";
-            this.btnDeleteMarker.AccessibleName = "Marker törlése";
-            this.btnDeleteMarker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDeleteMarker.Enabled = false;
-            this.btnDeleteMarker.Location = new System.Drawing.Point(393, 191);
-            this.btnDeleteMarker.Name = "btnDeleteMarker";
-            this.btnDeleteMarker.Size = new System.Drawing.Size(136, 23);
-            this.btnDeleteMarker.TabIndex = 19;
-            this.btnDeleteMarker.Text = "Marker törlése";
-            this.btnDeleteMarker.UseVisualStyleBackColor = true;
-            this.btnDeleteMarker.Click += new System.EventHandler(this.btnDeleteMarker_Click);
-            // 
             // MainWindow
             // 
             this.AccessibleDescription = "Az applikáció ablaka";
@@ -454,7 +439,6 @@
             this.Controls.Add(this.btnSkipFile);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.lb_rendering);
-            this.Controls.Add(this.btnDeleteMarker);
             this.Controls.Add(this.lb_Markers);
             this.Controls.Add(this.lbl_Time);
             this.Controls.Add(this.label3);
@@ -524,7 +508,6 @@
         private System.Windows.Forms.Button btnSkipFile;
         private System.Windows.Forms.ListBox lbFiles;
         private System.Windows.Forms.Button btnManualSkip;
-        private System.Windows.Forms.Button btnDeleteMarker;
     }
 }
 

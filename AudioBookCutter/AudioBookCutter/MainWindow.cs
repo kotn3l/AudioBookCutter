@@ -118,9 +118,9 @@ namespace AudioBookCutter
             }
             if (e.KeyCode == Keys.Delete)
             {
-                if (btnDeleteMarker.Enabled)
+                if (markers != null && markers.Count > 0)
                 {
-                    btnDeleteMarker.PerformClick();
+                    deleteMarker();
                 }
                 e.Handled = true;
                 return;
@@ -649,7 +649,6 @@ namespace AudioBookCutter
         {
             if (enable)
             {
-                btnDeleteMarker.Enabled = true;
                 cut.Enabled = true;
                 saveMarker.Enabled = true;
                 saveMarkerFrames.Enabled = true;
@@ -657,7 +656,6 @@ namespace AudioBookCutter
             }
             else
             {
-                btnDeleteMarker.Enabled = false;
                 cut.Enabled = false;
                 saveMarker.Enabled = false;
                 saveMarkerFrames.Enabled = false;
@@ -794,13 +792,16 @@ namespace AudioBookCutter
                 }
             }
         }
-        private void btnDeleteMarker_Click(object sender, EventArgs e)
+        private void deleteMarker()
         {
             if (selectedMarkerIndex < markers.Count && selectedMarkerIndex >= 0)
             {
+                int temp = selectedMarkerIndex;
                 Log.Information(main + "Marker deleted at {0}", FormatTimeSpan(markers[selectedMarkerIndex].Time));
                 removeMarker(selectedMarkerIndex);
                 resetDataSource();
+                temp--;
+                lb_Markers.SelectedIndex = temp;
                 return;
             }
         }
