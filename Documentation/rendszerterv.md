@@ -24,10 +24,7 @@ Egyedüli rendszerszereplő a felhasználó, aki:
 - mentheti az elhelyezett *marker*eket
 - importálhat mentett *marker*eket
 - elindíthatja az algoritmust, amely elvégzi az FFmpeg parancsok kiadását
-- kiválaszthatja, hogy a különböző forrásokból származó fájlokat egybeillessze-e
-
-Menühierarchia:
-TBA
+- ha több fájl került összeillesztésre, azokban relatívan is elhelyezhet markert
 
 ## Teszt terv
 Az alkalmazás elkészítése során szükség van a folyamatos tesztelésre. Célja a program különböző részeinek működésének teljes vizsgálata, ellenőrzése.
@@ -54,6 +51,7 @@ Ezt a tesztelést már felhasználok hajtják végre. Tesztelni kell többféle 
 - a különböző forrású fájlokat felhasználói input alapján kezeli
 - megbizonyosodni arról, hogy tényleg ott lett-e elvágva a fájl, ahol meg volt jelölve
 - annyi darab fájlt eredményezett a vágás, amennyit elvártunk
+- stb.
 
 ## Absztrakt domain modell
 |  Szó |  Fogalom |
