@@ -1083,7 +1083,7 @@ namespace AudioBookCutter
         }
         private void fileJump()
         {
-            if (player != null && (multiple.Count > 0 && multiple != null) && selectedFileIndex != multiple.Count)
+            if (player != null && (multiple.Count > 0 && multiple != null) && selectedFileIndex < multiple.Count)
             {
                 player.SetPosition(multiple[selectedFileIndex].Time.TotalMilliseconds);
             }
