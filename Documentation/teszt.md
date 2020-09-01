@@ -50,6 +50,8 @@ Funkciók törlése:
 | Funckió törlésének dátuma | Funkció leírása |
 | ------------ | ------------ |
 | 2020-08-27 | Markerek szerkesztése |
+| 2020-09-01 | Ugrás következő markerhez |
+| 2020-09-01 | Ugrás következő fájlhoz |
 
 A következő fázis az applikáció nagyobb funkcióinak alpha tesztelése.
 
@@ -155,7 +157,9 @@ A tesztesetek egy elvárt működéssel lesznek felcímkézve. Amelyet nem telje
 **Javaslatok:**
 
 - 0-tól kezdve nevezze el a vágott fájlokat
-- Következő marker törlése
+- "Következő marker" törlése
 - Törlés után ugorjunk vissza a előttelévő indexre
 
 **Hibák:**
+
+### 2020-09-01
