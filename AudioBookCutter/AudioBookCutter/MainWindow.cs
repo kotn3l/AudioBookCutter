@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using Serilog;
+using Microsoft.VisualBasic.FileIO;
 
 namespace AudioBookCutter
 {
@@ -579,6 +580,7 @@ namespace AudioBookCutter
             markerMiliseconds.Enabled = true;
             openMarker.Enabled = true;
             btnManualSkip.Enabled = true;
+            openCSV.Enabled = true;
         }
         private void buttonChange(bool playing)
         {
@@ -1096,6 +1098,116 @@ namespace AudioBookCutter
             audio.Dispose();
             player = null;
             audio = null;
+        }
+
+        private void openCSV_Click(object sender, EventArgs e)
+        {
+            openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "csv fájlok|*.csv";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                csvImport(openFileDialog1.FileName);
+            }
+        }
+        private void csvImport(string FilePath)
+        {
+            try
+            {
+                using (TextFieldParser parser = new TextFieldParser(FilePath))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+                        if (fields.Length < 2 || fields[1] == null)
+                        {
+                            MessageBox.Show("Kevés oszlop van a CSV fájlban! Az első oszlop a fájlnevet, a másodiknak az időt kell tartalmaznia.");
+                            return;
+                        }
+                        if (fields[0] == filenames[0].Split('.')[0])
+                        {
+                            TimeSpan ts = parseTime(fields);
+                            if (ts <= multiple[0].Time)
+                            {
+                                Log.Information(main + "User choose {0}", filenames[0]);
+                                Marker mmarker = new Marker(ts);
+                                addMarker(mmarker);
+                                resetDataSource();
+                                continue;
+                            }
+                            else
+                            {
+                                MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                                return;
+                            }
+                        }
+                        for (int i = 1; i < filenames.Count - 1; i++)
+                        {
+                            if (fields[0] == filenames[i].Split('.')[0])
+                            {
+                                TimeSpan ts = parseTime(fields);
+                                if (ts <= multiple[i].Time - multiple[i - 1].Time)
+                                {
+                                    Log.Information(main + "User choose {0}", filenames[i]);
+                                    Marker mmarker = new Marker(multiple[i - 1].Time + ts);
+                                    addMarker(mmarker);
+                                    resetDataSource();
+                                    break;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error occured while trying to add manual markers");
+                MessageBox.Show(errorMsg);
+            }
+        }
+        private TimeSpan parseTime(string[] fields)
+        {
+            string[] kettos = fields[1].Split(':');
+            string[] pont = null;
+            TimeSpan ts = new TimeSpan();
+            if (fields[1].All(char.IsDigit))
+            {
+                MessageBox.Show("Az időben nem szerepelhet betű!");
+                return ts;
+            }
+            if (kettos[kettos.Length - 1].Contains('.'))
+            {
+                pont = kettos[kettos.Length - 1].Split('.');
+            }
+            if (pont == null)
+            {
+                if (kettos.Length == 3)
+                {
+                    ts = new TimeSpan(int.Parse(kettos[0]), int.Parse(kettos[1]), int.Parse(kettos[2]));
+                }
+                else if (kettos.Length == 2)
+                {
+                    ts = new TimeSpan(0, int.Parse(kettos[0]), int.Parse(kettos[1]));
+                }
+            }
+            else
+            {
+                if (kettos.Length == 3)
+                {
+                    ts = new TimeSpan(0, int.Parse(kettos[0]), int.Parse(kettos[1]), int.Parse(pont[0]), int.Parse(pont[1]));
+                }
+                else if (kettos.Length == 2)
+                {
+                    ts = new TimeSpan(0, 0, int.Parse(kettos[0]), int.Parse(pont[0]), int.Parse(pont[1]));
+                }
+            }
+            return ts;
         }
     }
 

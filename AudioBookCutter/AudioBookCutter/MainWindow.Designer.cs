@@ -36,6 +36,7 @@
             this.openMarker = new System.Windows.Forms.MenuItem();
             this.saveMarker = new System.Windows.Forms.MenuItem();
             this.saveMarkerFrames = new System.Windows.Forms.MenuItem();
+            this.openCSV = new System.Windows.Forms.MenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.trackLength = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -90,7 +91,8 @@
             this.openAudio,
             this.openMarker,
             this.saveMarker,
-            this.saveMarkerFrames});
+            this.saveMarkerFrames,
+            this.openCSV});
             this.menuItem1.Text = "Fájl";
             // 
             // openAudio
@@ -119,6 +121,13 @@
             this.saveMarkerFrames.Index = 3;
             this.saveMarkerFrames.Text = "Marker mentése... (frames)";
             this.saveMarkerFrames.Click += new System.EventHandler(this.saveMarkerFrames_Click);
+            // 
+            // openCSV
+            // 
+            this.openCSV.Enabled = false;
+            this.openCSV.Index = 4;
+            this.openCSV.Text = "CSV fájl megnyitása...";
+            this.openCSV.Click += new System.EventHandler(this.openCSV_Click);
             // 
             // openFileDialog1
             // 
@@ -477,6 +486,7 @@
         private System.Windows.Forms.MenuItem saveMarkerFrames;
         private System.Windows.Forms.ListBox lbFiles;
         private System.Windows.Forms.Button btnManualSkip;
+        private System.Windows.Forms.MenuItem openCSV;
     }
 }
 
