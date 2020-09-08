@@ -199,6 +199,15 @@ namespace AudioBookCutter
                 e.Handled = true;
                 return;
             }
+            if (e.Control && e.KeyCode == Keys.V)
+            {
+                if (openCSV.Enabled)
+                {
+                    openCSV.PerformClick();
+                }
+                e.Handled = true;
+                return;
+            }
         }
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
@@ -621,22 +630,22 @@ namespace AudioBookCutter
 
         private void cut_Click(object sender, EventArgs e)
         {
-            saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = audio.aPath;
-            saveFileDialog1.Title = "Add meg a vágott fájloknak a helyét és nevét!";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            folderBrowserDialog1 = new FolderBrowserDialog();
+            folderBrowserDialog1.RootFolder = Environment.SpecialFolder.Desktop;
+            folderBrowserDialog1.SelectedPath = audio.aPath;
+            folderBrowserDialog1.Description = "Add meg a vágott fájloknak a helyét és nevét!";
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog1.SelectedPath))
             {
                 try
                 {
-                    ffmpeg = new Command(Log.Logger);
                     List<TimeSpan> times = new List<TimeSpan>();
                     for (int i = 0; i < markers.Count; i++)
                     {
                         times.Add(markers[i].Time);
                     }
-                    Log.Information(main + "Cut initiated with {0} markers", times.Count);
-                    ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, saveFileDialog1.FileName);
-                    MessageBox.Show("Vágás befejezve!");
+                    Thread t = new Thread(() => Cut(times));
+                    t.IsBackground = true;
+                    t.Start();
                 }
                 catch (Exception ex)
                 {
@@ -645,6 +654,13 @@ namespace AudioBookCutter
                 }
                 
             }
+        }
+        private void Cut(List<TimeSpan> times)
+        {
+            ffmpeg = new Command(Log.Logger);
+            Log.Information(main + "Cut initiated with {0} markers", times.Count);
+            ffmpeg.cutByTimeSpans(times, player.GetLength(), audio, folderBrowserDialog1.SelectedPath);
+            MessageBox.Show("Vágás befejezve!");
         }
         private void markerCurrent_Click(object sender, EventArgs e)
         {
@@ -1102,10 +1118,12 @@ namespace AudioBookCutter
 
         private void openCSV_Click(object sender, EventArgs e)
         {
+            Log.Information(main + "Importing CSV file...");
             openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "csv fájlok|*.csv";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                Log.Information(main + "CSV location: " + openFileDialog1.FileName);
                 csvImport(openFileDialog1.FileName);
             }
         }
@@ -1116,21 +1134,23 @@ namespace AudioBookCutter
                 using (TextFieldParser parser = new TextFieldParser(FilePath))
                 {
                     parser.TextFieldType = FieldType.Delimited;
-                    parser.SetDelimiters(",");
+                    parser.SetDelimiters("\t");
+                    int j = 1;
                     while (!parser.EndOfData)
                     {
                         string[] fields = parser.ReadFields();
-                        if (fields.Length < 2 || fields[1] == null)
+                        if (fields.Length < 2)
                         {
+                            Log.Warning(main + "Insufficient ammount of columns");
                             MessageBox.Show("Kevés oszlop van a CSV fájlban! Az első oszlop a fájlnevet, a másodiknak az időt kell tartalmaznia.");
                             return;
                         }
-                        if (fields[0] == filenames[0].Split('.')[0])
+                        if (fields[0] == filenames[0].Split('.')[0] || fields[0] == filenames[0])
                         {
                             TimeSpan ts = parseTime(fields);
                             if (ts <= multiple[0].Time)
                             {
-                                Log.Information(main + "User choose {0}", filenames[0]);
+                                Log.Information(main + "CSV choose {0}", filenames[0]);
                                 Marker mmarker = new Marker(ts);
                                 addMarker(mmarker);
                                 resetDataSource();
@@ -1138,18 +1158,18 @@ namespace AudioBookCutter
                             }
                             else
                             {
-                                MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
-                                return;
+                                MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje! Hiba a {0}. sorban.", j.ToString());
+                                continue;
                             }
                         }
                         for (int i = 1; i < filenames.Count - 1; i++)
                         {
-                            if (fields[0] == filenames[i].Split('.')[0])
+                            if (fields[0] == filenames[i].Split('.')[0] || fields[0] == filenames[i])
                             {
                                 TimeSpan ts = parseTime(fields);
                                 if (ts <= multiple[i].Time - multiple[i - 1].Time)
                                 {
-                                    Log.Information(main + "User choose {0}", filenames[i]);
+                                    Log.Information(main + "CSV choose {0}", filenames[i]);
                                     Marker mmarker = new Marker(multiple[i - 1].Time + ts);
                                     addMarker(mmarker);
                                     resetDataSource();
@@ -1157,17 +1177,18 @@ namespace AudioBookCutter
                                 }
                                 else
                                 {
-                                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje!");
-                                    return;
+                                    MessageBox.Show("A marker ideje nem lehet nagyobb mint a megnyitott audiofájl ideje! Hiba a {0}. sorban.", j.ToString());
+                                    continue;
                                 }
                             }
                         }
+                        j++;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Error occured while trying to add manual markers");
+                Log.Error(ex, "Error occured while trying to add markers by CSV file");
                 MessageBox.Show(errorMsg);
             }
         }

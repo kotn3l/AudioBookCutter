@@ -61,6 +61,7 @@
             this.lb_rendering = new System.Windows.Forms.Label();
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.btnManualSkip = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.audioWaveImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.seeker)).BeginInit();
             this.SuspendLayout();
@@ -487,6 +488,7 @@
         private System.Windows.Forms.ListBox lbFiles;
         private System.Windows.Forms.Button btnManualSkip;
         private System.Windows.Forms.MenuItem openCSV;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 
